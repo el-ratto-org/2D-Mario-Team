@@ -1,5 +1,3 @@
-
-
 # 2D Platformer Game
 This project is a classic 2D platform-based game inspired by titles like Mario. The player must navigate through various levels, collecting items and defeating enemies while aiming to complete each level as quickly as possible. The game features a simple yet engaging gameplay loop where the player advances through levels, improving their score and time.
 
