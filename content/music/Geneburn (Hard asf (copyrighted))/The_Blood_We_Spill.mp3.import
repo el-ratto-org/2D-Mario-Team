@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://ka8k81xb2kx2"
+path="res://.godot/imported/The_Blood_We_Spill.mp3-d2805630467c95c1336a638a7e271603.mp3str"
+
+[deps]
+
+source_file="res://content/music/Geneburn (Hard asf (copyrighted))/The_Blood_We_Spill.mp3"
+dest_files=["res://.godot/imported/The_Blood_We_Spill.mp3-d2805630467c95c1336a638a7e271603.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
