@@ -26,3 +26,5 @@ shape = SubResource("RectangleShape2D_eskq7")
 position = Vector2(0, -11)
 shape = SubResource("RectangleShape2D_bemg5")
 debug_color = Color(1, 0, 0, 0.419608)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]

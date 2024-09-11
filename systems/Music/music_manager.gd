@@ -7,8 +7,27 @@ var stage_music = {
 	#"stage3": "res://music/stage3.ogg"
 }
 
+var sounds = {
+	"jumped_on": "res://content/sfx/kick-heavy.ogg",
+	"player_death": "res://content/sfx/bloodborne-death.mp3",
+}
+
 # Reference to the AudioStreamPlayer node
 @onready var audio_player = $AudioStreamPlayer2D
+
+# play sfx
+func play_sound(sound_name: String) -> void:
+	if sound_name in sounds:
+		var sound_path = sounds[sound_name]
+		var audio_stream = load(sound_path)  # Load the sound file
+		if audio_stream:
+			audio_player.stream = audio_stream
+			audio_player.play()  # Play the sound
+			print("Now playing: " + sounds[sound_name])
+		else:
+			print("Failed to load sound file for: " + sound_name)
+	else:
+		print("No sound found for: " + sound_name)
 
 # Function to play music based on the stage name
 func play_stage_music(stage_name: String) -> void:

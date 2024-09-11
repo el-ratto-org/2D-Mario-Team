@@ -1,11 +1,13 @@
 extends CharacterBody2D
 
+var sounds = {
+	"jumped_on": "res://content/sfx/kick-heavy.ogg",
+}
+
+@onready var audio_player = %SfxManager
+@onready var hit_box = $HitBox
 
 const SPEED = 300.0
-const JUMP_VELOCITY = -400.0
-const BOOST_VELOCITY = 853800.0
-
-@onready var hit_box = $HitBox
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -20,7 +22,11 @@ func _physics_process(delta: float) -> void:
 	for body in overlapping_bodies:
 		if body is CharacterBody2D and body.name == "Player":  # Check if the mob is the player
 			body.jump()  # Give the player an upward boost
-			take_damage()  # Enemy takes damage
+			jumped_on()  # Enemy takes damage
 		
-func take_damage():
+func jumped_on():
+	# Play death sound - audio man gets deletd before it finished - fix this somehow
+	audio_player.play_sound("jumped_on")
+	
+	# Delete
 	queue_free()

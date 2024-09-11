@@ -13,6 +13,7 @@ var dash_cooldown_timer = 0.0
 
 
 @onready var hit_box = $HitBox
+@onready var audio_player = %SfxManager
 
 # testing
 var hit_count = 0
@@ -73,4 +74,10 @@ func jump():
 	velocity.y = JUMP_VELOCITY
 	
 func take_damage():
+	# Since 'regular player' is == small mario (?)
+	player_death()
 	print ("player hit")
+	
+func player_death():
+	audio_player.play_sound("player_death")
+	
