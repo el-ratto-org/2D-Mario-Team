@@ -1,39 +1,26 @@
-[gd_scene load_steps=7 format=3 uid="uid://crjeudwcdacco"]
+[gd_scene load_steps=5 format=3 uid="uid://crjeudwcdacco"]
 
 [ext_resource type="Script" path="res://content/player/regular/player.gd" id="1_78ula"]
 [ext_resource type="Texture2D" uid="uid://tkdrjstf13tk" path="res://content/player/regular/mario_small_CS.png" id="2_or3hk"]
-[ext_resource type="PackedScene" uid="uid://ct1l81litlaf6" path="res://systems/sfx/SfxManager.tscn" id="3_nsl3i"]
-[ext_resource type="PackedScene" uid="uid://di7qr3yfd1odi" path="res://systems/Music/MusicManager.tscn" id="4_kyawv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ck7dp"]
-size = Vector2(26, 32)
+size = Vector2(32, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xbsy0"]
-size = Vector2(38, 29)
+size = Vector2(38, 30)
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 4
 script = ExtResource("1_78ula")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1, 0)
 shape = SubResource("RectangleShape2D_ck7dp")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
 texture = ExtResource("2_or3hk")
 
-[node name="Area2D" type="Area2D" parent="."]
-
-[node name="SfxManager" parent="Area2D" instance=ExtResource("3_nsl3i")]
-unique_name_in_owner = true
-
-[node name="MusicManager" parent="Area2D" instance=ExtResource("4_kyawv")]
-unique_name_in_owner = true
-
 [node name="Camera2D" type="Camera2D" parent="."]
-process_priority = 3
-process_physics_priority = 3
 zoom = Vector2(1.5, 1.5)
 process_callback = 0
 position_smoothing_enabled = true
@@ -45,6 +32,6 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
-position = Vector2(0, -3.5)
+position = Vector2(0, -3)
 shape = SubResource("RectangleShape2D_xbsy0")
 debug_color = Color(1, 0, 0, 0.419608)

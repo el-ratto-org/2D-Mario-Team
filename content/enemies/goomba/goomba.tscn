@@ -4,12 +4,14 @@
 [ext_resource type="Texture2D" uid="uid://dl0qg1ywitqjk" path="res://content/enemies/goomba/goomba.png" id="1_g03p6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eskq7"]
-size = Vector2(28, 22)
+size = Vector2(32, 31)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bemg5"]
 size = Vector2(24, 10)
 
 [node name="Goomba" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 3
 script = ExtResource("1_37tkj")
 speed = -22.0
 
@@ -18,13 +20,16 @@ texture_filter = 1
 texture = ExtResource("1_g03p6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 5)
+z_index = -1600
+position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_eskq7")
 
 [node name="HitBox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 4
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="HitBox"]
-position = Vector2(0, -11)
+position = Vector2(0, -22)
 shape = SubResource("RectangleShape2D_bemg5")
 debug_color = Color(1, 0, 0, 0.419608)
 

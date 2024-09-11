@@ -4,19 +4,47 @@ const MAX_SPEED = 250.0
 const JUMP_VELOCITY = -400.0
 const ACCELERATION = 3750.0  # How quickly the character accelerates
 const FRICTION = 1500.0       # How quickly the character decelerates
+const MAX_LEAN = 5.0         # Maximum lean angle in degrees
+const LEAN_SPEED = 0.2      # How fast the leaning happens
 
+# Dash stuff
 const DASH_TIME = 0.2        # Duration of the dash
 const DASH_COOLDOWN = 1.0    # Time between dashes
 var dashing = false
 var dash_timer = 0.0
 var dash_cooldown_timer = 0.0
 
+# Screen shake
+@onready var camera = $Camera2D
+var shake_timer = 0.0
+var shake_intensity = 0.0
+var shake_duration = 0.0
 
 @onready var hit_box = $HitBox
+@onready var sprite = $Sprite2D  # Reference to the Sprite2D node
 @onready var audio_player = %SfxManager
 
-# testing
-var hit_count = 0
+func start_shake(duration: float, intensity: float):
+	shake_timer = duration
+	shake_duration = duration
+	shake_intensity = intensity
+
+func _process(delta: float) -> void:
+	if shake_timer > 0:
+		shake_timer -= delta
+		
+		# Calculate shake strength based on a sine wave and damping over time
+		var damping_factor = shake_timer / shake_duration  # Reduces from 1 to 0
+		var current_intensity = shake_intensity * damping_factor * sin(shake_timer * PI * 10)  # Damped sine wave
+		
+		# Apply random shake within the current intensity range
+		camera.offset = Vector2(
+			randi_range(-current_intensity, current_intensity), 
+			randi_range(-current_intensity, current_intensity)
+		)
+	else:
+		# Reset the camera position when the shake is done
+		camera.offset = Vector2.ZERO
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -65,19 +93,38 @@ func _physics_process(delta: float) -> void:
 	
 	# Handle getting hit
 	var overlapping_mobs = hit_box.get_overlapping_bodies()
-	if overlapping_mobs.size() > 1:
-		print (hit_count)
-		hit_count += 1
+	if overlapping_mobs.size() > 0:
 		take_damage()
-		
+
+	# Apply leaning effect
+	apply_leaning_effect(delta)
+
 func jump():
 	velocity.y = JUMP_VELOCITY
+
+func jumped_on_enemy():
+	velocity.y = JUMP_VELOCITY
+	audio_player.play_sound("jumped_on")
 	
 func take_damage():
 	# Since 'regular player' is == small mario (?)
 	player_death()
-	print ("player hit")
 	
 func player_death():
+	print ("   YOU DIED   ")
 	audio_player.play_sound("player_death")
-	
+
+# New function for applying leaning effect
+func apply_leaning_effect(delta: float) -> void:
+	var target_rotation = 0.0
+
+	# Lean during horizontal movement
+	if abs(velocity.x) > 0:
+		target_rotation += clamp(velocity.x / MAX_SPEED, -1.0, 1.0) * MAX_LEAN
+
+	# Lean during jumping and falling
+	if velocity.y != 0:
+		target_rotation += clamp(velocity.y / JUMP_VELOCITY, -1.0, 1.0) * MAX_LEAN
+
+	# Smoothly interpolate to the target rotation angle
+	sprite.rotation_degrees = lerp(sprite.rotation_degrees, target_rotation, LEAN_SPEED)

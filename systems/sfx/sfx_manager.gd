@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 
 var sounds = {
 	"jumped_on": "res://content/sfx/kick-heavy.ogg",
@@ -16,7 +16,7 @@ func play_sound(sound_name: String) -> void:
 		if audio_stream:
 			audio_player.stream = audio_stream
 			audio_player.play()  # Play the sound
-			print("Now playing: " + sounds[sound_name])
+			#print("Now playing: " + sounds[sound_name])
 		else:
 			print("Failed to load sound file for: " + sound_name)
 	else:
