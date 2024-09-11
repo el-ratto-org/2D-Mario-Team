@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bt6egc72tqskn"]
 
 [ext_resource type="Script" path="res://Scenes/music manager example/stage_1.gd" id="1_bn8qi"]
-[ext_resource type="PackedScene" uid="uid://crjeudwcdacco" path="res://Scenes/player.tscn" id="2_8p62r"]
+[ext_resource type="PackedScene" uid="uid://crjeudwcdacco" path="res://content/player/regular/player.tscn" id="2_8p62r"]
 [ext_resource type="PackedScene" uid="uid://di7qr3yfd1odi" path="res://systems/Music/MusicManager.tscn" id="3_k2tvv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rm66f"]
