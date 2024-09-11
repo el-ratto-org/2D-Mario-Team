@@ -1,18 +1,21 @@
 extends CharacterBody2D
 
-var sounds = {
-	"jumped_on": "res://content/sfx/kick-heavy.ogg",
-}
-
 @onready var audio_player = %SfxManager
 @onready var hit_box = $HitBox
 
-const SPEED = 300.0
+@export var speed = 3000.0
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
+
+	#var direction := Input.get_axis("ui_left", "ui_right")
+	if 1==1: #direction != 0:
+		# Accelerate in the direction of movement
+		velocity.x = speed
+	else:
+		pass
 
 	move_and_slide()
 	
