@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://crjeudwcdacco"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_78ula"]
-[ext_resource type="Texture2D" uid="uid://tkdrjstf13tk" path="res://assets/sprites/characters/mario_small_CS.png" id="2_or3hk"]
+[ext_resource type="Texture2D" uid="uid://urqh4msbhqf" path="res://assets/sprites/characters/main_char.png" id="2_seln7"]
 [ext_resource type="PackedScene" uid="uid://ct1l81litlaf6" path="res://managers/SfxManager.tscn" id="3_nsl3i"]
 [ext_resource type="PackedScene" uid="uid://di7qr3yfd1odi" path="res://managers/MusicManager.tscn" id="4_kyawv"]
 
@@ -21,7 +21,7 @@ shape = SubResource("RectangleShape2D_ck7dp")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
-texture = ExtResource("2_or3hk")
+texture = ExtResource("2_seln7")
 
 [node name="Area2D" type="Area2D" parent="."]
 

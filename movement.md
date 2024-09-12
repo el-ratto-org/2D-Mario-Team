@@ -41,3 +41,10 @@ turning speed: fast
 coyote time: 15% player height
 jump grace: none
 sound: stereo
+
+# Ours
+acceleration: instant
+turning speed: fast
+coyote time: 40% player height
+jump grace: 80% player height
+sound: stereo
