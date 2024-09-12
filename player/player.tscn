@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://crjeudwcdacco"]
+[gd_scene load_steps=8 format=3 uid="uid://crjeudwcdacco"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_78ula"]
 [ext_resource type="Texture2D" uid="uid://tkdrjstf13tk" path="res://assets/sprites/characters/mario_small_CS.png" id="2_or3hk"]
 [ext_resource type="PackedScene" uid="uid://ct1l81litlaf6" path="res://managers/SfxManager.tscn" id="3_nsl3i"]
 [ext_resource type="PackedScene" uid="uid://di7qr3yfd1odi" path="res://managers/MusicManager.tscn" id="4_kyawv"]
+[ext_resource type="Script" path="res://HealthComponent.gd" id="5_hf0il"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ck7dp"]
 size = Vector2(26, 32)
@@ -48,3 +49,6 @@ collision_mask = 2
 position = Vector2(0, -3.5)
 shape = SubResource("RectangleShape2D_xbsy0")
 debug_color = Color(1, 0, 0, 0.419608)
+
+[node name="HealthComponent" type="Node2D" parent="."]
+script = ExtResource("5_hf0il")
