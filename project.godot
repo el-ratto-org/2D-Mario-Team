@@ -11,15 +11,18 @@ config_version=5
 [application]
 
 config/name="2D Mario Team"
-run/main_scene="res://content/worlds/World_1/game.tscn"
+run/main_scene="res://scenes/worlds/world_1/game.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [file_customization]
 
 folder_colors={
-"res://content/enemies/": "red",
-"res://content/player/": "green"
+"res://enemies/": "red",
+"res://hud/": "yellow",
+"res://managers/": "purple",
+"res://player/": "green",
+"res://scenes/": "blue"
 }
 
 [input]
