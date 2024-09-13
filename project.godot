@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="2D Mario Team"
-run/main_scene="res://scenes/worlds/world_1/game.tscn"
+run/main_scene="res://scenes/worlds/world_2.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -29,6 +29,10 @@ folder_colors={
 "res://player/": "green",
 "res://scenes/": "blue"
 }
+
+[global_group]
+
+Player=""
 
 [input]
 
@@ -80,6 +84,7 @@ attack={
 2d_physics/layer_1="World"
 2d_physics/layer_2="Enem"
 2d_physics/layer_3="Player"
+2d_physics/layer_4="World objects"
 
 [rendering]
 

@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://ba37r2muk0n2q"]
+
+[ext_resource type="Texture2D" uid="uid://dvx1dp22b1iqu" path="res://content/assets/sprites/tiles/door.png" id="1_3uq3b"]
+[ext_resource type="Script" path="res://content/world_parts/door.gd" id="1_lcbbd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mrhfk"]
+size = Vector2(36, 82)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_etjdj"]
+radius = 12.0
+height = 76.0
+
+[node name="door" type="StaticBody2D"]
+texture_filter = 1
+script = ExtResource("1_lcbbd")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_3uq3b")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_mrhfk")
+debug_color = Color(0.352436, 0.482756, 1, 0.42)
+
+[node name="Unlock_area" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 15
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Unlock_area"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_etjdj")
+
+[node name="Blocking_area" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 6
+
+[connection signal="area_entered" from="Unlock_area" to="." method="_on_unlock_area_area_entered"]

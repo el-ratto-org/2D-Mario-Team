@@ -25,6 +25,7 @@ var shake_duration = 0.0
 @onready var hit_box = $HitBox
 @onready var sprite = $Sprite2D  # Reference to the Sprite2D node
 @onready var audio_player = %SfxManager
+@onready var key_manager = $Key_manager
 
 func start_shake(duration: float, intensity: float):
 	shake_timer = duration
@@ -142,11 +143,15 @@ func apply_leaning_effect(delta: float) -> void:
 	# Smoothly interpolate to the target rotation angle
 	sprite.rotation_degrees = lerp(sprite.rotation_degrees, target_rotation, LEAN_SPEED)
 
+func add_key(code: String):
+	key_manager._add_key(code)
 
 func _on_hit_box_deal_damage() -> void:
 	print("Jumped on enemy")
 	jumped_on_enemy()
 
+func get_keys():
+	return key_manager.get_key_list()
 
 func _on_health_component_take_damage() -> void:
 	take_damage()

@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://bhffuihdjw2ps"]
 
 [ext_resource type="Script" path="res://enemies/goomba/goomba.gd" id="1_37tkj"]
-[ext_resource type="Texture2D" uid="uid://dl0qg1ywitqjk" path="res://assets/sprites/characters/goomba.png" id="1_g03p6"]
+[ext_resource type="Texture2D" uid="uid://dl0qg1ywitqjk" path="res://content/assets/sprites/characters/goomba.png" id="1_g03p6"]
 [ext_resource type="Script" path="res://CombatComponents/HitBox.gd" id="3_lynn6"]
 [ext_resource type="Script" path="res://CombatComponents/HurtBox.gd" id="4_lagrl"]
 [ext_resource type="Script" path="res://CombatComponents/HealthComponent.gd" id="5_y0ftw"]

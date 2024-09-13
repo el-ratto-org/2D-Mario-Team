@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://b2f388v087to8"]
+
+[ext_resource type="Script" path="res://content/key/key.gd" id="1_vro5w"]
+[ext_resource type="Texture2D" uid="uid://cox7fc5uuudkc" path="res://content/assets/sprites/tiles/key.png" id="2_hvdgw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ceahp"]
+radius = 8.0
+
+[node name="key" type="Node2D"]
+script = ExtResource("1_vro5w")
+
+[node name="Pickup_area" type="Area2D" parent="."]
+position = Vector2(-7, -6)
+collision_layer = 8
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pickup_area"]
+position = Vector2(7, 6)
+shape = SubResource("CircleShape2D_ceahp")
+debug_color = Color(0.69713, 0.493924, 9.62615e-07, 0.42)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_hvdgw")
+
+[connection signal="area_entered" from="Pickup_area" to="." method="_on_pickup_area_area_entered"]
