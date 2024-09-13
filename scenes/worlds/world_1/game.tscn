@@ -43,7 +43,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Player" parent="." instance=ExtResource("1_wsuc6")]
-position = Vector2(25, -698)
+position = Vector2(98, -63)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 visible = false

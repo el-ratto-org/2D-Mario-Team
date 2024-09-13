@@ -1,130 +1,93 @@
 extends CharacterBody2D
 
-const MAX_SPEED = 250.0
-const JUMP_VELOCITY = -400.0
-const ACCELERATION = 3750.0  # How quickly the character accelerates
-const FRICTION = 1500.0       # How quickly the character decelerates
-const MAX_LEAN = 5.0         # Maximum lean angle in degrees
-const LEAN_SPEED = 0.2      # How fast the leaning happens
+# Horizontal motion
+@export var move_speed: float = 200
+@export var turning_speed: float = 3
 
-# Dash stuff
-const DASH_TIME = 0.2        # Duration of the dash
-const DASH_COOLDOWN = 1.0    # Time between dashes
-var dashing = false
-var dash_timer = 0.0
-var dash_cooldown_timer = 0.0
+# Vertical motion
+@export var min_jump_height: float = 200
+@export var max_jump_height: float = 400
+@export var slow_gravity: float = 800 # When falling
+@export var fast_gravity: float = 1800 # When fast falling
+@export var terminal_velocity: float = 500.0
 
-# Screen shake
-@onready var camera = $Camera2D
-var shake_timer = 0.0
-var shake_intensity = 0.0
-var shake_duration = 0.0
+# Jump grace & auto jump
+@export var jump_grace: float = 0.1
+@export var auto_jump: float = 0.1
 
-@onready var hit_box = $HitBox
-@onready var sprite = $Sprite2D  # Reference to the Sprite2D node
-@onready var audio_player = %SfxManager
+# Movement variables
+var turning_fatigue: float = 0
+var current_move: float = 0
+var jumped: bool = false
+var auto_jump_time: float = 0
+var jump_grace_time: float = 0
 
-func start_shake(duration: float, intensity: float):
-	shake_timer = duration
-	shake_duration = duration
-	shake_intensity = intensity
 
-func _process(delta: float) -> void:
-	if shake_timer > 0:
-		shake_timer -= delta
-		
-		# Calculate shake strength based on a sine wave and damping over time
-		var damping_factor = shake_timer / shake_duration  # Reduces from 1 to 0
-		var current_intensity = shake_intensity * damping_factor * sin(shake_timer * PI * 10)  # Damped sine wave
-		
-		# Apply random shake within the current intensity range
-		camera.offset = Vector2(
-			randi_range(-current_intensity, current_intensity), 
-			randi_range(-current_intensity, current_intensity)
-		)
-	else:
-		# Reset the camera position when the shake is done
-		camera.offset = Vector2.ZERO
+func _ready() -> void:
+	pass
 
 func _physics_process(delta: float) -> void:
-	# Add the gravity.
-	if not is_on_floor():
-		velocity += get_gravity() * delta
-
-	# Handle jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		jump()
-		
-	# Handle dash.
-	if Input.is_action_just_pressed("dash") and dash_cooldown_timer <= 0:
-		print ("dash")
-		dashing = true
-		dash_timer = DASH_TIME
-		dash_cooldown_timer = DASH_COOLDOWN
-
-	if dashing:
-		dash_timer -= delta
-		if dash_timer <= 0:
-			dashing = false
-
-	# Get the input direction and handle movement with acceleration.
-	var direction := Input.get_axis("ui_left", "ui_right")
-	if dashing and direction != 0:
-		pass
-		# Apply dash speed while dashing
-		#velocity.x = direction * DASH_SPEED
-	elif direction != 0:
-		# Accelerate in the direction of movement
-		velocity.x = move_toward(velocity.x, direction * MAX_SPEED, ACCELERATION * delta)
-	else:
-		# Apply friction to decelerate when no input is given
-		velocity.x = move_toward(velocity.x, 0, FRICTION * delta)
-
-	# Decrease dash cooldown timer.
-	if dash_cooldown_timer > 0:
-		dash_cooldown_timer -= delta
-
-	# Flip the sprite based on the movement direction.
-	if direction != 0:
-		$Sprite2D.flip_h = direction < 0  # Flip when moving left
-
-	# Apply the movement
+	calculate_horizontal_movement(delta)
+	calculate_vertical_movement(delta)
 	move_and_slide()
-	
-	# Handle getting hit
-	var overlapping_mobs = hit_box.get_overlapping_bodies()
-	if overlapping_mobs.size() > 0:
-		take_damage()
 
-	# Apply leaning effect
-	apply_leaning_effect(delta)
+func calculate_horizontal_movement(delta: float):
+	# Calculate movement axis
+	var horizontal_axis = Input.get_axis("move_left", "move_right")
+
+	# Calculate turning fatigue
+	if horizontal_axis:
+		turning_fatigue = clamp(turning_fatigue + horizontal_axis * turning_speed * delta, -1, 1)
+	else:
+		# Calculate decay
+		if abs(turning_fatigue) <= turning_speed * delta:
+			turning_fatigue = 0
+		else:
+			turning_fatigue -= sign(turning_fatigue) * turning_speed * delta
+
+	var turning_control = 1 - abs(turning_fatigue)
+	current_move = clamp(lerp(current_move, horizontal_axis * move_speed, turning_control), -move_speed, move_speed)
+
+	if horizontal_axis:
+		velocity.x = current_move
+	else:
+		velocity.x = 0
+
+
+func calculate_vertical_movement(delta: float):
+	# Decay jump grace time
+	jump_grace_time = max(jump_grace_time - delta, 0)
+	
+	# Remember that we were on the floor `x` seconds ago
+	if is_on_floor():
+		jump_grace_time = jump_grace
+
+	var floored = jump_grace_time > 0
+
+	# Velocity with fast-falling
+	velocity.y = clamp(
+		velocity.y +
+			(slow_gravity if not Input.is_action_pressed("move_down") else fast_gravity) * delta,
+		-terminal_velocity,
+		terminal_velocity)
+
+	if Input.is_action_just_pressed("move_up"):
+		if floored:
+			jump()
+		else:
+			auto_jump_time = auto_jump
+	elif floored and auto_jump_time > 0:
+		jump()
+	
+	# Decay auto jump time
+	auto_jump_time = max(auto_jump_time - delta, 0)
+	
+	if jumped and Input.is_action_just_released("move_up") and velocity.y < 0:
+		velocity *= min_jump_height / max_jump_height
+		jumped = false
 
 func jump():
-	velocity.y = JUMP_VELOCITY
-
-func jumped_on_enemy():
-	velocity.y = JUMP_VELOCITY
-	audio_player.play_sound("jumped_on")
-	
-func take_damage():
-	# Since 'regular player' is == small mario (?)
-	player_death()
-	
-func player_death():
-	print ("   YOU DIED   ")
-	audio_player.play_sound("player_death")
-
-# New function for applying leaning effect
-func apply_leaning_effect(delta: float) -> void:
-	var target_rotation = 0.0
-
-	# Lean during horizontal movement
-	if abs(velocity.x) > 0:
-		target_rotation += clamp(velocity.x / MAX_SPEED, -1.0, 1.0) * MAX_LEAN
-
-	# Lean during jumping and falling
-	if velocity.y != 0:
-		target_rotation += clamp(velocity.y / JUMP_VELOCITY, -1.0, 1.0) * MAX_LEAN
-
-	# Smoothly interpolate to the target rotation angle
-	sprite.rotation_degrees = lerp(sprite.rotation_degrees, target_rotation, LEAN_SPEED)
+	velocity.y = -max_jump_height
+	jumped = true
+	auto_jump_time = 0
+	jump_grace_time = 0

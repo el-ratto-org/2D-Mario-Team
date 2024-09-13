@@ -1,23 +1,56 @@
-[gd_scene load_steps=7 format=3 uid="uid://crjeudwcdacco"]
+[gd_scene load_steps=15 format=3 uid="uid://crjeudwcdacco"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_78ula"]
 [ext_resource type="Texture2D" uid="uid://urqh4msbhqf" path="res://assets/sprites/characters/main_char.png" id="2_seln7"]
 [ext_resource type="PackedScene" uid="uid://ct1l81litlaf6" path="res://managers/SfxManager.tscn" id="3_nsl3i"]
 [ext_resource type="PackedScene" uid="uid://di7qr3yfd1odi" path="res://managers/MusicManager.tscn" id="4_kyawv"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ck7dp"]
-size = Vector2(26, 32)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7x4hn"]
+radius = 8.0
+height = 34.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xbsy0"]
 size = Vector2(38, 29)
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0tvtj"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xr3rr"]
+animation = &"run"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_eo3yp"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_n4ydo"]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_8g2p5"]
+states/Start/position = Vector2(185, 138)
+states/idle/node = SubResource("AnimationNodeAnimation_0tvtj")
+states/idle/position = Vector2(337, 88)
+states/run/node = SubResource("AnimationNodeAnimation_xr3rr")
+states/run/position = Vector2(466, 114)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_eo3yp"), "Start", "run", SubResource("AnimationNodeStateMachineTransition_n4ydo")]
+graph_offset = Vector2(-295, 16)
+
+[sub_resource type="Animation" id="Animation_ucqfm"]
+resource_name = "idle"
+
+[sub_resource type="Animation" id="Animation_ls2t7"]
+resource_name = "run"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_l8vj7"]
+_data = {
+"idle": SubResource("Animation_ucqfm"),
+"run": SubResource("Animation_ls2t7")
+}
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 4
 script = ExtResource("1_78ula")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1, 0)
-shape = SubResource("RectangleShape2D_ck7dp")
+position = Vector2(0, 3)
+shape = SubResource("CapsuleShape2D_7x4hn")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -48,3 +81,12 @@ collision_mask = 2
 position = Vector2(0, -3.5)
 shape = SubResource("RectangleShape2D_xbsy0")
 debug_color = Color(1, 0, 0, 0.419608)
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_8g2p5")
+anim_player = NodePath("../AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_l8vj7")
+}
