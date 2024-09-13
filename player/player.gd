@@ -22,6 +22,14 @@ var jumped: bool = false
 var auto_jump_time: float = 0
 var jump_grace_time: float = 0
 
+# Combat
+@export var sword_hit_box: HitBox
+@onready var hit_box = $HitBox
+@onready var sprite = $Sprite2D  # Reference to the Sprite2D node
+
+# Sound
+@onready var audio_player = %SfxManager
+
 
 func _ready() -> void:
 	pass
@@ -53,6 +61,23 @@ func calculate_horizontal_movement(delta: float):
 	else:
 		velocity.x = 0
 
+	# Handle getting hit
+	#********** ORIGINAL COMBAT CODE CAN BE DELETED **********
+	#var overlapping_mobs = hit_box.get_overlapping_bodies()
+	#if overlapping_mobs.size() > 0:
+	#	take_damage()
+
+	# Apply leaning effect
+	apply_leaning_effect(delta)
+	
+	
+	# Temporary sword test
+	if Input.is_action_just_pressed("attack") && sword_hit_box != null:
+		sword_hit_box.set_process_mode(PROCESS_MODE_INHERIT)
+		sword_hit_box.show()
+	else:
+		sword_hit_box.set_process_mode(PROCESS_MODE_DISABLED)
+		sword_hit_box.hide()
 
 func calculate_vertical_movement(delta: float):
 	# Decay jump grace time
@@ -91,3 +116,40 @@ func jump():
 	jumped = true
 	auto_jump_time = 0
 	jump_grace_time = 0
+
+func jumped_on_enemy():
+	jump()
+	audio_player.play_sound("jumped_on")
+	
+func take_damage():
+	# Since 'regular player' is == small mario (?)
+	player_death()
+	
+func player_death():
+	print ("   YOU DIED   ")
+	audio_player.play_sound("player_death")
+
+# New function for applying leaning effect
+func apply_leaning_effect(_delta: float) -> void:
+	pass # TODO: Reimplement leaning effect (?)
+	# var target_rotation = 0.0
+
+	# # Lean during horizontal movement
+	# if abs(velocity.x) > 0:
+	# 	target_rotation += clamp(velocity.x / MAX_SPEED, -1.0, 1.0) * MAX_LEAN
+
+	# # Lean during jumping and falling
+	# if velocity.y != 0:
+	# 	target_rotation += clamp(velocity.y / JUMP_VELOCITY, -1.0, 1.0) * MAX_LEAN
+
+	# # Smoothly interpolate to the target rotation angle
+	# sprite.rotation_degrees = lerp(sprite.rotation_degrees, target_rotation, LEAN_SPEED)
+
+
+func _on_hit_box_deal_damage() -> void:
+	print("Jumped on enemy")
+	jumped_on_enemy()
+
+
+func _on_health_component_take_damage() -> void:
+	take_damage()
