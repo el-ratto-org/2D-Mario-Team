@@ -30,6 +30,9 @@ position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_eskq7")
 debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
+[node name="HealthComponent" type="Node2D" parent="."]
+script = ExtResource("5_y0ftw")
+
 [node name="HurtBox" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
 script = ExtResource("4_lagrl")
 health_component = NodePath("../HealthComponent")
@@ -39,9 +42,6 @@ damage_from = 1
 position = Vector2(0, -19)
 shape = SubResource("RectangleShape2D_bemg5")
 debug_color = Color(0, 0.6, 0.701961, 0.419608)
-
-[node name="HealthComponent" type="Node2D" parent="."]
-script = ExtResource("5_y0ftw")
 
 [node name="HitBox" type="Area2D" parent="."]
 script = ExtResource("3_lynn6")

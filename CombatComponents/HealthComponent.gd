@@ -1,6 +1,7 @@
 extends Node2D
 class_name HealthComponent
 
+# Signals
 signal health_changed
 signal take_damage
 signal healed
@@ -18,26 +19,26 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if invulnerabilityTime > 0:
-		invulnerabilityTime -= get_process_delta_time()
+		invulnerabilityTime -= delta 
 
 func _take_damage(damage: float) -> void:
 	if invulnerabilityTime > 0:
 		return
-		
+	
+	# Deeal damage
 	health -= damage
 	health = max(health, 0)
 	
+	# Set iframes
 	invulnerabilityTime = invulnerabilityDuration
 	
+	# Send signals
 	emit_signal("take_damage")
 	emit_signal("health_changed")
 	
+	# Detect death
 	if health <= 0:
 		emit_signal("die")
-		print("Die")
-		
-	print("Taken damage: ")
-	print(damage)
 	
 func _heal(healAmount: float) -> void:
 	health += healAmount

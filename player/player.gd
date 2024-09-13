@@ -20,6 +20,8 @@ var shake_timer = 0.0
 var shake_intensity = 0.0
 var shake_duration = 0.0
 
+@export var sword_hit_box: HitBox
+
 @onready var hit_box = $HitBox
 @onready var sprite = $Sprite2D  # Reference to the Sprite2D node
 @onready var audio_player = %SfxManager
@@ -100,6 +102,15 @@ func _physics_process(delta: float) -> void:
 
 	# Apply leaning effect
 	apply_leaning_effect(delta)
+	
+	
+	# Temporary sword test
+	if Input.is_action_just_pressed("attack") && sword_hit_box != null:
+		sword_hit_box.set_process_mode(PROCESS_MODE_INHERIT)
+		sword_hit_box.show()
+	else:
+		sword_hit_box.set_process_mode(PROCESS_MODE_DISABLED)
+		sword_hit_box.hide()
 
 func jump():
 	velocity.y = JUMP_VELOCITY

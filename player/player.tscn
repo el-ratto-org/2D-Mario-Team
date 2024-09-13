@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://crjeudwcdacco"]
+[gd_scene load_steps=12 format=3 uid="uid://crjeudwcdacco"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_78ula"]
 [ext_resource type="Texture2D" uid="uid://urqh4msbhqf" path="res://assets/sprites/characters/main_char.png" id="2_seln7"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://CombatComponents/HealthComponent.gd" id="5_hf0il"]
 [ext_resource type="Script" path="res://CombatComponents/HurtBox.gd" id="6_7ypip"]
 [ext_resource type="Script" path="res://CombatComponents/HitBox.gd" id="7_povqq"]
+[ext_resource type="Texture2D" uid="uid://cga821fnee43i" path="res://icon.svg" id="8_1frmk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ck7dp"]
 size = Vector2(26, 32)
@@ -14,9 +15,13 @@ size = Vector2(26, 32)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g81l7"]
 size = Vector2(24, 2.5)
 
-[node name="Player" type="CharacterBody2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4p811"]
+size = Vector2(65, 40)
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("sword_hit_box")]
 collision_layer = 4
 script = ExtResource("1_78ula")
+sword_hit_box = NodePath("Sword")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, 0)
@@ -46,6 +51,14 @@ rotation_smoothing_enabled = true
 [node name="HealthComponent" type="Node2D" parent="."]
 script = ExtResource("5_hf0il")
 
+[node name="HurtBox" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+script = ExtResource("6_7ypip")
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(1, 0)
+shape = SubResource("RectangleShape2D_ck7dp")
+
 [node name="HitBox" type="Area2D" parent="."]
 script = ExtResource("7_povqq")
 damage_type = 1
@@ -55,13 +68,22 @@ position = Vector2(1, 16.25)
 shape = SubResource("RectangleShape2D_g81l7")
 debug_color = Color(1, 0, 0, 0.419608)
 
-[node name="HurtBox" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
-script = ExtResource("6_7ypip")
-health_component = NodePath("../HealthComponent")
+[node name="Sword" type="Area2D" parent="."]
+script = ExtResource("7_povqq")
+damage_type = 1
+reflects_projectiles = true
+hit_time_pause = 1
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
-position = Vector2(1, 0)
-shape = SubResource("RectangleShape2D_ck7dp")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sword"]
+position = Vector2(39.5, -3)
+shape = SubResource("RectangleShape2D_4p811")
+debug_color = Color(1, 0, 0, 0.419608)
+
+[node name="Sprite2D" type="Sprite2D" parent="Sword/CollisionShape2D"]
+position = Vector2(-0.124999, 1.19209e-06)
+scale = Vector2(0.509766, 0.3125)
+texture = ExtResource("8_1frmk")
 
 [connection signal="take_damage" from="HealthComponent" to="." method="_on_health_component_take_damage"]
 [connection signal="deal_damage" from="HitBox" to="." method="_on_hit_box_deal_damage"]
+[connection signal="deal_damage" from="Sword" to="." method="_on_hit_box_deal_damage"]

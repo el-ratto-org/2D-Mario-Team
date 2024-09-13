@@ -22,8 +22,6 @@ func _get_hit(damage: float) -> void:
 
 # Got hit by something
 func _on_area_entered(area: Area2D) -> void:
-	print(get_parent().name)
-	print("Hurt by something")
 	if area is not HitBox:
 		return
 	
@@ -34,5 +32,3 @@ func _on_area_entered(area: Area2D) -> void:
 
 	if hit_box.damage > 0:
 		health_component._take_damage(hit_box.damage)
-		print("Damage taken: ")
-		print(hit_box.damage)
