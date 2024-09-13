@@ -1,15 +1,18 @@
-[gd_scene load_steps=7 format=3 uid="uid://crjeudwcdacco"]
+[gd_scene load_steps=10 format=3 uid="uid://crjeudwcdacco"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_78ula"]
 [ext_resource type="Texture2D" uid="uid://urqh4msbhqf" path="res://assets/sprites/characters/main_char.png" id="2_seln7"]
 [ext_resource type="PackedScene" uid="uid://ct1l81litlaf6" path="res://managers/SfxManager.tscn" id="3_nsl3i"]
 [ext_resource type="PackedScene" uid="uid://di7qr3yfd1odi" path="res://managers/MusicManager.tscn" id="4_kyawv"]
+[ext_resource type="Script" path="res://CombatComponents/HealthComponent.gd" id="5_hf0il"]
+[ext_resource type="Script" path="res://CombatComponents/HurtBox.gd" id="6_7ypip"]
+[ext_resource type="Script" path="res://CombatComponents/HitBox.gd" id="7_povqq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ck7dp"]
 size = Vector2(26, 32)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xbsy0"]
-size = Vector2(38, 29)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g81l7"]
+size = Vector2(24, 2.5)
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 4
@@ -40,11 +43,25 @@ position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 rotation_smoothing_enabled = true
 
+[node name="HealthComponent" type="Node2D" parent="."]
+script = ExtResource("5_hf0il")
+
 [node name="HitBox" type="Area2D" parent="."]
-collision_layer = 2
-collision_mask = 2
+script = ExtResource("7_povqq")
+damage_type = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
-position = Vector2(0, -3.5)
-shape = SubResource("RectangleShape2D_xbsy0")
+position = Vector2(1, 16.25)
+shape = SubResource("RectangleShape2D_g81l7")
 debug_color = Color(1, 0, 0, 0.419608)
+
+[node name="HurtBox" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+script = ExtResource("6_7ypip")
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(1, 0)
+shape = SubResource("RectangleShape2D_ck7dp")
+
+[connection signal="take_damage" from="HealthComponent" to="." method="_on_health_component_take_damage"]
+[connection signal="deal_damage" from="HitBox" to="." method="_on_hit_box_deal_damage"]

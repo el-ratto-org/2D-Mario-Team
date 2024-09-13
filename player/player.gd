@@ -92,9 +92,11 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	
 	# Handle getting hit
-	var overlapping_mobs = hit_box.get_overlapping_bodies()
-	if overlapping_mobs.size() > 0:
-		take_damage()
+	#********** ORIGINAL COMBAT CODE CAN BE DELETED **********
+	#var overlapping_mobs = hit_box.get_overlapping_bodies()
+	#if overlapping_mobs.size() > 0:
+	#	take_damage()
+	
 
 	# Apply leaning effect
 	apply_leaning_effect(delta)
@@ -128,3 +130,12 @@ func apply_leaning_effect(delta: float) -> void:
 
 	# Smoothly interpolate to the target rotation angle
 	sprite.rotation_degrees = lerp(sprite.rotation_degrees, target_rotation, LEAN_SPEED)
+
+
+func _on_hit_box_deal_damage() -> void:
+	print("Jumped on enemy")
+	jumped_on_enemy()
+
+
+func _on_health_component_take_damage() -> void:
+	take_damage()
