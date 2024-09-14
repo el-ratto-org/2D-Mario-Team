@@ -1,11 +1,16 @@
-[gd_scene load_steps=10 format=4 uid="uid://dytpj5md6fhq5"]
+[gd_scene load_steps=13 format=4 uid="uid://dytpj5md6fhq5"]
 
 [ext_resource type="Script" path="res://scenes/worlds/world_1/stage1.gd" id="1_agl4k"]
 [ext_resource type="PackedScene" uid="uid://crjeudwcdacco" path="res://player/player.tscn" id="1_wsuc6"]
 [ext_resource type="PackedScene" uid="uid://bhffuihdjw2ps" path="res://enemies/goomba/goomba.tscn" id="2_xokhb"]
 [ext_resource type="PackedScene" uid="uid://di7qr3yfd1odi" path="res://managers/MusicManager.tscn" id="3_c7t6s"]
 [ext_resource type="PackedScene" uid="uid://ct1l81litlaf6" path="res://managers/SfxManager.tscn" id="3_mvg2t"]
+[ext_resource type="FontFile" uid="uid://b3fp5g5ue1p3k" path="res://assets/fonts/dogica/TTF/dogica.ttf" id="3_t36bu"]
+[ext_resource type="Script" path="res://scenes/worlds/world_1/player_debug_header.gd" id="4_xa86d"]
 [ext_resource type="Texture2D" uid="uid://ldnx8x3sdgbj" path="res://assets/sprites/tiles/ground.png" id="6_1vgrr"]
+
+[sub_resource type="Theme" id="Theme_n6iml"]
+default_font = ExtResource("3_t36bu")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gisnf"]
 size = Vector2(2553, 507)
@@ -43,7 +48,19 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Player" parent="." instance=ExtResource("1_wsuc6")]
-position = Vector2(98, -63)
+position = Vector2(309, -58)
+
+[node name="player_debug_header" type="Label" parent="Player"]
+offset_left = -29.0
+offset_top = -42.0
+offset_right = 540.0
+offset_bottom = 121.0
+scale = Vector2(0.1, 0.1)
+theme = SubResource("Theme_n6iml")
+theme_override_font_sizes/font_size = 136
+text = "test"
+horizontal_alignment = 1
+script = ExtResource("4_xa86d")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 visible = false
