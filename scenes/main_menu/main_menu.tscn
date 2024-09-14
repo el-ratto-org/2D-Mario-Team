@@ -1,0 +1,60 @@
+[gd_scene load_steps=7 format=3 uid="uid://cs215ycmvsnmq"]
+
+[ext_resource type="PackedScene" uid="uid://b8sytvp8cwfvx" path="res://scenes/main_menu/fog.tscn" id="1_ddg53"]
+[ext_resource type="Texture2D" uid="uid://cdh7aagwamruw" path="res://assets/sprites/TreeBG.png" id="2_t4c04"]
+[ext_resource type="Script" path="res://scenes/main_menu/start_button.gd" id="3_abg0s"]
+[ext_resource type="Texture2D" uid="uid://brpukt1abkfs5" path="res://assets/sprites/main_menu/title_alt.png" id="3_wne83"]
+[ext_resource type="Script" path="res://scenes/main_menu/quit_buttob.gd" id="4_mqawi"]
+[ext_resource type="Script" path="res://scenes/main_menu/sprite_2d.gd" id="4_usr4q"]
+
+[node name="MainMenu" type="Node2D"]
+
+[node name="Parallax2D" parent="." instance=ExtResource("1_ddg53")]
+modulate = Color(0, 0, 0, 1)
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(687, 285)
+scale = Vector2(3, 3)
+texture = ExtResource("2_t4c04")
+
+[node name="Button" type="Button" parent="."]
+z_index = 1465
+offset_left = 581.0
+offset_top = 310.0
+offset_right = 627.0
+offset_bottom = 341.0
+text = "Start
+"
+script = ExtResource("3_abg0s")
+
+[node name="Sprite2D" type="Sprite2D" parent="Button"]
+
+[node name="Button2" type="Button" parent="."]
+z_index = 1465
+offset_left = 545.0
+offset_top = 501.0
+offset_right = 664.0
+offset_bottom = 532.0
+text = "Abandon Cure"
+script = ExtResource("4_mqawi")
+
+[node name="Button3" type="Button" parent="."]
+z_index = 1465
+offset_left = 539.0
+offset_top = 397.0
+offset_right = 668.0
+offset_bottom = 428.0
+text = "Configure Tools"
+icon_alignment = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 460
+texture_filter = 1
+position = Vector2(604, 164)
+scale = Vector2(4, 4)
+texture = ExtResource("3_wne83")
+script = ExtResource("4_usr4q")
+
+[connection signal="pressed" from="Button" to="Button" method="_on_pressed"]
+[connection signal="pressed" from="Button2" to="Button" method="_on_button_2_pressed"]
