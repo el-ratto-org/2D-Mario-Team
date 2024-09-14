@@ -1,10 +1,12 @@
-[gd_scene load_steps=13 format=3 uid="uid://crjeudwcdacco"]
+[gd_scene load_steps=17 format=3 uid="uid://crjeudwcdacco"]
 
 [ext_resource type="Script" path="res://player/input_manager.gd" id="1_41ch4"]
 [ext_resource type="Script" path="res://player/player_movement_controller.gd" id="1_78ula"]
 [ext_resource type="Texture2D" uid="uid://urqh4msbhqf" path="res://assets/sprites/characters/main_char.png" id="2_seln7"]
 [ext_resource type="PackedScene" uid="uid://ct1l81litlaf6" path="res://managers/SfxManager.tscn" id="3_nsl3i"]
+[ext_resource type="FontFile" uid="uid://b3fp5g5ue1p3k" path="res://assets/fonts/dogica/TTF/dogica.ttf" id="3_p2aie"]
 [ext_resource type="PackedScene" uid="uid://di7qr3yfd1odi" path="res://managers/MusicManager.tscn" id="4_kyawv"]
+[ext_resource type="Script" path="res://scenes/worlds/world_1/player_debug_header.gd" id="4_qg5aq"]
 [ext_resource type="Script" path="res://CombatComponents/HealthComponent.gd" id="5_hf0il"]
 [ext_resource type="Script" path="res://CombatComponents/HurtBox.gd" id="6_7ypip"]
 [ext_resource type="Script" path="res://CombatComponents/HitBox.gd" id="7_povqq"]
@@ -22,6 +24,9 @@ size = Vector2(24, 2.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4p811"]
 size = Vector2(65, 40)
+
+[sub_resource type="Theme" id="Theme_hyf61"]
+default_font = ExtResource("3_p2aie")
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("movement_controller")]
 collision_layer = 4
@@ -94,6 +99,18 @@ debug_color = Color(1, 0, 0, 0.419608)
 position = Vector2(-0.124999, 1.19209e-06)
 scale = Vector2(0.509766, 0.3125)
 texture = ExtResource("8_1frmk")
+
+[node name="player_debug_header" type="Label" parent="."]
+offset_left = -29.0
+offset_top = -42.0
+offset_right = 540.0
+offset_bottom = 121.0
+scale = Vector2(0.1, 0.1)
+theme = SubResource("Theme_hyf61")
+theme_override_font_sizes/font_size = 136
+text = "test"
+horizontal_alignment = 1
+script = ExtResource("4_qg5aq")
 
 [connection signal="take_damage" from="HealthComponent" to="." method="_on_health_component_take_damage"]
 [connection signal="deal_damage" from="HitBox" to="." method="_on_hit_box_deal_damage"]
