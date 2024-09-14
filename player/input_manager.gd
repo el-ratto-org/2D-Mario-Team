@@ -8,6 +8,7 @@ var horizontal_axis
 var vertical_dictionary: Dictionary = {
 	"move_up_pressed": false,
 	"move_up_released": false,
+	"move_up_held": false,
 	"move_down_pressed": false,
 	"move_down_released": false,
 }
@@ -34,11 +35,13 @@ func _get_input(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("move_up"):
 		vertical_dictionary["move_up_pressed"] = true
+		vertical_dictionary["move_up_held"] = true;
 	else:
 		vertical_dictionary["move_up_pressed"] = false
-	
+			
 	if Input.is_action_just_released("move_up"):
 		vertical_dictionary["move_up_released"] = true
+		vertical_dictionary["move_up_held"] = false;
 	else:
 		vertical_dictionary["move_up_released"] = false
 	

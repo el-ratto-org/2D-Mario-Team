@@ -93,6 +93,10 @@ func calculate_vertical_movement(delta: float):
 	elif floored and auto_jump_time > 0:
 		jump()
 	
+	# Jump when holding space
+	#if floored and vertical_dictionary["move_up_held"]:
+		#jump()
+	
 	# Decay auto jump time
 	auto_jump_time = max(auto_jump_time - delta, 0)
 	
