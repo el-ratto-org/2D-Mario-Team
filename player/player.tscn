@@ -1,6 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://crjeudwcdacco"]
 
-[ext_resource type="Script" path="res://player/player.gd" id="1_78ula"]
+[ext_resource type="Script" path="res://player/input_manager.gd" id="1_41ch4"]
+[ext_resource type="Script" path="res://player/player_movement_controller.gd" id="1_78ula"]
 [ext_resource type="Texture2D" uid="uid://urqh4msbhqf" path="res://assets/sprites/characters/main_char.png" id="2_seln7"]
 [ext_resource type="PackedScene" uid="uid://ct1l81litlaf6" path="res://managers/SfxManager.tscn" id="3_nsl3i"]
 [ext_resource type="PackedScene" uid="uid://di7qr3yfd1odi" path="res://managers/MusicManager.tscn" id="4_kyawv"]
@@ -22,10 +23,14 @@ size = Vector2(24, 2.5)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4p811"]
 size = Vector2(65, 40)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("sword_hit_box")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("movement_controller")]
 collision_layer = 4
+script = ExtResource("1_41ch4")
+movement_controller = NodePath("PlayerMovementController")
+
+[node name="PlayerMovementController" type="Node" parent="." node_paths=PackedStringArray("character")]
 script = ExtResource("1_78ula")
-sword_hit_box = NodePath("Sword")
+character = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, 3.5)
