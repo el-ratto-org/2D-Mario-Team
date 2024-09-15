@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cdh7aagwamruw"
-path="res://.godot/imported/TreeBG.png-8c570d24cbcf0bf3c83bb20b6affefcf.ctex"
+uid="uid://by87n5o5hpm3y"
+path="res://.godot/imported/main_char_animations-idle-Sheet.png-d5fb7bc5863863c8eaae9cac1c67bce9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/TreeBG.png"
-dest_files=["res://.godot/imported/TreeBG.png-8c570d24cbcf0bf3c83bb20b6affefcf.ctex"]
+source_file="res://assets/sprites/characters/animations/idle/main_char_animations-idle-Sheet.png"
+dest_files=["res://.godot/imported/main_char_animations-idle-Sheet.png-d5fb7bc5863863c8eaae9cac1c67bce9.ctex"]
 
 [params]
 
