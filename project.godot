@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 TimeManager="*res://managers/time_manager.tscn"
+PlayerStatsManager="*res://managers/player_stats_manager.tscn"
 
 [file_customization]
 

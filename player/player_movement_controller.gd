@@ -46,6 +46,7 @@ func _physics_process(delta: float) -> void:
 	calculate_horizontal_movement(delta)
 	calculate_vertical_movement(delta)
 	character.move_and_slide()
+	PlayerStatsManager._set_player_position(character.position)
 
 func calculate_horizontal_movement(delta: float):
 

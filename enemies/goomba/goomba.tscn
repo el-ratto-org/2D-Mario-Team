@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://bhffuihdjw2ps"]
+[gd_scene load_steps=11 format=3 uid="uid://bhffuihdjw2ps"]
 
 [ext_resource type="Script" path="res://enemies/scripts/enemy_controller.gd" id="1_37tkj"]
 [ext_resource type="Texture2D" uid="uid://dl0qg1ywitqjk" path="res://assets/sprites/characters/goomba.png" id="1_g03p6"]
-[ext_resource type="Script" path="res://enemies/scripts/enemy_behaviour.gd" id="2_rkn3j"]
+[ext_resource type="Script" path="res://enemies/scripts/enemy_behaviour_manager.gd" id="2_rkn3j"]
+[ext_resource type="Script" path="res://enemies/scripts/enemy_behaviour.gd" id="3_60k8e"]
 [ext_resource type="Script" path="res://CombatComponents/HitBox.gd" id="3_lynn6"]
 [ext_resource type="Script" path="res://CombatComponents/HurtBox.gd" id="4_lagrl"]
 [ext_resource type="Script" path="res://CombatComponents/HealthComponent.gd" id="5_y0ftw"]
@@ -19,14 +20,24 @@ collision_layer = 2
 collision_mask = 3
 script = ExtResource("1_37tkj")
 
-[node name="EnemyBehaviour" type="Node" parent="." node_paths=PackedStringArray("character", "movement_controller")]
+[node name="EnemyBehaviourManager" type="Timer" parent="." node_paths=PackedStringArray("character", "movement_controller")]
 script = ExtResource("2_rkn3j")
 character = NodePath("..")
 movement_controller = NodePath("../EnemyMovementController")
 
+[node name="Idle" type="Node" parent="EnemyBehaviourManager"]
+script = ExtResource("3_60k8e")
+duration = Vector2(2, 2)
+
+[node name="Chase" type="Node" parent="EnemyBehaviourManager"]
+script = ExtResource("3_60k8e")
+behaviour_type = 1
+duration = Vector2(1, 1)
+
 [node name="EnemyMovementController" type="Node" parent="." node_paths=PackedStringArray("character")]
 script = ExtResource("6_m0n1p")
 character = NodePath("..")
+move_speed = 100.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
