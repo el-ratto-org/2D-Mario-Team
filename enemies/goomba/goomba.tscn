@@ -1,13 +1,14 @@
-[gd_scene load_steps=11 format=3 uid="uid://bhffuihdjw2ps"]
+[gd_scene load_steps=12 format=3 uid="uid://bhffuihdjw2ps"]
 
 [ext_resource type="Script" path="res://enemies/scripts/enemy_controller.gd" id="1_37tkj"]
 [ext_resource type="Texture2D" uid="uid://dl0qg1ywitqjk" path="res://assets/sprites/characters/goomba.png" id="1_g03p6"]
-[ext_resource type="Script" path="res://enemies/scripts/enemy_behaviour_manager.gd" id="2_rkn3j"]
-[ext_resource type="Script" path="res://enemies/scripts/enemy_behaviour.gd" id="3_60k8e"]
+[ext_resource type="Script" path="res://enemies/scripts/goomba_manager.gd" id="2_vo436"]
+[ext_resource type="Script" path="res://enemies/scripts/modular_behaviours/behaviours/chase_player.gd" id="3_bujyf"]
 [ext_resource type="Script" path="res://CombatComponents/HitBox.gd" id="3_lynn6"]
+[ext_resource type="Script" path="res://enemies/scripts/modular_behaviours/behaviours/run_from_player.gd" id="4_1gnvp"]
 [ext_resource type="Script" path="res://CombatComponents/HurtBox.gd" id="4_lagrl"]
 [ext_resource type="Script" path="res://CombatComponents/HealthComponent.gd" id="5_y0ftw"]
-[ext_resource type="Script" path="res://enemies/scripts/enemy_movement_controller.gd" id="6_m0n1p"]
+[ext_resource type="Script" path="res://enemies/scripts/modular_behaviours/base_classes/enemy_gravity.gd" id="8_qt62w"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eskq7"]
 size = Vector2(32, 31)
@@ -20,24 +21,17 @@ collision_layer = 2
 collision_mask = 3
 script = ExtResource("1_37tkj")
 
-[node name="EnemyBehaviourManager" type="Timer" parent="." node_paths=PackedStringArray("character", "movement_controller")]
-script = ExtResource("2_rkn3j")
+[node name="GoombaManager" type="Timer" parent="." node_paths=PackedStringArray("chase_behaviour", "flee_behaviour", "character")]
+script = ExtResource("2_vo436")
+chase_behaviour = NodePath("ChasePlayerBehaviour")
+flee_behaviour = NodePath("RunFromPlayerBehaviour")
 character = NodePath("..")
-movement_controller = NodePath("../EnemyMovementController")
 
-[node name="Idle" type="Node" parent="EnemyBehaviourManager"]
-script = ExtResource("3_60k8e")
-duration = Vector2(2, 2)
+[node name="ChasePlayerBehaviour" type="Node" parent="GoombaManager"]
+script = ExtResource("3_bujyf")
 
-[node name="Chase" type="Node" parent="EnemyBehaviourManager"]
-script = ExtResource("3_60k8e")
-behaviour_type = 1
-duration = Vector2(1, 1)
-
-[node name="EnemyMovementController" type="Node" parent="." node_paths=PackedStringArray("character")]
-script = ExtResource("6_m0n1p")
-character = NodePath("..")
-move_speed = 100.0
+[node name="RunFromPlayerBehaviour" type="Node" parent="GoombaManager"]
+script = ExtResource("4_1gnvp")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -72,5 +66,8 @@ z_index = -1600
 position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_eskq7")
 debug_color = Color(1, 0, 0, 0.419608)
+
+[node name="EnemyGravity" type="Node" parent="."]
+script = ExtResource("8_qt62w")
 
 [connection signal="die" from="HealthComponent" to="." method="_on_health_component_die"]

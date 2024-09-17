@@ -1,5 +1,5 @@
 extends Timer
-class_name EnemyBehaviourManager
+class_name EnemyBehaviourManagerGeneralised
 
 @export var character: CharacterBody2D
 @export var movement_controller: EnemyMovementController

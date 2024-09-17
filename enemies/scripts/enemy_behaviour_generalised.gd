@@ -1,5 +1,5 @@
 extends Node
-class_name EnemyBehaviour
+class_name EnemyBehaviourGeneralised
 
 @export var behaviour_type: BehaviourTypes
 @export var duration: Vector2
