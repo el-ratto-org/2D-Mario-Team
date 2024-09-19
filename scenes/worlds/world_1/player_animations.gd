@@ -1,10 +1,8 @@
 extends AnimatedSprite2D
 @onready var player_movement_controller = $"../PlayerMovementController"
-var sprite_type = "fall"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	self.play(sprite_type)
 	pass # Replace with function body.
 
 func switch_animation(anim_name):

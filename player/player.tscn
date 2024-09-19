@@ -318,7 +318,7 @@ script = ExtResource("4_qg5aq")
 texture_filter = 1
 position = Vector2(-2, 3)
 sprite_frames = SubResource("SpriteFrames_sps2v")
-animation = &"run"
+animation = &"fall"
 script = ExtResource("4_muvw0")
 
 [connection signal="take_damage" from="HealthComponent" to="." method="_on_health_component_take_damage"]

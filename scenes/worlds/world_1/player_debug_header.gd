@@ -9,6 +9,6 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	self.text = ("velocity Y : " + (str( $"../PlayerMovementController".character.velocity.y).pad_decimals(1)))
+	self.text = ("velocity X : " + (str( $"../PlayerMovementController".character.velocity.x).pad_decimals(1)))
 	
 	pass
