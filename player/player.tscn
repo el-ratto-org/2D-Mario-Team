@@ -226,7 +226,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"run",
-"speed": 15.0
+"speed": 20.0
 }]
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("movement_controller")]
@@ -318,7 +318,7 @@ script = ExtResource("4_qg5aq")
 texture_filter = 1
 position = Vector2(-2, 3)
 sprite_frames = SubResource("SpriteFrames_sps2v")
-animation = &"fall"
+animation = &"run"
 script = ExtResource("4_muvw0")
 
 [connection signal="take_damage" from="HealthComponent" to="." method="_on_health_component_take_damage"]
