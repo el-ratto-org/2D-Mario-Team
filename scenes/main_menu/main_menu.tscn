@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://dhd0dqit2lkvs"]
 
-[ext_resource type="PackedScene" path="res://scenes/main_menu/fog.tscn" id="1_ddg53"]
+[ext_resource type="PackedScene" uid="uid://b8sytvp8cwfvx" path="res://scenes/main_menu/fog.tscn" id="1_ddg53"]
 [ext_resource type="Texture2D" uid="uid://d02kgyd0iwhwl" path="res://assets/sprites/backgrounds/TreeBG.png" id="2_0ao30"]
 [ext_resource type="Script" path="res://scenes/main_menu/start_button.gd" id="3_abg0s"]
 [ext_resource type="Texture2D" uid="uid://brpukt1abkfs5" path="res://assets/sprites/main_menu/title_alt.png" id="3_wne83"]
