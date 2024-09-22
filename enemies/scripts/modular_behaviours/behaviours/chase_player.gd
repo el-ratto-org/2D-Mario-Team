@@ -5,4 +5,3 @@ class_name ChasePlayerBehaviour
 
 func _run() -> void:
 	character.velocity.x = _player_horizontal_direction() * speed
-	character.move_and_slide()

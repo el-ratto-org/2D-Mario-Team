@@ -58,3 +58,7 @@ func _get_input(delta: float) -> void:
 
 func _process_movement(delta: float) -> void:
 	movement_controller._set_input(horizontal_axis, vertical_dictionary)
+
+
+func _on_health_component_take_damage() -> void:
+	print("Player was hit")

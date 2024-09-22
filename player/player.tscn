@@ -264,6 +264,7 @@ rotation_smoothing_enabled = true
 
 [node name="HealthComponent" type="Node2D" parent="."]
 script = ExtResource("5_hf0il")
+invulnerabilityDuration = 0.5
 
 [node name="HurtBox" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
 script = ExtResource("6_7ypip")
@@ -272,7 +273,6 @@ health_component = NodePath("../HealthComponent")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 position = Vector2(1, 0)
 shape = SubResource("RectangleShape2D_ck7dp")
-disabled = true
 
 [node name="HitBox" type="Area2D" parent="."]
 script = ExtResource("7_povqq")
@@ -299,8 +299,7 @@ script = ExtResource("4_qg5aq")
 texture_filter = 1
 position = Vector2(-2, 3)
 sprite_frames = SubResource("SpriteFrames_sps2v")
-animation = &"jump"
-frame_progress = 0.9592
+animation = &"run"
 script = ExtResource("4_muvw0")
 
 [connection signal="take_damage" from="HealthComponent" to="." method="_on_health_component_take_damage"]

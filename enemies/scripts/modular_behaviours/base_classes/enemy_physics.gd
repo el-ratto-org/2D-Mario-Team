@@ -1,5 +1,5 @@
 extends Node
-class_name EnemyGravity
+class_name EnemyPhysics
 
 @export var gravity: float = 800
 @export var terminal_velocity: float = 500.0

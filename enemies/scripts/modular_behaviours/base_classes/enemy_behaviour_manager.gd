@@ -7,10 +7,15 @@ class_name EnemyBehaviourManager
 func _ready() -> void:
 	pass # Replace with function body.
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
+
+func _physics_process(delta: float) -> void:
+	_reset()
+
+func _reset() -> void:
+	character.velocity.x = 0
 
 func _player_relative_position() -> Vector2:
 	return PlayerStatsManager.player_position - character.position

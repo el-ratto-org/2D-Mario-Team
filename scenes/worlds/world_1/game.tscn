@@ -87,7 +87,7 @@ position = Vector2(3717, 33)
 position = Vector2(4234, 97)
 
 [node name="Goomba8" parent="." instance=ExtResource("2_xokhb")]
-position = Vector2(123, -612)
+position = Vector2(15, -612)
 
 [node name="MusicManager" parent="." instance=ExtResource("3_c7t6s")]
 

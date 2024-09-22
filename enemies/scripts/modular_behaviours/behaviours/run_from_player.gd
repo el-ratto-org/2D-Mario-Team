@@ -5,4 +5,3 @@ class_name RunFromPlayerBehaviour
 
 func _run() -> void:
 	character.velocity.x = -_player_horizontal_direction() * speed
-	character.move_and_slide()
