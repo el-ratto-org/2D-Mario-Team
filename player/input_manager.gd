@@ -1,6 +1,7 @@
 extends Node
 
 @export var movement_controller: PlayerMovementController
+@onready var inventory = $Inventory
 
 # Movement variables
 var horizontal_axis
@@ -16,7 +17,7 @@ var vertical_dictionary: Dictionary = {
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	pass
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -58,3 +59,6 @@ func _get_input(delta: float) -> void:
 
 func _process_movement(delta: float) -> void:
 	movement_controller._set_input(horizontal_axis, vertical_dictionary)
+	
+func get_inventory():
+	return inventory
