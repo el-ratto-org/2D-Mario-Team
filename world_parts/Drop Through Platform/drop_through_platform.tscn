@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://bvlrt2gatd3qn"]
+
+[ext_resource type="Script" path="res://world_parts/Drop Through Platform/drop_through_platform.gd" id="1_qqyc8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x1mn8"]
+size = Vector2(68, 8)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_fplg1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yft05"]
+size = Vector2(68, 11)
+
+[node name="StaticBody2D" type="StaticBody2D"]
+script = ExtResource("1_qqyc8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_x1mn8")
+one_way_collision = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-1.2219e-06, 0)
+scale = Vector2(68, 8)
+texture = SubResource("CanvasTexture_fplg1")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -1.5)
+shape = SubResource("RectangleShape2D_yft05")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
