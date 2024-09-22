@@ -16,19 +16,24 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
-func _get_hit(damage: float) -> void:
-	health_component._take_damage(damage)
-
-
 # Got hit by something
 func _on_area_entered(area: Area2D) -> void:
+	_detect_hit(area)
+
+
+func _detect_hit(area: Area2D) -> void:
 	if area is not HitBox:
 		return
 	
 	var hit_box = area as HitBox
+	
+	if !hit_box.is_active:
+		return
+	
 	if hit_box.damage_type != damage_from:
 		if (hit_box.damage_type != HitBox.DamageType.EnemyAndPlayer) && (damage_from != HitBox.DamageType.EnemyAndPlayer):
 			return
-
+	
 	if hit_box.damage > 0:
-		health_component._take_damage(hit_box.damage)
+		if health_component != null:
+			health_component._take_damage(hit_box.damage)
