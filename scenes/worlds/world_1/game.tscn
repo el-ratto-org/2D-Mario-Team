@@ -138,6 +138,7 @@ position = Vector2(309, -58)
 
 [node name="Settings" parent="Player" instance=ExtResource("16_24ddp")]
 visible = false
+z_index = 1
 offset_left = -309.0
 offset_top = -152.0
 offset_right = -309.0
