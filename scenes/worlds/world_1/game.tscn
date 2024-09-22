@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=4 uid="uid://dytpj5md6fhq5"]
+[gd_scene load_steps=19 format=4 uid="uid://dytpj5md6fhq5"]
 
 [ext_resource type="Script" path="res://scenes/worlds/world_1/stage1.gd" id="1_agl4k"]
 [ext_resource type="PackedScene" uid="uid://crjeudwcdacco" path="res://player/player.tscn" id="1_wsuc6"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://b2f388v087to8" path="res://world_parts/key/key.tscn" id="10_do5es"]
 [ext_resource type="PackedScene" uid="uid://bvlrt2gatd3qn" path="res://world_parts/Drop Through Platform/drop_through_platform.tscn" id="10_oqogy"]
 [ext_resource type="PackedScene" uid="uid://ba37r2muk0n2q" path="res://world_parts/Door/door.tscn" id="11_14ldn"]
+[ext_resource type="PackedScene" uid="uid://ky61qfmbcca1" path="res://enemies/rock_golem/rock_golem.tscn" id="14_dk4tq"]
 [ext_resource type="PackedScene" uid="uid://3ao3jd6rudk5" path="res://scenes/Settings_Menu/settings.tscn" id="16_24ddp"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dxu81"]
@@ -202,3 +203,6 @@ position = Vector2(60, -110)
 
 [node name="door" parent="." instance=ExtResource("11_14ldn")]
 position = Vector2(-110, 119)
+
+[node name="RockGolem" parent="." instance=ExtResource("14_dk4tq")]
+position = Vector2(106, 138)

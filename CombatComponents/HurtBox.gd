@@ -2,7 +2,7 @@ extends Area2D
 class_name HurtBox
 
 @export var health_component: HealthComponent
-@export var damage_from: HitBox.DamageType
+@export var damage_from: HitBox.DamageType = HitBox.DamageType.Player
 
 
 # Called when the node enters the scene tree for the first time.

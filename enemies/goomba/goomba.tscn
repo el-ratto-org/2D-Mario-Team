@@ -60,7 +60,6 @@ script = ExtResource("5_y0ftw")
 [node name="HurtBox" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
 script = ExtResource("4_lagrl")
 health_component = NodePath("../HealthComponent")
-damage_from = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 position = Vector2(0, -19)
