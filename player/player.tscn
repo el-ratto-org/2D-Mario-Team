@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://player/input_manager.gd" id="1_41ch4"]
 [ext_resource type="Script" path="res://player/player_movement_controller.gd" id="1_78ula"]
 [ext_resource type="Texture2D" uid="uid://urqh4msbhqf" path="res://assets/sprites/characters/main_char.png" id="2_seln7"]
-[ext_resource type="PackedScene" uid="uid://b617nmvedrdmj" path="res://managers/inventory.tscn" id="3_0ikdi"]
+[ext_resource type="PackedScene" path="res://managers/inventory.tscn" id="3_0ikdi"]
 [ext_resource type="Texture2D" uid="uid://by87n5o5hpm3y" path="res://assets/sprites/characters/animations/idle/main_char_animations-idle-Sheet.png" id="3_cjboq"]
 [ext_resource type="PackedScene" uid="uid://ct1l81litlaf6" path="res://managers/SfxManager.tscn" id="3_nsl3i"]
 [ext_resource type="FontFile" uid="uid://b3fp5g5ue1p3k" path="res://assets/fonts/dogica/TTF/dogica.ttf" id="3_p2aie"]
