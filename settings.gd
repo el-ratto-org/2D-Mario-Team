@@ -21,14 +21,18 @@ func _on_resolutions_item_selected(index: int) -> void:
 			
 
 
-func _on_fullscreen_checkbox_toggled(toggled_on: bool) -> void:
-	if toggled_on:
-		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_MAXIMIZED)
-		$MarginContainer/VBoxContainer/TabContainer/Video/Resolutions.disabled = true  
-	else:
-		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
-		$MarginContainer/VBoxContainer/TabContainer/Video/Resolutions.disabled = false 
+@onready var previous_window = DisplayServer.window_get_mode()
+@onready var current_window = DisplayServer.window_get_mode()
 
+func _on_fullscreen_checkbox_toggled(toggled_on: bool) -> void:
+	current_window = DisplayServer.window_get_mode()
+	if current_window != 4:
+		previous_window = current_window
+		DisplayServer.window_set_mode(4)
+	else:
+		if previous_window == 4:
+			previous_window = 2
+		DisplayServer.window_set_mode(previous_window)
 
 var input_actions = {
 	"move_left" : "Left",

@@ -120,8 +120,8 @@ pause={
 2d_physics/layer_2="Enem"
 2d_physics/layer_3="Player"
 2d_physics/layer_4="World Object"
-2d_physics/layer_6="HitBox"
 2d_physics/layer_5="HurtBox"
+2d_physics/layer_6="HitBox"
 
 [physics]
 

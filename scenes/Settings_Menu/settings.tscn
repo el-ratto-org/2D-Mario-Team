@@ -25,9 +25,10 @@ text = "Settings"
 
 [node name="TabContainer" type="TabContainer" parent="VBoxContainer"]
 layout_mode = 2
-current_tab = 0
+current_tab = 2
 
 [node name="Controls" type="VBoxContainer" parent="VBoxContainer/TabContainer"]
+visible = false
 custom_minimum_size = Vector2(950, 450)
 layout_mode = 2
 metadata/_tab_index = 0
@@ -189,7 +190,6 @@ custom_minimum_size = Vector2(500, 50)
 layout_mode = 2
 
 [node name="Video" type="VBoxContainer" parent="VBoxContainer/TabContainer"]
-visible = false
 custom_minimum_size = Vector2(950, 450)
 layout_mode = 2
 metadata/_tab_index = 2
