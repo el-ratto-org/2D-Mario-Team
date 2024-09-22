@@ -24,7 +24,8 @@ func _open_door():
 func _on_unlock_area_area_entered(area: Area2D) -> void:
 	print("Door unlock try")
 	var player = area.get_owner()
-	var keys = player.get_keys()
+	var inventory = player.get_inventory()
+	var keys = inventory.get_key_list()
 	for key in keys:
 		if key == door_code:
 			_open_door()

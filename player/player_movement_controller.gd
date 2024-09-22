@@ -5,7 +5,7 @@ class_name PlayerMovementController
 
 # Horizontal motion
 @export var move_speed: float = 200
-@export var turning_speed: float = 3
+@export var turning_speed: float = 7
 
 # Vertical motion
 @export var min_jump_height: float = 200
@@ -19,7 +19,8 @@ class_name PlayerMovementController
 @export var auto_jump: float = 0.1
 
 # Movement variables
-var turning_fatigue: float = 0
+var inertia: float = 0
+var fatigue: float = 0
 var current_move: float = 0
 var jumped: bool = false
 var auto_jump_time: float = 0
@@ -48,19 +49,25 @@ func _physics_process(delta: float) -> void:
 	character.move_and_slide()
 
 func calculate_horizontal_movement(delta: float):
-
-	# Calculate turning fatigue
+	# Calculate horizontal inertia
 	if horizontal_axis:
-		turning_fatigue = clamp(turning_fatigue + horizontal_axis * turning_speed * delta, -1, 1)
+		inertia = clamp(inertia + horizontal_axis * turning_speed * delta, -1, 1)
+		fatigue = clamp(fatigue + delta * turning_speed, 0, 1)
 	else:
+		fatigue = clamp(fatigue - delta * turning_speed, 0, 1)
+		
 		# Calculate decay
-		if abs(turning_fatigue) <= turning_speed * delta:
-			turning_fatigue = 0
+		var decay = sign(inertia) * turning_speed * delta
+		
+		if abs(inertia) <= decay:
+			inertia = 0
 		else:
-			turning_fatigue -= sign(turning_fatigue) * turning_speed * delta
+			inertia -= decay
+	
+	inertia = lerp(horizontal_axis, inertia, fatigue)
 
-	var turning_control = 1 - abs(turning_fatigue)
-	current_move = clamp(lerp(current_move, horizontal_axis * move_speed, turning_control), -move_speed, move_speed)
+	var turning_control = 1 - abs(inertia)
+	current_move = clamp(lerp(inertia, horizontal_axis, turning_control), -1, 1) * move_speed
 
 	if horizontal_axis:
 		character.velocity.x = current_move
@@ -91,7 +98,8 @@ func calculate_vertical_movement(delta: float):
 		else:
 			auto_jump_time = auto_jump
 	elif floored and auto_jump_time > 0:
-		jump()
+		if Input.is_action_pressed("move_up"):
+			jump()
 	
 	# Jump when holding space
 	#if floored and vertical_dictionary["move_up_held"]:

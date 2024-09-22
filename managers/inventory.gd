@@ -10,7 +10,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 	
-func _add_key(code: String):
+func add_key(code: String):
 	keys.append(code)
 	
 func get_key_list():
