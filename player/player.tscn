@@ -260,7 +260,6 @@ unique_name_in_owner = true
 process_priority = 3
 process_physics_priority = 3
 zoom = Vector2(1.5, 1.5)
-process_callback = 0
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 rotation_smoothing_enabled = true
