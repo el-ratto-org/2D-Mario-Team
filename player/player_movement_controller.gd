@@ -42,12 +42,12 @@ func _ready() -> void:
 func _set_input(h_axis: float, v_dictionary: Dictionary) -> void:
 	horizontal_axis = h_axis
 	vertical_dictionary = v_dictionary
-
+	
 func _physics_process(delta: float) -> void:
 	calculate_horizontal_movement(delta)
 	calculate_vertical_movement(delta)
-	character.move_and_slide()
-
+	character.move_and_slide()	
+		
 func calculate_horizontal_movement(delta: float):
 	# Calculate horizontal inertia
 	if horizontal_axis:

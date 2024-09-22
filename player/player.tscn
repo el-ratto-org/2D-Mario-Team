@@ -1,8 +1,9 @@
-[gd_scene load_steps=47 format=3 uid="uid://crjeudwcdacco"]
+[gd_scene load_steps=48 format=3 uid="uid://crjeudwcdacco"]
 
 [ext_resource type="Script" path="res://player/input_manager.gd" id="1_41ch4"]
 [ext_resource type="Script" path="res://player/player_movement_controller.gd" id="1_78ula"]
 [ext_resource type="Texture2D" uid="uid://urqh4msbhqf" path="res://assets/sprites/characters/main_char.png" id="2_seln7"]
+[ext_resource type="PackedScene" path="res://managers/inventory.tscn" id="3_0ikdi"]
 [ext_resource type="Texture2D" uid="uid://by87n5o5hpm3y" path="res://assets/sprites/characters/animations/idle/main_char_animations-idle-Sheet.png" id="3_cjboq"]
 [ext_resource type="PackedScene" uid="uid://ct1l81litlaf6" path="res://managers/SfxManager.tscn" id="3_nsl3i"]
 [ext_resource type="FontFile" uid="uid://b3fp5g5ue1p3k" path="res://assets/fonts/dogica/TTF/dogica.ttf" id="3_p2aie"]
@@ -234,6 +235,8 @@ collision_layer = 4
 script = ExtResource("1_41ch4")
 movement_controller = NodePath("PlayerMovementController")
 
+[node name="Inventory" parent="." instance=ExtResource("3_0ikdi")]
+
 [node name="PlayerMovementController" type="Node" parent="." node_paths=PackedStringArray("character")]
 script = ExtResource("1_78ula")
 character = NodePath("..")
@@ -268,6 +271,8 @@ rotation_smoothing_enabled = true
 script = ExtResource("5_hf0il")
 
 [node name="HurtBox" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+collision_layer = 5
+collision_mask = 15
 script = ExtResource("6_7ypip")
 health_component = NodePath("../HealthComponent")
 
@@ -277,6 +282,8 @@ shape = SubResource("RectangleShape2D_ck7dp")
 disabled = true
 
 [node name="HitBox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 15
 script = ExtResource("7_povqq")
 damage_type = 1
 
