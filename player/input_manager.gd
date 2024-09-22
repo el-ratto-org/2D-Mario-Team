@@ -62,3 +62,7 @@ func _process_movement(delta: float) -> void:
 	
 func get_inventory():
 	return inventory
+
+
+func _on_health_component_take_damage() -> void:
+	print("Player was hit")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=4 uid="uid://dytpj5md6fhq5"]
+[gd_scene load_steps=18 format=4 uid="uid://dytpj5md6fhq5"]
 
 [ext_resource type="Script" path="res://scenes/worlds/world_1/stage1.gd" id="1_agl4k"]
 [ext_resource type="PackedScene" uid="uid://crjeudwcdacco" path="res://player/player.tscn" id="1_wsuc6"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://b2f388v087to8" path="res://world_parts/key/key.tscn" id="10_do5es"]
 [ext_resource type="PackedScene" uid="uid://bvlrt2gatd3qn" path="res://world_parts/Drop Through Platform/drop_through_platform.tscn" id="10_oqogy"]
 [ext_resource type="PackedScene" uid="uid://ba37r2muk0n2q" path="res://world_parts/Door/door.tscn" id="11_14ldn"]
+[ext_resource type="PackedScene" uid="uid://3ao3jd6rudk5" path="res://scenes/Settings_Menu/settings.tscn" id="16_24ddp"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dxu81"]
 texture = ExtResource("6_1vgrr")
@@ -135,6 +136,14 @@ grow_vertical = 2
 [node name="Player" parent="." instance=ExtResource("1_wsuc6")]
 position = Vector2(309, -58)
 
+[node name="Settings" parent="Player" instance=ExtResource("16_24ddp")]
+visible = false
+offset_left = -309.0
+offset_top = -152.0
+offset_right = -309.0
+offset_bottom = -152.0
+scale = Vector2(0.5, 0.5)
+
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 visible = false
 
@@ -172,7 +181,7 @@ position = Vector2(3717, 33)
 position = Vector2(4234, 97)
 
 [node name="Goomba8" parent="." instance=ExtResource("2_xokhb")]
-position = Vector2(123, -612)
+position = Vector2(15, -612)
 
 [node name="MusicManager" parent="." instance=ExtResource("3_c7t6s")]
 
