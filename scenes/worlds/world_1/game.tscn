@@ -1,7 +1,8 @@
-[gd_scene load_steps=19 format=4 uid="uid://dytpj5md6fhq5"]
+[gd_scene load_steps=22 format=4 uid="uid://dytpj5md6fhq5"]
 
 [ext_resource type="Script" path="res://scenes/worlds/world_1/stage1.gd" id="1_agl4k"]
 [ext_resource type="PackedScene" uid="uid://crjeudwcdacco" path="res://player/player.tscn" id="1_wsuc6"]
+[ext_resource type="Texture2D" uid="uid://i47xjff5xiuo" path="res://assets/sprites/tiles/prac/animatedtile-Sheet.png" id="2_a4o5d"]
 [ext_resource type="PackedScene" uid="uid://bhffuihdjw2ps" path="res://enemies/goomba/goomba.tscn" id="2_xokhb"]
 [ext_resource type="TileSet" uid="uid://cf3y4libusnrq" path="res://assets/tilemaps/landmarks.tres" id="2_yihb5"]
 [ext_resource type="TileSet" uid="uid://ds33pryupto4x" path="res://assets/tilemaps/plants.tres" id="3_2m7yc"]
@@ -14,6 +15,41 @@
 [ext_resource type="PackedScene" uid="uid://ba37r2muk0n2q" path="res://world_parts/Door/door.tscn" id="11_14ldn"]
 [ext_resource type="PackedScene" uid="uid://ky61qfmbcca1" path="res://enemies/rock_golem/rock_golem.tscn" id="14_dk4tq"]
 [ext_resource type="PackedScene" uid="uid://3ao3jd6rudk5" path="res://scenes/Settings_Menu/settings.tscn" id="16_24ddp"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gu6yn"]
+texture = ExtResource("2_a4o5d")
+texture_region_size = Vector2i(32, 32)
+0:0/animation_frame_0/duration = 1.0
+0:0/animation_frame_1/duration = 1.0
+0:0/animation_frame_2/duration = 1.0
+0:0/animation_frame_3/duration = 1.0
+0:0/animation_frame_4/duration = 1.0
+0:0/animation_frame_5/duration = 1.0
+0:0/animation_frame_6/duration = 1.0
+0:0/0 = 0
+8:0/0 = 0
+9:0/0 = 0
+10:0/0 = 0
+11:0/0 = 0
+12:0/0 = 0
+13:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+8:1/0 = 0
+9:1/0 = 0
+10:1/0 = 0
+11:1/0 = 0
+12:1/0 = 0
+13:1/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_mgip4"]
+sources/0 = SubResource("TileSetAtlasSource_gu6yn")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dxu81"]
 texture = ExtResource("6_1vgrr")
@@ -97,6 +133,12 @@ script = ExtResource("1_agl4k")
 
 [node name="Tiles" type="Node2D" parent="."]
 
+[node name="TEST" type="TileMapLayer" parent="Tiles"]
+texture_filter = 1
+tile_map_data = PackedByteArray("AAAQAAMAAAAAAAAAAAAPAAMAAAAAAAAAAAA=")
+tile_set = SubResource("TileSet_mgip4")
+metadata/_edit_group_ = true
+
 [node name="Landmarks" type="TileMapLayer" parent="Tiles"]
 texture_filter = 1
 tile_map_data = PackedByteArray("AAALAAIAAAABAAIAAAAIAAIAAAADAAAAAAAEAAQAAAABAAAAAAABAAQAAAADAAIAAAACAAQAAAACAAAAAAD+/wQAAAACAAAAAAAQAAQAAAAAAAAAAAAUAAQAAAACAAIAAAAKAAIAAAACAAAAAAA=")
@@ -111,7 +153,7 @@ metadata/_edit_group_ = true
 
 [node name="Plants(Layer1)" type="TileMapLayer" parent="Tiles"]
 texture_filter = 1
-tile_map_data = PackedByteArray("AAAIAAIAAAAAAAIAAAAKAAIAAAAAAAEAAAAJAAIAAAAEAAEAAAAHAAIAAAADAAEAAAALAAIAAAAAAAAAAAAGAAQAAAAAAAAAAAAFAAQAAAACAAEAAAAEAAQAAAAEAAEAAAADAAQAAAABAAEAAAACAAQAAAAAAAIAAAABAAQAAAACAAIAAAAAAAQAAAACAAEAAAD//wQAAAAEAAAAAAD+/wQAAAADAAEAAAD9/wQAAAAFAAIAAAD8/wQAAAABAAAAAAANAAQAAAADAAAAAAAOAAQAAAAAAAEAAAAPAAQAAAAEAAIAAAAQAAQAAAAAAAAAAAARAAQAAAACAAAAAAASAAQAAAAEAAAAAAATAAQAAAAAAAAAAAAUAAQAAAACAAIAAAAMAAQAAAAFAAEAAAALAAQAAAAEAAAAAAA=")
+tile_map_data = PackedByteArray("AAAIAAIAAAAAAAIAAAAKAAIAAAAAAAEAAAAJAAIAAAAEAAEAAAAHAAIAAAADAAEAAAALAAIAAAAAAAAAAAAGAAQAAAAAAAAAAAAFAAQAAAACAAEAAAAEAAQAAAAEAAEAAAADAAQAAAABAAEAAAACAAQAAAAAAAIAAAABAAQAAAACAAIAAAAAAAQAAAACAAEAAAD//wQAAAAEAAAAAAD+/wQAAAADAAEAAAD9/wQAAAAFAAIAAAD8/wQAAAABAAAAAAANAAQAAAADAAAAAAAOAAQAAAAAAAEAAAAPAAQAAAAEAAIAAAAQAAQAAAAAAAAAAAARAAQAAAACAAAAAAASAAQAAAAEAAAAAAATAAQAAAAAAAAAAAAUAAQAAAACAAIAAAAMAAQAAAAFAAEAAAALAAQAAAAEAAAAAAAYAAAAAAAAAAAAAAAXAAEAAAABAAAAAAA=")
 tile_set = ExtResource("3_2m7yc")
 metadata/_edit_group_ = true
 
