@@ -1,13 +1,13 @@
-[gd_scene load_steps=29 format=4 uid="uid://dytpj5md6fhq5"]
+[gd_scene load_steps=34 format=4 uid="uid://dytpj5md6fhq5"]
 
 [ext_resource type="Script" path="res://scenes/worlds/world_1/stage1.gd" id="1_agl4k"]
 [ext_resource type="PackedScene" uid="uid://crjeudwcdacco" path="res://player/player.tscn" id="1_wsuc6"]
 [ext_resource type="Texture2D" uid="uid://i47xjff5xiuo" path="res://assets/sprites/tiles/prac/animatedtile-Sheet.png" id="2_a4o5d"]
-[ext_resource type="PackedScene" path="res://assets/shaders/rain.tscn" id="2_k5dke"]
+[ext_resource type="PackedScene" uid="uid://ddf87s0y3fdv8" path="res://assets/shaders/rain.tscn" id="2_k5dke"]
 [ext_resource type="PackedScene" uid="uid://bhffuihdjw2ps" path="res://enemies/goomba/goomba.tscn" id="2_xokhb"]
 [ext_resource type="TileSet" uid="uid://cf3y4libusnrq" path="res://assets/tilemaps/landmarks.tres" id="2_yihb5"]
 [ext_resource type="TileSet" uid="uid://ds33pryupto4x" path="res://assets/tilemaps/plants.tres" id="3_2m7yc"]
-[ext_resource type="PackedScene" path="res://assets/shaders/fog.tscn" id="3_7qxwk"]
+[ext_resource type="PackedScene" uid="uid://s8g34kjtosrr" path="res://assets/shaders/fog.tscn" id="3_7qxwk"]
 [ext_resource type="PackedScene" uid="uid://di7qr3yfd1odi" path="res://managers/MusicManager.tscn" id="3_c7t6s"]
 [ext_resource type="PackedScene" uid="uid://ct1l81litlaf6" path="res://managers/SfxManager.tscn" id="3_mvg2t"]
 [ext_resource type="Texture2D" uid="uid://clkntq76m2ev2" path="res://assets/sprites/tiles/tilesheet_test2.png" id="5_p3t3i"]
@@ -19,6 +19,8 @@
 [ext_resource type="PackedScene" uid="uid://ba37r2muk0n2q" path="res://world_parts/Door/door.tscn" id="11_14ldn"]
 [ext_resource type="PackedScene" uid="uid://ky61qfmbcca1" path="res://enemies/rock_golem/rock_golem.tscn" id="14_dk4tq"]
 [ext_resource type="PackedScene" uid="uid://3ao3jd6rudk5" path="res://scenes/Settings_Menu/settings.tscn" id="16_24ddp"]
+[ext_resource type="PackedScene" uid="uid://dnhal2hn4fj1b" path="res://world_parts/lamp/lamp.tscn" id="20_e87sl"]
+[ext_resource type="Shader" path="res://world_parts/lamp/portal.gdshader" id="21_o5kci"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gu6yn"]
 texture = ExtResource("2_a4o5d")
@@ -170,6 +172,24 @@ size = Vector2(2553, 507)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_quodh"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g0hpu"]
+shader = ExtResource("21_o5kci")
+shader_parameter/size = 0.716
+shader_parameter/width = 0.23
+shader_parameter/screen_width = 398.0
+shader_parameter/screen_height = 398.0
+shader_parameter/brighter_color = Vector4(1, 0.8, 0, 1)
+shader_parameter/middle_color = Vector4(1, 0.56, 0, 1)
+shader_parameter/darker_color = Vector4(0.64, 0.2, 0.05, 1)
+shader_parameter/spread = 0.5
+shader_parameter/player_position = Vector2(0.29, 0.3)
+shader_parameter/pixel_amount = 85
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_3uarf"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_kgxd3"]
+noise = SubResource("FastNoiseLite_3uarf")
+
 [node name="Stage 1" type="Node2D"]
 position = Vector2(-25, -269)
 script = ExtResource("1_agl4k")
@@ -234,7 +254,7 @@ offset_bottom = 40.0
 color = Color(0, 1, 1, 1)
 
 [node name="Player" parent="." instance=ExtResource("1_wsuc6")]
-position = Vector2(-82, 123)
+position = Vector2(505, -48)
 
 [node name="Settings" parent="Player" instance=ExtResource("16_24ddp")]
 visible = false
@@ -306,3 +326,11 @@ position = Vector2(242, 55)
 
 [node name="RockGolem" parent="." instance=ExtResource("14_dk4tq")]
 position = Vector2(106, 138)
+
+[node name="lamp" parent="." instance=ExtResource("20_e87sl")]
+position = Vector2(320, 96)
+
+[node name="portal" type="Sprite2D" parent="lamp"]
+material = SubResource("ShaderMaterial_g0hpu")
+position = Vector2(61, 18)
+texture = SubResource("NoiseTexture2D_kgxd3")
