@@ -32,3 +32,4 @@ motion_mirroring = Vector2(1152, 648)
 material = SubResource("ShaderMaterial_v0il3")
 offset_right = 1152.0
 offset_bottom = 647.0
+metadata/_edit_use_anchors_ = true
