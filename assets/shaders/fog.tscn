@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://s8g34kjtosrr"]
+
+[ext_resource type="Shader" path="res://assets/shaders/new_fog.gdshader" id="1_u2703"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8bdqs"]
+shader = ExtResource("1_u2703")
+shader_parameter/color = null
+shader_parameter/OCTAVES = 4
+shader_parameter/enable_pixelation = true
+shader_parameter/pixelation_amount = 150
+shader_parameter/fog_direction = Vector2(1, 1)
+shader_parameter/scroll_noise_tex = false
+shader_parameter/noise_scroll_direction = Vector2(1, 0)
+shader_parameter/opacity = 0.095
+
+[sub_resource type="Gradient" id="Gradient_r5vaa"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_58m53"]
+gradient = SubResource("Gradient_r5vaa")
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_8bdqs")
+position = Vector2(644.629, 437)
+scale = Vector2(5.05175, 876)
+texture = SubResource("GradientTexture1D_58m53")

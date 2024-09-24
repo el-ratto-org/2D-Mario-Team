@@ -16,7 +16,7 @@ func pause_menu():
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("pause"):
 		pause_menu()
-		
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
