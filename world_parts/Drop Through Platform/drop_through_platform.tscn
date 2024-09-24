@@ -1,14 +1,13 @@
 [gd_scene load_steps=5 format=3 uid="uid://bvlrt2gatd3qn"]
 
 [ext_resource type="Script" path="res://world_parts/Drop Through Platform/drop_through_platform.gd" id="1_qqyc8"]
+[ext_resource type="Texture2D" uid="uid://bc1gm271kqew8" path="res://assets/sprites/tiles/platform.png" id="2_g1r2c"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x1mn8"]
-size = Vector2(68, 8)
-
-[sub_resource type="CanvasTexture" id="CanvasTexture_fplg1"]
+size = Vector2(64, 8)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yft05"]
-size = Vector2(68, 11)
+size = Vector2(64, 11)
 
 [node name="StaticBody2D" type="StaticBody2D"]
 script = ExtResource("1_qqyc8")
@@ -18,9 +17,9 @@ shape = SubResource("RectangleShape2D_x1mn8")
 one_way_collision = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
 position = Vector2(-1.2219e-06, 0)
-scale = Vector2(68, 8)
-texture = SubResource("CanvasTexture_fplg1")
+texture = ExtResource("2_g1r2c")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 52
@@ -29,7 +28,7 @@ monitoring = false
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0, -1.5)
+position = Vector2(0, -3)
 shape = SubResource("RectangleShape2D_yft05")
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
