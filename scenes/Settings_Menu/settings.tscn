@@ -235,8 +235,8 @@ custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 
 [connection signal="value_changed" from="VBoxContainer/TabContainer/Audio/MarginContainer/GridContainer/HBoxContainer2/Volume_slider" to="." method="_on_volume_slider_value_changed"]
-[connection signal="value_changed" from="VBoxContainer/TabContainer/Audio/MarginContainer/GridContainer/HBoxContainer/Music_slider" to="." method="_on_volume_slider_value_changed"]
 [connection signal="value_changed" from="VBoxContainer/TabContainer/Audio/MarginContainer/GridContainer/HBoxContainer/Music_slider" to="." method="_on_music_slider_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/TabContainer/Audio/MarginContainer/GridContainer/HBoxContainer/Music_slider" to="." method="_on_volume_slider_value_changed"]
 [connection signal="toggled" from="VBoxContainer/TabContainer/Audio/MarginContainer/GridContainer/HBoxContainer3/Mute_button" to="." method="_on_mute_button_toggled"]
 [connection signal="item_selected" from="VBoxContainer/TabContainer/Video/MarginContainer/GridContainer/HBoxContainer/Resolutions" to="." method="_on_resolutions_item_selected"]
 [connection signal="toggled" from="VBoxContainer/TabContainer/Video/MarginContainer/GridContainer/HBoxContainer3/Fullscreen_Checkbox" to="." method="_on_fullscreen_checkbox_toggled"]
