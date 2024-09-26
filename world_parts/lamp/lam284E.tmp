@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://dnhal2hn4fj1b"]
+[gd_scene load_steps=12 format=3 uid="uid://dnhal2hn4fj1b"]
 
 [ext_resource type="Texture2D" uid="uid://c0u7qcyv5db4i" path="res://assets/sprites/tiles/lamp2.png" id="1_2fov4"]
 [ext_resource type="Texture2D" uid="uid://c8k86jegjf3uf" path="res://assets/sprites/tiles/lamp2_noglass.png" id="1_gwkgd"]
 [ext_resource type="Script" path="res://world_parts/lamp/lamp.gd" id="1_m3s5b"]
+[ext_resource type="Texture2D" uid="uid://bveo1dipqkln7" path="res://assets/sprites/tiles/lamp_glasspdn.png" id="1_tpa5m"]
 [ext_resource type="Texture2D" uid="uid://dvg8ldrfitaul" path="res://assets/sprites/tiles/lamp2_alt.png" id="1_vopxb"]
 [ext_resource type="Shader" path="res://assets/shaders/highlight.gdshader" id="2_oc4kk"]
 
@@ -27,6 +28,16 @@ shader_parameter/pause_duration = 0.5
 shader_parameter/texture_size = Vector2(24, 24)
 shader_parameter/vertical_gradient = SubResource("GradientTexture1D_vpvr4")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_frfu3"]
+shader = ExtResource("2_oc4kk")
+shader_parameter/size_effect = 1.0
+shader_parameter/speed = 0.325
+shader_parameter/highlight_strength = 0.5
+shader_parameter/color_mode_toggle = false
+shader_parameter/is_horizontal = true
+shader_parameter/pause_duration = 0.5
+shader_parameter/texture_size = Vector2(24, 24)
+
 [node name="lamp" type="StaticBody2D"]
 texture_filter = 1
 script = ExtResource("1_m3s5b")
@@ -34,10 +45,11 @@ script = ExtResource("1_m3s5b")
 [node name="ActivationArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ActivationArea"]
+visible = false
 position = Vector2(-1, -31.5)
 shape = SubResource("RectangleShape2D_yps47")
 
-[node name="Inactive" type="Node2D" parent="."]
+[node name="Inactive" type="Node" parent="."]
 
 [node name="back_post" type="Sprite2D" parent="Inactive"]
 modulate = Color(0.533037, 0.533037, 0.533037, 1)
@@ -51,19 +63,17 @@ texture_filter = 1
 position = Vector2(-1, -38)
 texture = ExtResource("1_gwkgd")
 
-[node name="Active" type="Node2D" parent="."]
+[node name="Glass" type="Sprite2D" parent="Inactive"]
 visible = false
+modulate = Color(0, 0, 0, 1)
+material = SubResource("ShaderMaterial_frfu3")
+position = Vector2(-1, -38)
+texture = ExtResource("1_tpa5m")
 
-[node name="post" type="Sprite2D" parent="Active"]
+[node name="Active" type="Node" parent="."]
+
+[node name="post" type="Sprite2D" parent="."]
 position = Vector2(-1, -38)
 texture = ExtResource("1_vopxb")
-
-[node name="Label" type="Label" parent="."]
-visible = false
-offset_left = -31.0
-offset_top = -90.0
-offset_right = 32.0
-offset_bottom = -67.0
-text = "[DOWN]"
 
 [connection signal="area_entered" from="ActivationArea" to="." method="_on_activation_area_area_entered"]

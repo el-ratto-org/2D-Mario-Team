@@ -1,0 +1,62 @@
+[gd_scene load_steps=12 format=3 uid="uid://nj7e4untms6u"]
+
+[ext_resource type="Texture2D" uid="uid://cfie4kwlgbu3f" path="res://assets/sprites/tiles/lamp.png" id="1_f5avh"]
+[ext_resource type="Shader" path="res://world_parts/lamp/glass.gdshader" id="2_whaiy"]
+[ext_resource type="Texture2D" uid="uid://bm5b4nft551u1" path="res://assets/sprites/tiles/orb_filled.png" id="3_mjqyg"]
+[ext_resource type="Texture2D" uid="uid://dklrm4bvjbwne" path="res://assets/sprites/tiles/orb.png" id="4_y133a"]
+[ext_resource type="Shader" path="res://world_parts/lamp/glowing_orb.gdshader" id="5_bvnuy"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6l2th"]
+shader = ExtResource("2_whaiy")
+shader_parameter/crack_depth = 2.236
+shader_parameter/crack_scale = 1.5
+shader_parameter/crack_zebra_scale = 2.67
+shader_parameter/crack_zebra_amp = 1.3
+shader_parameter/crack_profile = 1.0
+shader_parameter/crack_slope = 45.8
+shader_parameter/crack_width = 0.001
+shader_parameter/refraction_offset = Vector2(25, 25)
+shader_parameter/reflection_offset = Vector2(1, 1)
+shader_parameter/reflection_color = Color(0.588, 0.588, 0.588, 0.5)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_hliyx"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_cmikm"]
+seamless = true
+noise = SubResource("FastNoiseLite_hliyx")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ian8i"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_j61e4"]
+seamless = true
+noise = SubResource("FastNoiseLite_ian8i")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1ue0l"]
+shader = ExtResource("5_bvnuy")
+shader_parameter/brightness = 0.75
+shader_parameter/time_scale = 1.0
+shader_parameter/noise = SubResource("NoiseTexture2D_cmikm")
+shader_parameter/noise2 = SubResource("NoiseTexture2D_j61e4")
+
+[node name="StaticBody2D" type="StaticBody2D"]
+texture_filter = 1
+
+[node name="post" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -26)
+texture = ExtResource("1_f5avh")
+
+[node name="orb inside" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_6l2th")
+position = Vector2(0, -40)
+texture = ExtResource("3_mjqyg")
+
+[node name="orb" type="Sprite2D" parent="."]
+position = Vector2(0, -40)
+texture = ExtResource("4_y133a")
+
+[node name="glow_orb" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_1ue0l")
+position = Vector2(0, -40)
+scale = Vector2(2, 2)
+texture = ExtResource("3_mjqyg")
