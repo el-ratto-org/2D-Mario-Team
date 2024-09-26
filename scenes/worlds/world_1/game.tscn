@@ -234,7 +234,7 @@ offset_bottom = 40.0
 color = Color(0, 1, 1, 1)
 
 [node name="Player" parent="." instance=ExtResource("1_wsuc6")]
-position = Vector2(-82, 123)
+position = Vector2(433, -60)
 
 [node name="Settings" parent="Player" instance=ExtResource("16_24ddp")]
 visible = false
@@ -293,7 +293,7 @@ position = Vector2(15, -612)
 position = Vector2(512, 43)
 
 [node name="drop_through_platform2" parent="." instance=ExtResource("10_oqogy")]
-position = Vector2(512, 8)
+position = Vector2(512, 6)
 
 [node name="drop_through_platform3" parent="." instance=ExtResource("10_oqogy")]
 position = Vector2(415, 103)

@@ -1,6 +1,11 @@
 extends Node
 class_name PlayerMovementController
 
+signal jumped
+signal move_left
+signal move_right
+signal move_down
+
 @export var character: CharacterBody2D
 
 # Horizontal motion
@@ -22,9 +27,10 @@ class_name PlayerMovementController
 var inertia: float = 0
 var fatigue: float = 0
 var current_move: float = 0
-var jumped: bool = false
+var move_jump: bool = false
 var auto_jump_time: float = 0
 var jump_grace_time: float = 0
+var grounded # TODO change this to access the floored variable directly
 
 # Input variables
 var horizontal_axis
@@ -44,8 +50,8 @@ func _set_input(h_axis: float, v_dictionary: Dictionary) -> void:
 	vertical_dictionary = v_dictionary
 	
 func _physics_process(delta: float) -> void:
-	calculate_horizontal_movement(delta)
 	calculate_vertical_movement(delta)
+	calculate_horizontal_movement(delta)
 	character.move_and_slide()
 	PlayerStatsManager._set_player_position(character.position)
 
@@ -85,6 +91,7 @@ func calculate_vertical_movement(delta: float):
 		jump_grace_time = jump_grace
 
 	var floored = jump_grace_time > 0
+	grounded = floored
 
 	# Velocity with fast-falling
 	character.velocity.y = clamp(
@@ -109,12 +116,13 @@ func calculate_vertical_movement(delta: float):
 	# Decay auto jump time
 	auto_jump_time = max(auto_jump_time - delta, 0)
 	
-	if jumped and vertical_dictionary["move_up_released"] and character.velocity.y < 0:
+	if move_jump and vertical_dictionary["move_up_released"] and character.velocity.y < 0:
 		character.velocity *= min_jump_height / max_jump_height
-		jumped = false
+		move_jump = false
 
 func jump():
+	jumped.emit()
 	character.velocity.y = -max_jump_height
-	jumped = true
+	move_jump = true
 	auto_jump_time = 0
 	jump_grace_time = 0
