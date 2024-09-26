@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=4 uid="uid://dytpj5md6fhq5"]
+[gd_scene load_steps=30 format=4 uid="uid://dytpj5md6fhq5"]
 
 [ext_resource type="Script" path="res://scenes/worlds/world_1/stage1.gd" id="1_agl4k"]
 [ext_resource type="PackedScene" uid="uid://crjeudwcdacco" path="res://player/player.tscn" id="1_wsuc6"]
@@ -19,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://ba37r2muk0n2q" path="res://world_parts/Door/door.tscn" id="11_14ldn"]
 [ext_resource type="PackedScene" uid="uid://ky61qfmbcca1" path="res://enemies/rock_golem/rock_golem.tscn" id="14_dk4tq"]
 [ext_resource type="PackedScene" uid="uid://3ao3jd6rudk5" path="res://scenes/Settings_Menu/settings.tscn" id="16_24ddp"]
+[ext_resource type="PackedScene" uid="uid://dnhal2hn4fj1b" path="res://world_parts/lamp/lamp.tscn" id="20_e87sl"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gu6yn"]
 texture = ExtResource("2_a4o5d")
@@ -234,7 +235,7 @@ offset_bottom = 40.0
 color = Color(0, 1, 1, 1)
 
 [node name="Player" parent="." instance=ExtResource("1_wsuc6")]
-position = Vector2(433, -60)
+position = Vector2(368, 49)
 
 [node name="Settings" parent="Player" instance=ExtResource("16_24ddp")]
 visible = false
@@ -293,7 +294,7 @@ position = Vector2(15, -612)
 position = Vector2(512, 43)
 
 [node name="drop_through_platform2" parent="." instance=ExtResource("10_oqogy")]
-position = Vector2(512, 6)
+position = Vector2(512, 8)
 
 [node name="drop_through_platform3" parent="." instance=ExtResource("10_oqogy")]
 position = Vector2(415, 103)
@@ -306,3 +307,6 @@ position = Vector2(242, 55)
 
 [node name="RockGolem" parent="." instance=ExtResource("14_dk4tq")]
 position = Vector2(106, 138)
+
+[node name="lamp" parent="." instance=ExtResource("20_e87sl")]
+position = Vector2(320, 96)

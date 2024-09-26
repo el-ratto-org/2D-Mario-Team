@@ -7,22 +7,21 @@ signal take_damage
 signal healed
 signal die
 
-var maxHealth
-@export var health:float = 1
-@export var invulnerabilityDuration:float = 10
-var invulnerabilityTime:float = 0
+@export var health: float = 1
+@export var invulnerability_duration: float = 10
+
+var max_health
+var invulnerability_time: float = 0
 
 func _ready() -> void:
-	maxHealth = health
+	max_health = health
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if invulnerabilityTime > 0:
-		invulnerabilityTime -= delta 
+	if invulnerability_time > 0:
+		invulnerability_time -= delta
 
 func _take_damage(damage: float) -> void:
-	if invulnerabilityTime > 0:
+	if invulnerability_time > 0:
 		return
 	
 	# Deeal damage
@@ -30,7 +29,7 @@ func _take_damage(damage: float) -> void:
 	health = max(health, 0)
 	
 	# Set iframes
-	invulnerabilityTime = invulnerabilityDuration
+	invulnerability_time = invulnerability_duration
 	
 	# Send signals
 	emit_signal("take_damage")
@@ -40,9 +39,9 @@ func _take_damage(damage: float) -> void:
 	if health <= 0:
 		emit_signal("die")
 	
-func _heal(healAmount: float) -> void:
-	health += healAmount
-	health = min(health, maxHealth)
+func _heal(heal_amount: float) -> void:
+	health += heal_amount
+	health = min(health, max_health)
 	
 	emit_signal("healed")
 	emit_signal("health_changed")
