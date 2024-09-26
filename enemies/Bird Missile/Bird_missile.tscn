@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://ddpvte1jkpp6r"]
+
+[ext_resource type="Script" path="res://enemies/Bird Missile/bird_missile.gd" id="1_qrhu7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wk4hu"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_1vmb0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4t8ha"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_81b8s"]
+
+[node name="RigidBody2D" type="RigidBody2D"]
+script = ExtResource("1_qrhu7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_wk4hu")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(20, 20)
+texture = SubResource("PlaceholderTexture2D_1vmb0")
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 61
+collision_mask = 4
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="HitBox"]
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_4t8ha")
+
+[node name="Player_detected" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player_detected"]
+scale = Vector2(25, 25)
+shape = SubResource("CircleShape2D_81b8s")
+
+[connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]
+[connection signal="area_entered" from="Player_detected" to="." method="_on_player_detected_area_entered"]
