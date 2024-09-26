@@ -29,7 +29,8 @@ func _on_step_dust_timer_timeout():
 	pass # Replace with function body.
 
 
-func _on_player_movement_controller_jumped() -> void:
+	
+func _on_player_movement_controller_player_jump() -> void:
 	var player_x_velocity = $"../PlayerMovementController".character.velocity.x
 	if player_x_velocity < 100 and player_x_velocity > -100:
 		anim_type = "jump_straight"
@@ -40,13 +41,11 @@ func _on_player_movement_controller_jumped() -> void:
 		flip = true
 	else:
 		flip = false
-	
 	spawn_vfx(anim_type, self.global_position, flip)
 	pass # Replace with function body.
 	
-	
-	
-	
+	pass # Replace with function body.
+
 func spawn_vfx(animation_name, position, flipped:bool):
 	var new_sprite = animated_sprite_scene.instantiate() as AnimatedSprite2D
 	new_sprite.global_position = position

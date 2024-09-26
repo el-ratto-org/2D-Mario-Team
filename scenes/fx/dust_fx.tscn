@@ -173,7 +173,9 @@ animations = [{
 [node name="DustFx" type="AnimatedSprite2D"]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_1m3mw")
-animation = &"jump_straight"
+animation = &"jump_angle"
+frame = 6
+frame_progress = 1.0
 script = ExtResource("2_8e117")
 
 [connection signal="animation_finished" from="." to="." method="_on_animation_finished"]

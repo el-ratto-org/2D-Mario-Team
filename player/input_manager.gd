@@ -3,6 +3,8 @@ extends Node
 @export var movement_controller: PlayerMovementController
 @onready var inventory = $Inventory
 
+
+
 # Movement variables
 var horizontal_axis
 

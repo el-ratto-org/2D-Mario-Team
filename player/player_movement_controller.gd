@@ -2,6 +2,8 @@
 extends Node2D
 class_name PlayerMovementController
 
+signal player_jump
+
 @export var character: CharacterBody2D
 
 # Step up
@@ -21,6 +23,8 @@ class_name PlayerMovementController
 # Jump grace & auto jump
 @export var jump_grace: float = 0.1
 @export var auto_jump: float = 0.1
+
+var grounded
 
 # Movement variables
 var inertia: float = 0
@@ -96,6 +100,7 @@ func calculate_vertical_movement(delta: float):
 		jump_grace_time = jump_grace
 
 	var floored = jump_grace_time > 0
+	grounded = floored
 
 	# Velocity with fast-falling
 	character.velocity.y = clamp(
@@ -170,6 +175,7 @@ func step_check(horizontal_stride: float, delta: float):
 			character.velocity.y = min(character.velocity.y, 0)
 
 func jump():
+	player_jump.emit()
 	character.velocity.y = -max_jump_height
 	jumped = true
 	auto_jump_time = 0
