@@ -16,8 +16,11 @@ func _ready() -> void:
 func _run() -> void:
 	pass
 
+func _player_direction() -> Vector2:
+	return (PlayerStatsManager.player_position - character.position).normalized()
+
 func _player_relative_position() -> Vector2:
 	return PlayerStatsManager.player_position - character.position
 
 func _player_horizontal_direction() -> int:
-	return sign(_player_relative_position().x)
+	return sign(_player_direction().x)
