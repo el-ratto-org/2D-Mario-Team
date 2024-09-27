@@ -54,12 +54,12 @@ func _ready() -> void:
 	pass
 
 func _set_input(h_axis: float, v_dictionary: Dictionary) -> void:
-	horizontal_axis = h_axis
 	vertical_dictionary = v_dictionary
-
+	horizontal_axis = h_axis
+	
 func _physics_process(delta: float) -> void:
-	calculate_horizontal_movement(delta)
 	calculate_vertical_movement(delta)
+	calculate_horizontal_movement(delta)
 	step_check(character.velocity.x, delta)
 	character.move_and_slide()
 	PlayerStatsManager._set_player_position(character.position)
