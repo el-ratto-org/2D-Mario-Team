@@ -36,8 +36,8 @@ func _on_pickup_area_area_entered(body: Node) -> void:
 # Function to handle key pickup logic
 func pick_up_key(hitbox: Node) -> void:
 	var body = hitbox.get_owner()
-	print("=-=--=-=-=-=-=-=-=-=-=-= Key picked up!")
 	if body.has_method("get_inventory"):
+		print("=-=--=-=-=-=-=-=-=-=-=-= Key picked up!")
 		var inventory = body.get_inventory()  # Call the method to get the inventory
 		if inventory:
 			inventory.add_key(door_code)  # Call the add_key method on the inventory

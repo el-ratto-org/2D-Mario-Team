@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://pogof14sbaoe"]
+
+[ext_resource type="Shader" path="res://assets/shaders/liquid.gdshader" id="1_kleik"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xmtyj"]
+shader = ExtResource("1_kleik")
+shader_parameter/backFillColour = Color(0.62, 1, 1, 1)
+shader_parameter/frontFillInnerColour = Color(0.35, 1, 1, 1)
+shader_parameter/frontFillOuterColour = Color(0, 0.35, 1, 1)
+shader_parameter/ringColour = Color(0, 0.16, 0.13, 1)
+shader_parameter/fresnelColour = Color(0, 0.88, 1, 1)
+shader_parameter/innerRingGlowColour = Color(0, 0, 0, 1)
+shader_parameter/fillcolour = Color(1, 1, 1, 1)
+shader_parameter/ringWidth = -12.915
+shader_parameter/innerCircleRadiusOffset = 0.0
+shader_parameter/fill_per = 1.0
+shader_parameter/resolution = 32.0
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_6iw4o"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2j4sv"]
+width = 2048
+height = 2048
+seamless = true
+noise = SubResource("FastNoiseLite_6iw4o")
+
+[node name="Hearts" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_xmtyj")
+position = Vector2(232, 168)
+scale = Vector2(0.1, 0.1)
+texture = SubResource("NoiseTexture2D_2j4sv")
