@@ -47,5 +47,6 @@ func change_state():
 
 
 func _on_activation_area_area_entered(area: Area2D) -> void:
-	print ("lamp change state") 
-	change_state()
+	if area.name == "HitBox":
+		print ("lamp change state") 
+		change_state()

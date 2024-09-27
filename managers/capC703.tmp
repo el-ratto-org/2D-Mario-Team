@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://bvdekxp50xm4b"]
+
+[ext_resource type="Script" path="res://managers/caption_manager.gd" id="1_sutae"]
+[ext_resource type="Texture2D" uid="uid://bh361ia5ckiok" path="res://assets/captions/YOU Failed.png" id="2_t15a0"]
+
+[node name="Manager" type="Node2D"]
+script = ExtResource("1_sutae")
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(648, 392)
+
+[node name="death" type="Node2D" parent="."]
+position = Vector2(656, 392)
+
+[node name="YouFailed" type="Sprite2D" parent="death"]
+modulate = Color(1, 1, 1, 0)
+texture = ExtResource("2_t15a0")
+
+[node name="background" type="ColorRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0.0823529, 0.054902, 0.0627451, 1)
