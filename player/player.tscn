@@ -322,7 +322,12 @@ wait_time = 0.391
 one_shot = true
 autostart = true
 
+[node name="FallingTimer" type="Timer" parent="DustFX"]
+wait_time = 0.216
+one_shot = true
+
 [connection signal="deal_damage" from="HitBox" to="." method="_on_hit_box_deal_damage"]
 [connection signal="player_jump" from="PlayerMovementController" to="DustFX" method="_on_player_movement_controller_player_jump"]
 [connection signal="take_damage" from="HealthComponent" to="." method="_on_health_component_take_damage"]
 [connection signal="timeout" from="DustFX/StepDustTimer" to="DustFX" method="_on_step_dust_timer_timeout"]
+[connection signal="timeout" from="DustFX/FallingTimer" to="DustFX" method="_on_falling_timer_timeout"]
