@@ -7,13 +7,12 @@ var current_velocity = Vector2.ZERO
 var target = null
 var target_found = false
 
+@onready var sprite = $Sprite2D
 
 func _ready() -> void:
-	gravity_scale = 0
 	var players = get_tree().get_nodes_in_group("Players")
 	target = players[0]
-
-
+	
 func _physics_process(delta: float) -> void:
 	if target_found:
 		var direction = global_position.direction_to(target.global_position)
@@ -24,6 +23,11 @@ func _physics_process(delta: float) -> void:
 		position += current_velocity * delta
 		look_at(global_position + current_velocity)
 
+func _process(delta: float) -> void:
+	if rotation_degrees >= 0:
+		sprite.flip_v = 1
+	else:
+		sprite.flip_v = 0
 
 func _on_hit_box_area_entered(area: Area2D) -> void:
 	# apply damage
