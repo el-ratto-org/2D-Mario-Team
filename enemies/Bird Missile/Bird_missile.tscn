@@ -11,7 +11,9 @@ size = Vector2(12, 22)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_81b8s"]
 
-[node name="RigidBody2D" type="RigidBody2D"]
+[node name="Bird Enemey" type="RigidBody2D"]
+rotation = 3.14159
+gravity_scale = 0.0
 script = ExtResource("1_qrhu7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -19,8 +21,10 @@ rotation = 1.5708
 shape = SubResource("RectangleShape2D_wk4hu")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
 texture = ExtResource("2_cf428")
 flip_h = true
+flip_v = true
 
 [node name="HitBox" type="Area2D" parent="."]
 collision_layer = 57
