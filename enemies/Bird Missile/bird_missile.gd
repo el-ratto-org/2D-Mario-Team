@@ -1,7 +1,7 @@
 extends RigidBody2D
 
-var lifetime = 3
-var max_speed = 250
+var lifetime = 10
+var max_speed = 100
 var drag_factor = 0.15
 var current_velocity = Vector2.ZERO
 var target = null
@@ -23,12 +23,12 @@ func _physics_process(delta: float) -> void:
 		position += current_velocity * delta
 		look_at(global_position + current_velocity)
 
-func _process(delta: float) -> void:
-	if rotation_degrees >= 0:
-		sprite.flip_v = 1
+func _process(delta: float) -> void:	
+	if abs(rotation_degrees) > 90:
+		sprite.flip_v = true
 	else:
-		sprite.flip_v = 0
-
+		sprite.flip_v = false
+		
 func _on_hit_box_area_entered(area: Area2D) -> void:
 	# apply damage
 	queue_free()
