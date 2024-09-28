@@ -1,12 +1,13 @@
 [gd_scene load_steps=6 format=3 uid="uid://ddpvte1jkpp6r"]
 
 [ext_resource type="Script" path="res://enemies/Bird Missile/bird_missile.gd" id="1_qrhu7"]
+[ext_resource type="Texture2D" uid="uid://cu4e6cd3a47r6" path="res://assets/sprites/characters/enemies/crow.png" id="2_cf428"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wk4hu"]
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_1vmb0"]
+size = Vector2(12, 22)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4t8ha"]
+size = Vector2(12, 22)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_81b8s"]
 
@@ -18,14 +19,15 @@ rotation = 1.5708
 shape = SubResource("RectangleShape2D_wk4hu")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(20, 20)
-texture = SubResource("PlaceholderTexture2D_1vmb0")
+texture = ExtResource("2_cf428")
+flip_h = true
 
 [node name="HitBox" type="Area2D" parent="."]
 collision_layer = 57
 collision_mask = 4
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(-7.65721e-06, -1.90735e-06)
 rotation = 1.5708
 shape = SubResource("RectangleShape2D_4t8ha")
 
