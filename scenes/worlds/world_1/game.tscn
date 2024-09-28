@@ -328,8 +328,8 @@ position = Vector2(242, 55)
 [node name="RockGolem" parent="." instance=ExtResource("14_dk4tq")]
 position = Vector2(106, 138)
 
-[node name="RigidBody2D" parent="." instance=ExtResource("22_4nmku")]
-position = Vector2(476, -191)
+[node name="Bird Enemey" parent="." instance=ExtResource("22_4nmku")]
+position = Vector2(816, -135)
 
 [node name="lamp" parent="." instance=ExtResource("20_e87sl")]
 position = Vector2(320, 96)

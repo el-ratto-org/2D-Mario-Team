@@ -1,7 +1,7 @@
 extends RigidBody2D
 
-var lifetime = 10
-var max_speed = 100
+var lifetime = 3
+var max_speed = 250
 var drag_factor = 0.15
 var current_velocity = Vector2.ZERO
 var target = null
