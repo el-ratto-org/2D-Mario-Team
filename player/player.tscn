@@ -1,7 +1,8 @@
-[gd_scene load_steps=44 format=3 uid="uid://crjeudwcdacco"]
+[gd_scene load_steps=45 format=3 uid="uid://crjeudwcdacco"]
 
 [ext_resource type="Script" path="res://player/input_manager.gd" id="1_41ch4"]
 [ext_resource type="Script" path="res://player/player_movement_controller.gd" id="1_78ula"]
+[ext_resource type="Material" uid="uid://uq6nbmy6mpwl" path="res://assets/shaders/damaged.tres" id="1_eh7wd"]
 [ext_resource type="PackedScene" uid="uid://b617nmvedrdmj" path="res://managers/inventory.tscn" id="3_0ikdi"]
 [ext_resource type="Texture2D" uid="uid://by87n5o5hpm3y" path="res://assets/sprites/characters/animations/idle/main_char_animations-idle-Sheet.png" id="3_cjboq"]
 [ext_resource type="FontFile" uid="uid://b3fp5g5ue1p3k" path="res://assets/fonts/dogica/TTF/dogica.ttf" id="3_p2aie"]
@@ -224,12 +225,14 @@ size = Vector2(10, 26)
 default_font = ExtResource("3_p2aie")
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("movement_controller")]
+material = ExtResource("1_eh7wd")
 collision_layer = 4
 script = ExtResource("1_41ch4")
 movement_controller = NodePath("PlayerMovementController")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
+material = ExtResource("1_eh7wd")
 position = Vector2(0, -1)
 sprite_frames = SubResource("SpriteFrames_sps2v")
 animation = &"run"
@@ -284,7 +287,7 @@ debug_color = Color(1, 0, 0, 0.419608)
 
 [node name="HurtBox" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
 collision_layer = 5
-collision_mask = 15
+collision_mask = 11
 script = ExtResource("6_7ypip")
 health_component = NodePath("../HealthComponent")
 damage_from = 0
@@ -294,6 +297,7 @@ position = Vector2(0, 3)
 shape = SubResource("RectangleShape2D_ck7dp")
 
 [node name="player_debug_header" type="Label" parent="."]
+visible = false
 offset_left = -29.0
 offset_top = -42.0
 offset_right = 540.0
@@ -313,6 +317,7 @@ character = NodePath("..")
 
 [node name="HealthComponent" type="Node2D" parent="."]
 script = ExtResource("5_hf0il")
+health = 2.0
 
 [node name="DustFX" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, 8)

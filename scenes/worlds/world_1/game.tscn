@@ -1,13 +1,14 @@
-[gd_scene load_steps=40 format=4 uid="uid://dytpj5md6fhq5"]
+[gd_scene load_steps=46 format=4 uid="uid://dytpj5md6fhq5"]
 
 [ext_resource type="Script" path="res://scenes/worlds/world_1/stage1.gd" id="1_agl4k"]
 [ext_resource type="PackedScene" uid="uid://crjeudwcdacco" path="res://player/player.tscn" id="1_wsuc6"]
 [ext_resource type="Texture2D" uid="uid://i47xjff5xiuo" path="res://assets/sprites/tiles/prac/animatedtile-Sheet.png" id="2_a4o5d"]
-[ext_resource type="PackedScene" path="res://assets/shaders/rain.tscn" id="2_k5dke"]
+[ext_resource type="PackedScene" uid="uid://ddf87s0y3fdv8" path="res://assets/shaders/rain.tscn" id="2_k5dke"]
+[ext_resource type="PackedScene" uid="uid://bvdekxp50xm4b" path="res://managers/caption_manager.tscn" id="2_ncl68"]
 [ext_resource type="PackedScene" uid="uid://bhffuihdjw2ps" path="res://enemies/goomba/goomba.tscn" id="2_xokhb"]
 [ext_resource type="TileSet" uid="uid://cf3y4libusnrq" path="res://assets/tilemaps/landmarks.tres" id="2_yihb5"]
 [ext_resource type="TileSet" uid="uid://ds33pryupto4x" path="res://assets/tilemaps/plants.tres" id="3_2m7yc"]
-[ext_resource type="PackedScene" path="res://assets/shaders/fog.tscn" id="3_7qxwk"]
+[ext_resource type="PackedScene" uid="uid://s8g34kjtosrr" path="res://assets/shaders/fog.tscn" id="3_7qxwk"]
 [ext_resource type="PackedScene" uid="uid://di7qr3yfd1odi" path="res://managers/MusicManager.tscn" id="3_c7t6s"]
 [ext_resource type="Script" path="res://fog/fog.gd" id="3_dmpnb"]
 [ext_resource type="PackedScene" uid="uid://ct1l81litlaf6" path="res://managers/SfxManager.tscn" id="3_mvg2t"]
@@ -25,6 +26,9 @@
 [ext_resource type="PackedScene" uid="uid://dnhal2hn4fj1b" path="res://world_parts/lamp/lamp.tscn" id="20_e87sl"]
 [ext_resource type="Shader" path="res://world_parts/lamp/portal.gdshader" id="21_o5kci"]
 [ext_resource type="PackedScene" uid="uid://ddpvte1jkpp6r" path="res://enemies/Bird Missile/Bird_missile.tscn" id="22_4nmku"]
+[ext_resource type="Shader" path="res://assets/shaders/godray.gdshader" id="23_fat8c"]
+[ext_resource type="PackedScene" uid="uid://pogof14sbaoe" path="res://hud/hearts/hearts.tscn" id="26_wr3tb"]
+[ext_resource type="Shader" path="res://assets/shaders/experiment.gdshader" id="28_2wm33"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_uctmw"]
 shader = ExtResource("3_mwsmo")
@@ -324,6 +328,25 @@ shader_parameter/pixel_amount = 85
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_kgxd3"]
 noise = SubResource("FastNoiseLite_3uarf")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tlbq4"]
+shader = ExtResource("23_fat8c")
+shader_parameter/angle = -0.05
+shader_parameter/position = -0.2
+shader_parameter/spread = 0.5
+shader_parameter/cutoff = 0.396
+shader_parameter/falloff = 0.02
+shader_parameter/edge_fade = 0.15
+shader_parameter/speed = 1.0
+shader_parameter/ray1_density = 8.0
+shader_parameter/ray2_density = 30.0
+shader_parameter/ray2_intensity = 0.3
+shader_parameter/color = Vector4(1, 0.9, 0.65, 0.32)
+shader_parameter/hdr = false
+shader_parameter/seed = 5.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1a6n4"]
+shader = ExtResource("28_2wm33")
+
 [node name="Stage 1" type="Node2D"]
 position = Vector2(-25, -269)
 script = ExtResource("1_agl4k")
@@ -466,7 +489,7 @@ position = Vector2(415, 103)
 position = Vector2(60, -110)
 
 [node name="door" parent="." instance=ExtResource("11_14ldn")]
-position = Vector2(242, 55)
+position = Vector2(224, 64)
 
 [node name="RockGolem" parent="." instance=ExtResource("14_dk4tq")]
 position = Vector2(106, 138)
@@ -478,6 +501,30 @@ position = Vector2(816, -135)
 position = Vector2(320, 96)
 
 [node name="portal" type="Sprite2D" parent="lamp"]
+visible = false
 material = SubResource("ShaderMaterial_g0hpu")
 position = Vector2(61, 18)
 texture = SubResource("NoiseTexture2D_kgxd3")
+
+[node name="godray" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_tlbq4")
+offset_left = 113.0
+offset_top = -675.0
+offset_right = 689.0
+offset_bottom = 117.0
+
+[node name="ui" type="CanvasLayer" parent="."]
+
+[node name="Hearts" parent="ui" instance=ExtResource("26_wr3tb")]
+
+[node name="caption_manager" parent="ui" instance=ExtResource("2_ncl68")]
+unique_name_in_owner = true
+z_index = 4096
+
+[node name="shader_testr" type="ColorRect" parent="ui"]
+visible = false
+z_index = 650
+material = SubResource("ShaderMaterial_1a6n4")
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0.959286, 0, 0.332655, 1)

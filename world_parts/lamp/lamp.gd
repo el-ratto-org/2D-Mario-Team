@@ -27,26 +27,49 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
-func change_state():
+func change_state(turning_on: bool):
 	var turn_off = null
 	var turn_on = null
 	
 	if activation_status == state.active:
-		print ("on -> off ", activation_status) 
-		turn_on = $Active
-		turn_off = $Inactive
-		activation_status = state.inactive
+		#print ("on -> off ", activation_status) 
+		turning_on = false
+		_turn_on()
 	else:
-		print ("off -> on ", activation_status) 
-		turn_on = $Inactive
-		turn_off = $Active
-		activation_status = state.active
+		#print ("off -> on ", activation_status) 
+		turning_on = true
+		_turn_off()
+	
+	
+	return turning_on
 
-	turn_on.hide() # Enable processing
-	turn_off.show() # Disable processing
+func _turn_on():
+		var turn_on = $Active
+		var turn_off = $Inactive
+		activation_status = state.inactive
+		
+		## change spawn point
+		
+		#sprites
+		turn_on.hide()
+		turn_off.show() 
+	
+func _turn_off():
+		var turn_on = $Inactive
+		var turn_off = $Active
+		activation_status = state.active
+		
+		#sprites
+		turn_on.hide()
+		turn_off.show() 
+
+	
 
 
 func _on_activation_area_area_entered(area: Area2D) -> void:
+	var is_turning_on = false
 	if area.name == "HitBox":
 		print ("lamp change state") 
-		change_state()
+		
+		if change_state(is_turning_on):
+			%caption_manager.lit()
