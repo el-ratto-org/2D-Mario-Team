@@ -1,38 +1,51 @@
-[gd_scene load_steps=5 format=3 uid="uid://ba37r2muk0n2q"]
+[gd_scene load_steps=7 format=3 uid="uid://ba37r2muk0n2q"]
 
-[ext_resource type="Texture2D" uid="uid://dvx1dp22b1iqu" path="res://assets/sprites/tiles/door.png" id="1_3uq3b"]
+[ext_resource type="Texture2D" uid="uid://b6yjeki8glf6r" path="res://assets/sprites/tiles/door.png" id="1_3uq3b"]
 [ext_resource type="Script" path="res://world_parts/Door/door.gd" id="1_50e4m"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_mrhfk"]
-size = Vector2(36, 82)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2fi3o"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_etjdj"]
 radius = 39.0
 height = 78.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_donad"]
+size = Vector2(25, 88)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ysohu"]
+size = Vector2(40, 88)
+
 [node name="door" type="StaticBody2D"]
 texture_filter = 1
+position = Vector2(0, -32)
 collision_layer = 9
 collision_mask = 4
 script = ExtResource("1_50e4m")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_2fi3o")
+position = Vector2(22, 0)
 texture = ExtResource("1_3uq3b")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_mrhfk")
-debug_color = Color(0.352436, 0.482756, 1, 0.42)
 
 [node name="Unlock_area" type="Area2D" parent="."]
 collision_layer = 8
 collision_mask = 4
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Unlock_area"]
+position = Vector2(24, 0)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_etjdj")
 
 [node name="Blocking_area" type="Area2D" parent="."]
 collision_layer = 15
 collision_mask = 7
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(31.5, -12)
+shape = SubResource("RectangleShape2D_donad")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(20, -12)
+shape = SubResource("RectangleShape2D_ysohu")
 
 [connection signal="area_entered" from="Unlock_area" to="." method="_on_unlock_area_area_entered"]

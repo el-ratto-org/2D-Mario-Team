@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://ky61qfmbcca1"]
+[gd_scene load_steps=14 format=3 uid="uid://ky61qfmbcca1"]
 
 [ext_resource type="Script" path="res://enemies/rock_golem/rock_golem_manager.gd" id="1_chbgr"]
 [ext_resource type="Script" path="res://enemies/scripts/enemy_controller.gd" id="1_pnddw"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://CombatComponents/HitBox.gd" id="3_ad1km"]
 [ext_resource type="Script" path="res://enemies/scripts/modular_behaviours/behaviours/charge.gd" id="3_ma71j"]
 [ext_resource type="Texture2D" uid="uid://bdit2ihq4xmyc" path="res://enemies/rock_golem/gloopus_base.png" id="3_nxl8h"]
+[ext_resource type="Material" uid="uid://uq6nbmy6mpwl" path="res://assets/shaders/damaged.tres" id="4_5cba5"]
 [ext_resource type="Script" path="res://enemies/scripts/modular_behaviours/behaviours/launch_projectile_at_player.gd" id="4_tuebx"]
 [ext_resource type="Script" path="res://CombatComponents/HurtBox.gd" id="4_wyl35"]
 [ext_resource type="Script" path="res://enemies/scripts/modular_behaviours/base_classes/enemy_physics.gd" id="8_n1ofw"]
@@ -14,7 +15,7 @@
 size = Vector2(35, 41)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hvbro"]
-size = Vector2(35, 41)
+size = Vector2(35, 33)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7uy5i"]
 size = Vector2(35, 41)
@@ -47,6 +48,7 @@ shape = SubResource("RectangleShape2D_mjn4d")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
+material = ExtResource("4_5cba5")
 texture = ExtResource("3_nxl8h")
 
 [node name="HealthComponent" type="Node2D" parent="."]
@@ -57,7 +59,7 @@ script = ExtResource("4_wyl35")
 health_component = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
-position = Vector2(-1.5, 4.5)
+position = Vector2(-1.5, 8.5)
 shape = SubResource("RectangleShape2D_hvbro")
 
 [node name="HitBox" type="Area2D" parent="."]
