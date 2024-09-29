@@ -1,5 +1,7 @@
 extends Node2D
 
+@export var player: Node2D
+
 # Prepare child nodes 
 @onready var plants_layer_1 : TileMapLayer = $"Plants(Layer1)"
 @onready var plants_layer_2 : TileMapLayer = $"Plants(Layer2)"
@@ -20,4 +22,4 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	material.set_shader_parameter("player_position", Vector2(0.5, 0.5))
