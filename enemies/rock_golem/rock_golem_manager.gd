@@ -2,6 +2,7 @@ extends EnemyBehaviourManager
 
 @export var charge_left: EnemyBehaviour
 @export var charge_right: EnemyBehaviour
+@export var through_boulder: EnemyBehaviour
 @export var charge_duration: float = 2
 var is_charging: bool = false
 var current_charge_behaviour: EnemyBehaviour
@@ -26,6 +27,8 @@ func _physics_process(delta: float) -> void:
 		timer.wait_time = charge_duration
 		timer.start()
 		is_charging = true
+	else:
+		through_boulder._run()
 	
 	if current_charge_behaviour != null:
 		current_charge_behaviour._run()

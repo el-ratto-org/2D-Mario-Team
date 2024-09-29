@@ -33,7 +33,7 @@ func _detect_hit(area: Area2D) -> void:
 	if hit_box.damage_type != damage_from:
 		if (hit_box.damage_type != HitBox.DamageType.EnemyAndPlayer) && (damage_from != HitBox.DamageType.EnemyAndPlayer):
 			return
-	
+	print(get_parent().name, "was hit by: ", hit_box.get_parent().name)
 	if hit_box.damage > 0:
 		if health_component != null:
 			health_component._take_damage(hit_box.damage)
