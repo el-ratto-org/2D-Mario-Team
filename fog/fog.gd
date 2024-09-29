@@ -22,4 +22,4 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	material.set_shader_parameter("player_position", Vector2(0.5, 0.5))
+	RenderingServer.global_shader_parameter_set("lantern_position", Vector2(0.5, 0.5))

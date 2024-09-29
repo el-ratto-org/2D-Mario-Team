@@ -141,3 +141,10 @@ common/physics_interpolation=true
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+
+[shader_globals]
+
+lantern_position={
+"type": "vec2",
+"value": Vector2(0.5, 0.5)
+}

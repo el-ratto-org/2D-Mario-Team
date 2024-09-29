@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=4 uid="uid://dytpj5md6fhq5"]
+[gd_scene load_steps=42 format=4 uid="uid://dytpj5md6fhq5"]
 
 [ext_resource type="Script" path="res://scenes/worlds/world_1/stage1.gd" id="1_agl4k"]
 [ext_resource type="PackedScene" uid="uid://crjeudwcdacco" path="res://player/player.tscn" id="1_wsuc6"]
@@ -25,10 +25,10 @@
 [ext_resource type="PackedScene" uid="uid://dnhal2hn4fj1b" path="res://world_parts/lamp/lamp.tscn" id="20_e87sl"]
 [ext_resource type="Shader" path="res://world_parts/lamp/portal.gdshader" id="21_o5kci"]
 [ext_resource type="PackedScene" uid="uid://ddpvte1jkpp6r" path="res://enemies/Bird Missile/Bird_missile.tscn" id="22_4nmku"]
+[ext_resource type="Shader" path="res://fog/fullscreen_fog.gdshader" id="26_kgl6q"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_uctmw"]
 shader = ExtResource("3_mwsmo")
-shader_parameter/player_position = null
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gu6yn"]
 texture = ExtResource("2_a4o5d")
@@ -317,6 +317,9 @@ shader_parameter/pixel_amount = 85
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_kgxd3"]
 noise = SubResource("FastNoiseLite_3uarf")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k86ln"]
+shader = ExtResource("26_kgl6q")
+
 [node name="Stage 1" type="Node2D"]
 position = Vector2(-25, -269)
 script = ExtResource("1_agl4k")
@@ -475,3 +478,14 @@ position = Vector2(320, 96)
 material = SubResource("ShaderMaterial_g0hpu")
 position = Vector2(61, 18)
 texture = SubResource("NoiseTexture2D_kgxd3")
+
+[node name="FogLayer" type="CanvasLayer" parent="."]
+layer = 5
+
+[node name="FullscreenFog" type="ColorRect" parent="FogLayer"]
+material = SubResource("ShaderMaterial_k86ln")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
