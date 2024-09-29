@@ -33,8 +33,8 @@ float circular_smooth(float dist, float smoothing) {
 void fragment() {
 	vec4 first = texture(TEXTURE, UV);
 	vec4 second = texture(TEXTURE, UV + vec2(0, .5));
-	first = vec4(1);
-	second = vec4(0, 0, 0, 1);
+	//first = vec4(1);
+	//second = vec4(0, 0, 0, 1);
 	//vec4 second = vec4(1, 0, 1, 1);
 	
 	float aspect = SCREEN_PIXEL_SIZE.x / SCREEN_PIXEL_SIZE.y;
