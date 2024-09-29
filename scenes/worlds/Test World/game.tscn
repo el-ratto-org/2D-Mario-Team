@@ -1,13 +1,13 @@
 [gd_scene load_steps=40 format=4 uid="uid://dytpj5md6fhq5"]
 
-[ext_resource type="Script" path="res://scenes/worlds/world_1/stage1.gd" id="1_agl4k"]
+[ext_resource type="Script" path="res://scenes/worlds/Test World/stage1.gd" id="1_agl4k"]
 [ext_resource type="PackedScene" uid="uid://crjeudwcdacco" path="res://player/player.tscn" id="1_wsuc6"]
 [ext_resource type="Texture2D" uid="uid://i47xjff5xiuo" path="res://assets/sprites/tiles/prac/animatedtile-Sheet.png" id="2_a4o5d"]
-[ext_resource type="PackedScene" path="res://assets/shaders/rain.tscn" id="2_k5dke"]
+[ext_resource type="PackedScene" uid="uid://ddf87s0y3fdv8" path="res://assets/shaders/rain.tscn" id="2_k5dke"]
 [ext_resource type="PackedScene" uid="uid://bhffuihdjw2ps" path="res://enemies/goomba/goomba.tscn" id="2_xokhb"]
 [ext_resource type="TileSet" uid="uid://cf3y4libusnrq" path="res://assets/tilemaps/landmarks.tres" id="2_yihb5"]
 [ext_resource type="TileSet" uid="uid://ds33pryupto4x" path="res://assets/tilemaps/plants.tres" id="3_2m7yc"]
-[ext_resource type="PackedScene" path="res://assets/shaders/fog.tscn" id="3_7qxwk"]
+[ext_resource type="PackedScene" uid="uid://s8g34kjtosrr" path="res://assets/shaders/fog.tscn" id="3_7qxwk"]
 [ext_resource type="PackedScene" uid="uid://di7qr3yfd1odi" path="res://managers/MusicManager.tscn" id="3_c7t6s"]
 [ext_resource type="Script" path="res://fog/fog.gd" id="3_dmpnb"]
 [ext_resource type="PackedScene" uid="uid://ct1l81litlaf6" path="res://managers/SfxManager.tscn" id="3_mvg2t"]
@@ -30,7 +30,7 @@
 shader = ExtResource("3_mwsmo")
 shader_parameter/player_position = null
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gu6yn"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kb33u"]
 texture = ExtResource("2_a4o5d")
 texture_region_size = Vector2i(32, 32)
 0:0/animation_frame_0/duration = 1.0
@@ -63,9 +63,9 @@ texture_region_size = Vector2i(32, 32)
 13:1/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_mgip4"]
-sources/0 = SubResource("TileSetAtlasSource_gu6yn")
+sources/0 = SubResource("TileSetAtlasSource_kb33u")
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4k306"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_n4s5c"]
 texture = ExtResource("5_p3t3i")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
@@ -183,7 +183,7 @@ texture_region_size = Vector2i(32, 32)
 1:2/0 = 0
 1:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yx4my"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_e3frh"]
 texture = ExtResource("8_crlep")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
@@ -262,7 +262,7 @@ texture_region_size = Vector2i(32, 32)
 4:5/0 = 0
 4:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bwl7l"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t7e77"]
 texture = ExtResource("6_i1die")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
@@ -275,7 +275,7 @@ texture_region_size = Vector2i(32, 32)
 2:0/0 = 0
 2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dxu81"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ai41p"]
 texture = ExtResource("6_1vgrr")
 texture_region_size = Vector2i(32, 32)
 use_texture_padding = false
@@ -289,10 +289,10 @@ use_texture_padding = false
 tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 7
 physics_layer_0/collision_mask = 7
-sources/4 = SubResource("TileSetAtlasSource_dxu81")
-sources/0 = SubResource("TileSetAtlasSource_4k306")
-sources/3 = SubResource("TileSetAtlasSource_bwl7l")
-sources/1 = SubResource("TileSetAtlasSource_yx4my")
+sources/4 = SubResource("TileSetAtlasSource_ai41p")
+sources/0 = SubResource("TileSetAtlasSource_n4s5c")
+sources/3 = SubResource("TileSetAtlasSource_t7e77")
+sources/1 = SubResource("TileSetAtlasSource_e3frh")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lcegv"]
 shader = ExtResource("8_g8qrq")
@@ -397,7 +397,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 color = Color(0, 1, 1, 1)
 
-[node name="Player" parent="." groups=["Players"] instance=ExtResource("1_wsuc6")]
+[node name="Player" parent="." instance=ExtResource("1_wsuc6")]
 position = Vector2(505, -48)
 
 [node name="Settings" parent="Player" instance=ExtResource("16_24ddp")]
