@@ -224,7 +224,7 @@ size = Vector2(10, 26)
 [sub_resource type="Theme" id="Theme_hyf61"]
 default_font = ExtResource("3_p2aie")
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("movement_controller")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("movement_controller") groups=["Players"]]
 material = ExtResource("1_eh7wd")
 collision_layer = 4
 script = ExtResource("1_41ch4")
