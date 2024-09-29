@@ -1,7 +1,6 @@
-[gd_resource type="TileSet" load_steps=5 format=3 uid="uid://cf3y4libusnrq"]
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://cf3y4libusnrq"]
 
 [ext_resource type="Texture2D" uid="uid://cbxfsurd0o4dd" path="res://assets/sprites/tiles/land_marks.png" id="1_e6orb"]
-[ext_resource type="Texture2D" uid="uid://b2g0p85tlgqeu" path="res://assets/sprites/tiles/holy_land_marks.png" id="2_lx032"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sy3ih"]
 texture = ExtResource("1_e6orb")
@@ -33,16 +32,8 @@ texture_region_size = Vector2i(32, 32)
 2:0/0 = 0
 2:2/0 = 0
 3:0/0 = 0
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_au6rv"]
-texture = ExtResource("2_lx032")
-texture_region_size = Vector2i(32, 32)
-0:0/0 = 0
-1:0/0 = 0
-2:0/0 = 0
-3:0/0 = 0
+2:4/0 = 0
 
 [resource]
 tile_size = Vector2i(32, 32)
 sources/0 = SubResource("TileSetAtlasSource_sy3ih")
-sources/1 = SubResource("TileSetAtlasSource_au6rv")
