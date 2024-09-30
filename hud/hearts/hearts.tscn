@@ -1,5 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://pogof14sbaoe"]
+[gd_scene load_steps=11 format=3 uid="uid://pogof14sbaoe"]
 
+[ext_resource type="Script" path="res://hud/hearts/hearts.gd" id="1_i14r1"]
 [ext_resource type="Shader" path="res://assets/shaders/liquid.gdshader" id="1_kleik"]
 [ext_resource type="Shader" path="res://hud/hearts/liquid_2.gdshader" id="2_ho0wn"]
 [ext_resource type="Texture2D" uid="uid://dy0vp5hadav85" path="res://assets/ui/vial.png" id="2_i3ub5"]
@@ -48,6 +49,7 @@ offset_right = 16.0
 offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_i14r1")
 
 [node name="Node2D" type="Node2D" parent="."]
 visible = false
@@ -79,9 +81,9 @@ position = Vector2(104, 152)
 scale = Vector2(16, 16)
 texture = ExtResource("3_0bj0k")
 
-[node name="Node" type="Node2D" parent="."]
+[node name="idea_1" type="Node2D" parent="."]
 
-[node name="ColorRect" type="ColorRect" parent="Node"]
+[node name="ColorRect" type="ColorRect" parent="idea_1"]
 visible = false
 offset_left = 72.0
 offset_top = 71.0
@@ -89,20 +91,21 @@ offset_right = 184.0
 offset_bottom = 183.0
 color = Color(0, 0, 0, 1)
 
-[node name="blodo" type="Sprite2D" parent="Node"]
+[node name="health_container" type="Sprite2D" parent="idea_1"]
+unique_name_in_owner = true
 material = SubResource("ShaderMaterial_y5iss")
 position = Vector2(152, 160)
 scale = Vector2(0.1, 0.1)
 texture = SubResource("NoiseTexture2D_2j4sv")
 
-[node name="Sprite2D" type="Sprite2D" parent="Node"]
+[node name="Sprite2D" type="Sprite2D" parent="idea_1"]
 visible = false
 material = SubResource("ShaderMaterial_xmtyj")
 position = Vector2(128, 128)
 scale = Vector2(0.05, 0.05)
 texture = SubResource("NoiseTexture2D_2j4sv")
 
-[node name="Circle" type="Sprite2D" parent="Node"]
+[node name="Circle" type="Sprite2D" parent="idea_1"]
 texture_filter = 1
 position = Vector2(152, 160)
 texture = ExtResource("5_g50b0")

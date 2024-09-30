@@ -19,7 +19,7 @@ size = Vector2(32, 31)
 size = Vector2(30, 4.625)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_76orl"]
-size = Vector2(126, 39)
+size = Vector2(32, 27)
 
 [node name="Goomba" type="CharacterBody2D"]
 material = ExtResource("6_l7e6x")
@@ -63,10 +63,12 @@ script = ExtResource("5_y0ftw")
 [node name="HurtBox" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
 script = ExtResource("4_lagrl")
 health_component = NodePath("../HealthComponent")
+head_hurtbox = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 position = Vector2(0, -19)
 shape = SubResource("RectangleShape2D_bemg5")
+one_way_collision = true
 debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
 [node name="HitBox" type="Area2D" parent="."]
@@ -75,8 +77,8 @@ detection_mode = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 z_index = -1600
-position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_eskq7")
+disabled = true
 debug_color = Color(1, 0, 0, 0.419608)
 
 [node name="HitBox2" type="Area2D" parent="."]
@@ -84,7 +86,6 @@ script = ExtResource("3_lynn6")
 detection_mode = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox2"]
-position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_76orl")
 debug_color = Color(1, 0, 0, 0.419608)
 

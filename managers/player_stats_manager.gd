@@ -4,6 +4,7 @@ extends Node
 var player
 var player_position
 var caption_manager
+var player_health
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

@@ -17,7 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://dxm5rmnwv0bc4" path="res://assets/sprites/tiles/tilesheet_test.png" id="15_acvmr"]
 [ext_resource type="Texture2D" uid="uid://cgd7rot7vyg77" path="res://assets/sprites/tiles/brick_alt.png" id="16_kltic"]
 [ext_resource type="Texture2D" uid="uid://dlf604h38fp2i" path="res://assets/sprites/tiles/brick_spike_sheet.png" id="17_2ng5f"]
-[ext_resource type="Texture2D" uid="uid://dvx1dp22b1iqu" path="res://assets/sprites/tiles/door.png" id="18_s0c3w"]
+[ext_resource type="Texture2D" uid="uid://dvx1dp22b1iqu" path="res://assets/sprites/tiles/door_old.png" id="18_s0c3w"]
 [ext_resource type="Texture2D" uid="uid://ldnx8x3sdgbj" path="res://assets/sprites/tiles/ground.png" id="19_8syto"]
 [ext_resource type="Texture2D" uid="uid://b2g0p85tlgqeu" path="res://assets/sprites/tiles/holy_land_marks.png" id="20_66f37"]
 [ext_resource type="Texture2D" uid="uid://bppodjjfsetbt" path="res://assets/sprites/tiles/holy_plants-Sheet.png" id="21_la523"]
