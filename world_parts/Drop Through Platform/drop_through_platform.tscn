@@ -9,7 +9,6 @@ size = Vector2(64, 8)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ppe6y"]
 shader = ExtResource("2_j3k3q")
-shader_parameter/player_position = null
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yft05"]
 size = Vector2(64, 11)
