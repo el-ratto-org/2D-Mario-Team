@@ -3,12 +3,12 @@
 [ext_resource type="Script" path="res://scenes/worlds/Test World/stage1.gd" id="1_agl4k"]
 [ext_resource type="PackedScene" uid="uid://crjeudwcdacco" path="res://player/player.tscn" id="1_wsuc6"]
 [ext_resource type="Texture2D" uid="uid://i47xjff5xiuo" path="res://assets/sprites/tiles/prac/animatedtile-Sheet.png" id="2_a4o5d"]
-[ext_resource type="PackedScene" path="res://assets/shaders/rain.tscn" id="2_k5dke"]
+[ext_resource type="PackedScene" uid="uid://ddf87s0y3fdv8" path="res://assets/shaders/rain.tscn" id="2_k5dke"]
 [ext_resource type="PackedScene" uid="uid://bvdekxp50xm4b" path="res://managers/caption_manager.tscn" id="2_ncl68"]
 [ext_resource type="PackedScene" uid="uid://bhffuihdjw2ps" path="res://enemies/goomba/goomba.tscn" id="2_xokhb"]
 [ext_resource type="TileSet" uid="uid://cf3y4libusnrq" path="res://assets/tilemaps/landmarks.tres" id="2_yihb5"]
 [ext_resource type="TileSet" uid="uid://ds33pryupto4x" path="res://assets/tilemaps/plants.tres" id="3_2m7yc"]
-[ext_resource type="PackedScene" path="res://assets/shaders/fog.tscn" id="3_7qxwk"]
+[ext_resource type="PackedScene" uid="uid://s8g34kjtosrr" path="res://assets/shaders/fog.tscn" id="3_7qxwk"]
 [ext_resource type="PackedScene" uid="uid://di7qr3yfd1odi" path="res://managers/MusicManager.tscn" id="3_c7t6s"]
 [ext_resource type="Script" path="res://fog/fog.gd" id="3_dmpnb"]
 [ext_resource type="PackedScene" uid="uid://ct1l81litlaf6" path="res://managers/SfxManager.tscn" id="3_mvg2t"]
@@ -486,7 +486,7 @@ position = Vector2(512, 8)
 position = Vector2(415, 103)
 
 [node name="key" parent="." instance=ExtResource("10_do5es")]
-position = Vector2(60, -110)
+position = Vector2(70, -109)
 
 [node name="door" parent="." instance=ExtResource("11_14ldn")]
 position = Vector2(224, 64)

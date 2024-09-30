@@ -391,7 +391,6 @@ position = Vector2(3803, -21)
 
 [node name="key" parent="." instance=ExtResource("12_55qr5")]
 position = Vector2(-168, -112)
-amplitude = 0.04
 
 [node name="door" parent="." instance=ExtResource("10_4p45i")]
 position = Vector2(1616, -23)

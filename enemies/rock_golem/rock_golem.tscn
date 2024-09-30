@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://ky61qfmbcca1"]
+[gd_scene load_steps=15 format=3 uid="uid://ky61qfmbcca1"]
 
 [ext_resource type="Script" path="res://enemies/rock_golem/rock_golem_manager.gd" id="1_chbgr"]
 [ext_resource type="Script" path="res://enemies/scripts/enemy_controller.gd" id="1_pnddw"]
@@ -6,13 +6,54 @@
 [ext_resource type="Script" path="res://CombatComponents/HitBox.gd" id="3_ad1km"]
 [ext_resource type="Script" path="res://enemies/scripts/modular_behaviours/behaviours/charge.gd" id="3_ma71j"]
 [ext_resource type="Texture2D" uid="uid://bdit2ihq4xmyc" path="res://enemies/rock_golem/gloopus_base.png" id="3_nxl8h"]
-[ext_resource type="Material" uid="uid://uq6nbmy6mpwl" path="res://assets/shaders/damaged.tres" id="4_5cba5"]
 [ext_resource type="Script" path="res://enemies/scripts/modular_behaviours/behaviours/launch_projectile_at_player.gd" id="4_tuebx"]
 [ext_resource type="Script" path="res://CombatComponents/HurtBox.gd" id="4_wyl35"]
 [ext_resource type="Script" path="res://enemies/scripts/modular_behaviours/base_classes/enemy_physics.gd" id="8_n1ofw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mjn4d"]
 size = Vector2(35, 41)
+
+[sub_resource type="Shader" id="Shader_8l5ni"]
+code = "shader_type canvas_item;
+
+uniform int start_frame = 0;
+uniform int current_frame = 0;
+uniform float mix_ratio = 1.0;
+
+const vec3 colors[6] = vec3[] (
+	vec3(1.0, 0.0, 0.0), // Red
+	vec3(0.5, 0.0, 0.0), // Dark red
+	vec3(0.0, 0.0, 0.0), // Black
+	vec3(0.0, 0.0, 1.0), // Blue
+	vec3(0.0, 0.0, 0.5), // Dark blue
+	vec3(0.0, 0.0, 0.0)  // Black
+);
+
+void fragment() {
+	// https://en.wikipedia.org/wiki/Rec._709#Luma_coefficients
+	float brightness = dot(COLOR.rgb, vec3(0.2126, 0.7152, 0.0722));
+
+	// Calculate the starting frame based on brightness
+	int offset = 0;
+	if (brightness > 0.75) {
+		offset = 2;
+	} else if (brightness > 0.25) {
+		offset = 1;
+	}
+
+	// Get the color, wrapping around at the end of the array
+	int color_index = (start_frame + current_frame + offset) % colors.length();
+	vec3 color = colors[color_index];
+
+	// Apply the color to the sprite
+	COLOR = vec4(mix(COLOR.rgb, color, mix_ratio), COLOR.a);
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uoygx"]
+shader = SubResource("Shader_8l5ni")
+shader_parameter/start_frame = 1
+shader_parameter/current_frame = 0
+shader_parameter/mix_ratio = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hvbro"]
 size = Vector2(35, 33)
@@ -48,7 +89,7 @@ shape = SubResource("RectangleShape2D_mjn4d")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
-material = ExtResource("4_5cba5")
+material = SubResource("ShaderMaterial_uoygx")
 texture = ExtResource("3_nxl8h")
 
 [node name="HealthComponent" type="Node2D" parent="."]

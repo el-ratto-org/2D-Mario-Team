@@ -8,14 +8,15 @@ signal healed
 signal die
 
 @export var health: float = 1
-@export var invulnerability_duration: float = 0.1
+@export var invulnerability_duration: float = 2
 
 var max_health
 var invulnerability_time: float = 0
 
-@export var damage_flash_duration = 0.1
+@export var damage_flash_duration: float = 2
 var damage_flash_time = damage_flash_duration
 var currently_flashing = false
+var damage_frame_counter: int = 1
 
 @onready var player_sprite = $"../AnimatedSprite2D"
 @onready var caption_manager = %caption_manager
@@ -36,10 +37,12 @@ func _process(delta: float) -> void:
 	if invulnerability_time > 0:
 		invulnerability_time -= delta
 		
-	if damage_flash_time >= 0:
+	if damage_flash_time >= 0: # if remaning flashing time
 		damage_flash_time -= delta
-	elif currently_flashing == true:
+		#update_flash_frame()
+	elif currently_flashing == true: # if out of time but still flashing
 		hit_shader(false)
+		#reset_flash_frame()
 		
 	if Input.is_action_just_pressed("debug"):
 		_take_damage(0.5)
@@ -95,12 +98,22 @@ func hit_shader(on: bool):
 			player_sprite.material.set_shader_parameter("mix_ratio", 1.0)
 			damage_flash_time = damage_flash_duration
 			currently_flashing = true
+			
+			
 	else:
 		if player_sprite != null:
 			player_sprite.material.set_shader_parameter("mix_ratio", 0.0)
 			currently_flashing = false
 		# Optionally, you can add logic for other effects, like changing the color
 		# sprite.material.set_shader_param("your_param_name", value)
+	
+func update_flash_frame(): 
+	if player_sprite != null:
+		player_sprite.material.set_shader_parameter("current_frame", damage_frame_counter/10)
+		damage_frame_counter += 1
+	
+func reset_flash_frame():
+	damage_frame_counter = 1
 	
 func _heal(heal_amount: float) -> void:
 	health += heal_amount

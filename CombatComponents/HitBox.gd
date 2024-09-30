@@ -10,7 +10,6 @@ signal deal_damage
 @export var reflects_projectiles = false
 @export var hit_time_pause = 0
 @export var reflect_time_pause = 0
-@export var bouncy = false
 
 var is_active: bool = false
 

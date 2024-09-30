@@ -8,13 +8,14 @@ extends Node2D
 
 # Internal variable to track time
 var time: float = 0.0
-var start_position: Vector2
+var start_position
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	var door_code = "aqua"
+	var door_code = door_code
 	var used = false
 	
+	var start_position: Vector2 = position
 	var pickup_area = $Pickup_area
 
 
@@ -27,7 +28,8 @@ func _process(delta: float):
 	var bob_offset: float = sin(time * frequency * TAU) * amplitude
 
 	# Apply the bobbing motion to the key's Y position
-	position.y = start_position.y + bob_offset
+	print (position.y)
+	position.y += bob_offset
 		
 # This function is called when another body enters the pickup area
 func _on_pickup_area_area_entered(body: Node) -> void:
