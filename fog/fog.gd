@@ -12,14 +12,13 @@ const HOLY_SOURCE_ID = 1
 
 var tile_pos = Vector2i(17,-1)
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	#var atlas_pos = plants_layer_1.get_cell_atlas_coords(tile_pos)
-	#print(atlas_pos)
-	#plants_layer_1.set_cell(Vector2i(17,-1), HOLY_SOURCE_ID, atlas_pos)
-	pass # Replace with function body.
+	pass
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	RenderingServer.global_shader_parameter_set("lantern_position", Vector2(0.5, 0.5))
+	var viewport_size = get_viewport_rect().size
+	var camera_center = get_viewport().get_camera_2d().get_screen_center_position()
+	var screen_position = (player.global_position - camera_center) * 2 / viewport_size + Vector2(0.5, 0.5)
+	
+	RenderingServer.global_shader_parameter_set("lantern_position", screen_position)

@@ -11,5 +11,5 @@ void fragment() {
 	float aspect = SCREEN_PIXEL_SIZE.x / SCREEN_PIXEL_SIZE.y;
 	float weight = linear_weight(distance(SCREEN_UV * vec2(1, aspect), lantern_position * vec2(1, aspect)), 0.1, 0.4);
 	float interpolated = circular_smooth(weight, 1.5);
-    COLOR = mix(col, vec4(0, 0, 0, 0.5), interpolated + rand(SCREEN_UV) * 0.05);
+    COLOR = mix(col, col * vec4(0.7, 0.7, 0.7, 1), interpolated + rand(SCREEN_UV) * 0.05);
 }
