@@ -11,8 +11,11 @@ var sprite_flip = false
 var timer_between_step_completed = false # This is used to check if this FX manager is allowed to place a step (
 var air_timer_completed = false
 
+#Player stats
+var recent_ground_location = Vector2(0,0)
 
 func _process(delta: float) -> void:
+	
 	if step_conditions_met():
 		dust_step("step")
 	
@@ -66,6 +69,12 @@ func spawn_vfx(animation_name, position, flipped:bool):
 	get_tree().root.add_child(new_sprite)
 		
 	
+func player_floored():
+	if $"../PlayerMovementController".grounded:
+		return true
+	else:
+		return false
+	
 	
 	# Timers #
 	
@@ -83,10 +92,15 @@ func _on_falling_timer_timeout() -> void:
 	
 func _on_player_movement_controller_player_jump() -> void:
 	var player_x_velocity = $"../PlayerMovementController".character.velocity.x
-	if player_x_velocity < 100 and player_x_velocity > -100:
-		anim_type = "jump_straight"
+	print(player_x_velocity)
+	if not player_floored():
+		anim_type = "jump_air"
 	else:
-		anim_type = "jump_angle"
+		
+		if player_x_velocity < 100 and player_x_velocity > -100:
+			anim_type = "jump_straight"
+		else:
+			anim_type = "jump_angle"
 	
 	if $"../PlayerMovementController".character.velocity.x > 100:
 		sprite_flip = true

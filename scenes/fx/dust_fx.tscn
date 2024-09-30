@@ -1,10 +1,39 @@
-[gd_scene load_steps=39 format=3 uid="uid://bl4xvdi46qk57"]
+[gd_scene load_steps=47 format=3 uid="uid://bl4xvdi46qk57"]
 
 [ext_resource type="Texture2D" uid="uid://gl7bgwjt6et0" path="res://assets/sprites/fx/jump_angle_FX-Sheet.png" id="1_5ra6l"]
+[ext_resource type="Texture2D" uid="uid://cnulul2dml2mr" path="res://assets/sprites/fx/jump_mid_airFX-Sheet.png" id="1_wch15"]
 [ext_resource type="Script" path="res://scenes/fx/dust_fx.gd" id="2_8e117"]
 [ext_resource type="Texture2D" uid="uid://bmgpik4wixtxh" path="res://assets/sprites/fx/jump_FX-Sheet.png" id="2_hojfg"]
 [ext_resource type="Texture2D" uid="uid://cq7qn8hcolwc1" path="res://assets/sprites/fx/step_fx-Sheet.png" id="3_oi8cc"]
 [ext_resource type="Texture2D" uid="uid://bbivu0nvv2qxn" path="res://assets/sprites/fx/landing_fx-Sheet.png" id="3_yg0on"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_metru"]
+atlas = ExtResource("1_wch15")
+region = Rect2(0, 0, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_88ypu"]
+atlas = ExtResource("1_wch15")
+region = Rect2(20, 0, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_abu25"]
+atlas = ExtResource("1_wch15")
+region = Rect2(40, 0, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y7osy"]
+atlas = ExtResource("1_wch15")
+region = Rect2(60, 0, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j2pw4"]
+atlas = ExtResource("1_wch15")
+region = Rect2(80, 0, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tc006"]
+atlas = ExtResource("1_wch15")
+region = Rect2(100, 0, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nid6t"]
+atlas = ExtResource("1_wch15")
+region = Rect2(120, 0, 20, 20)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wtrvw"]
 atlas = ExtResource("1_5ra6l")
@@ -138,6 +167,32 @@ region = Rect2(120, 0, 20, 20)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_metru")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_88ypu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_abu25")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y7osy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j2pw4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tc006")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nid6t")
+}],
+"loop": false,
+"name": &"jump_air",
+"speed": 16.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_wtrvw")
 }, {
 "duration": 1.0,
@@ -256,9 +311,7 @@ animations = [{
 [node name="DustFx" type="AnimatedSprite2D"]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_1m3mw")
-animation = &"landing_fx"
-frame = 10
-frame_progress = 1.0
+animation = &"jump_air"
 script = ExtResource("2_8e117")
 
 [connection signal="animation_finished" from="." to="." method="_on_animation_finished"]
