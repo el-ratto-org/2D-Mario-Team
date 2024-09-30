@@ -10,6 +10,6 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	#self.text = ("velocity X : " + (str( $"../PlayerMovementController".character.velocity.x).pad_decimals(1)))
-	self.text = ("Falling timer : " + str($"../DustFX/FallingTimer".time_left))
+	self.text = (" : " + str($"../DustFX".recent_ground_location))
 	
 	pass
