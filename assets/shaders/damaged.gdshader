@@ -2,7 +2,7 @@ shader_type canvas_item;
 
 uniform int start_frame = 0;
 uniform int current_frame = 0;
-uniform float mix_ratio = 1.0;
+uniform float mix_ratio = 0.0;
 
 const vec3 colors[6] = vec3[] (
 	vec3(1.0, 0.0, 0.0), // Red

@@ -34,6 +34,12 @@ var jumped: bool = false
 var auto_jump_time: float = 0
 var jump_grace_time: float = 0
 
+# Dash vars
+var dash_duration: float = 1
+var dash_time = 0
+var dash_cd: float = 1
+var dash_speed_boost: float = 1.5
+
 # Connections
 @onready var bottom_left_ray: RayCast2D = $"../CollisionShape2D/BottomLeft"
 @onready var bottom_right_ray: RayCast2D = $"../CollisionShape2D/BottomRight"

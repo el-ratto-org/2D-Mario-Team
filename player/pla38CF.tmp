@@ -1,10 +1,9 @@
-[gd_scene load_steps=47 format=3 uid="uid://crjeudwcdacco"]
+[gd_scene load_steps=45 format=3 uid="uid://crjeudwcdacco"]
 
 [ext_resource type="Script" path="res://player/input_manager.gd" id="1_41ch4"]
 [ext_resource type="Script" path="res://player/player_movement_controller.gd" id="1_78ula"]
 [ext_resource type="Material" uid="uid://uq6nbmy6mpwl" path="res://assets/shaders/damaged.tres" id="1_eh7wd"]
 [ext_resource type="PackedScene" uid="uid://b617nmvedrdmj" path="res://managers/inventory.tscn" id="3_0ikdi"]
-[ext_resource type="Shader" path="res://assets/shaders/damaged.gdshader" id="3_7ip2u"]
 [ext_resource type="Texture2D" uid="uid://by87n5o5hpm3y" path="res://assets/sprites/characters/animations/idle/main_char_animations-idle-Sheet.png" id="3_cjboq"]
 [ext_resource type="FontFile" uid="uid://b3fp5g5ue1p3k" path="res://assets/fonts/dogica/TTF/dogica.ttf" id="3_p2aie"]
 [ext_resource type="Script" path="res://scenes/worlds/Test World/player_animations.gd" id="4_muvw0"]
@@ -16,12 +15,6 @@
 [ext_resource type="Texture2D" uid="uid://b3uavxhn06vpl" path="res://assets/sprites/characters/animations/run/main_char_animations-run-Sheet.png" id="13_qlqpo"]
 [ext_resource type="Texture2D" uid="uid://da26n2hxo0i7s" path="res://assets/sprites/characters/animations/jump/main_char_animations-jump-Sheet.png" id="14_pc42x"]
 [ext_resource type="Script" path="res://player/dust_fx.gd" id="17_w4phm"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_wqq23"]
-shader = ExtResource("3_7ip2u")
-shader_parameter/start_frame = 1
-shader_parameter/current_frame = 0
-shader_parameter/mix_ratio = 0.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_apm60"]
 atlas = ExtResource("12_0l8f1")
@@ -239,7 +232,7 @@ movement_controller = NodePath("PlayerMovementController")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
-material = SubResource("ShaderMaterial_wqq23")
+material = ExtResource("1_eh7wd")
 position = Vector2(0, -1)
 sprite_frames = SubResource("SpriteFrames_sps2v")
 animation = &"run"

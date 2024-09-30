@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=4 uid="uid://eyv6uveq0q8w"]
+[gd_scene load_steps=26 format=4 uid="uid://eyv6uveq0q8w"]
 
 [ext_resource type="PackedScene" uid="uid://crjeudwcdacco" path="res://player/player.tscn" id="1_6ahel"]
 [ext_resource type="PackedScene" uid="uid://s8g34kjtosrr" path="res://assets/shaders/fog.tscn" id="1_8mnw5"]
@@ -18,7 +18,6 @@
 [ext_resource type="PackedScene" uid="uid://b2f388v087to8" path="res://world_parts/key/key.tscn" id="12_55qr5"]
 [ext_resource type="PackedScene" uid="uid://pogof14sbaoe" path="res://hud/hearts/hearts.tscn" id="15_qk36j"]
 [ext_resource type="PackedScene" uid="uid://bvdekxp50xm4b" path="res://managers/caption_manager.tscn" id="15_viswo"]
-[ext_resource type="PackedScene" uid="uid://fweg21w3smum" path="res://fog/fog_layer.tscn" id="19_kbin2"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3s74n"]
 shader = ExtResource("2_5uqgo")
@@ -29,6 +28,7 @@ shader_parameter/blur_samples = 15
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mw0ft"]
 shader = ExtResource("2_vlq2a")
+shader_parameter/player_position = null
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gw2dj"]
 texture = ExtResource("6_jtbe4")
@@ -287,10 +287,9 @@ color = Color(0, 1, 1, 1)
 [node name="Player" parent="." instance=ExtResource("1_6ahel")]
 position = Vector2(-328, -32)
 
-[node name="Tiles" type="Node2D" parent="." node_paths=PackedStringArray("player")]
+[node name="Tiles" type="Node2D" parent="."]
 material = SubResource("ShaderMaterial_mw0ft")
 script = ExtResource("3_c0grq")
-player = NodePath("../Player")
 
 [node name="Landmarks (NO COLLISION)" type="TileMapLayer" parent="Tiles"]
 texture_filter = 1
@@ -392,7 +391,6 @@ position = Vector2(3803, -21)
 
 [node name="key" parent="." instance=ExtResource("12_55qr5")]
 position = Vector2(-168, -112)
-amplitude = 0.04
 
 [node name="door" parent="." instance=ExtResource("10_4p45i")]
 position = Vector2(1616, -23)
@@ -415,5 +413,3 @@ position = Vector2(1680, -248)
 
 [node name="Manager" parent="CanvasLayer" instance=ExtResource("15_viswo")]
 visible = false
-
-[node name="FogLayer" parent="." instance=ExtResource("19_kbin2")]
