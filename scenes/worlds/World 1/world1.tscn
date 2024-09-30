@@ -1,6 +1,8 @@
-[gd_scene load_steps=21 format=4 uid="uid://eyv6uveq0q8w"]
+[gd_scene load_steps=26 format=4 uid="uid://eyv6uveq0q8w"]
 
 [ext_resource type="PackedScene" uid="uid://crjeudwcdacco" path="res://player/player.tscn" id="1_6ahel"]
+[ext_resource type="PackedScene" uid="uid://s8g34kjtosrr" path="res://assets/shaders/fog.tscn" id="1_8mnw5"]
+[ext_resource type="Shader" path="res://assets/shaders/VHS.gdshader" id="2_5uqgo"]
 [ext_resource type="Shader" path="res://fog/fog.gdshader" id="2_vlq2a"]
 [ext_resource type="Script" path="res://fog/fog.gd" id="3_c0grq"]
 [ext_resource type="TileSet" uid="uid://cf3y4libusnrq" path="res://assets/tilemaps/landmarks.tres" id="4_4pxbd"]
@@ -14,6 +16,15 @@
 [ext_resource type="PackedScene" uid="uid://bvlrt2gatd3qn" path="res://world_parts/Drop Through Platform/drop_through_platform.tscn" id="10_rd7oa"]
 [ext_resource type="PackedScene" uid="uid://bhffuihdjw2ps" path="res://enemies/goomba/goomba.tscn" id="11_gsnct"]
 [ext_resource type="PackedScene" uid="uid://b2f388v087to8" path="res://world_parts/key/key.tscn" id="12_55qr5"]
+[ext_resource type="PackedScene" uid="uid://pogof14sbaoe" path="res://hud/hearts/hearts.tscn" id="15_qk36j"]
+[ext_resource type="PackedScene" uid="uid://bvdekxp50xm4b" path="res://managers/caption_manager.tscn" id="15_viswo"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3s74n"]
+shader = ExtResource("2_5uqgo")
+shader_parameter/wiggle = 0.03
+shader_parameter/wiggle_speed = 25.0
+shader_parameter/smear = 1.0
+shader_parameter/blur_samples = 15
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mw0ft"]
 shader = ExtResource("2_vlq2a")
@@ -250,8 +261,31 @@ sources/1 = SubResource("TileSetAtlasSource_mrnnn")
 
 [node name="Node2D" type="Node2D"]
 
+[node name="BG (Should replace with World Envrionment)" type="CanvasLayer" parent="."]
+layer = -128
+
+[node name="Fog" parent="BG (Should replace with World Envrionment)" instance=ExtResource("1_8mnw5")]
+position = Vector2(-3, -124)
+
+[node name="ColorRect2" type="ColorRect" parent="BG (Should replace with World Envrionment)"]
+modulate = Color(0.152941, 0.152941, 0.223529, 1)
+z_index = -4096
+layout_direction = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VHS" type="ColorRect" parent="BG (Should replace with World Envrionment)"]
+visible = false
+material = SubResource("ShaderMaterial_3s74n")
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0, 1, 1, 1)
+
 [node name="Player" parent="." instance=ExtResource("1_6ahel")]
-position = Vector2(3795, -95)
+position = Vector2(-328, -32)
 
 [node name="Tiles" type="Node2D" parent="."]
 material = SubResource("ShaderMaterial_mw0ft")
@@ -271,6 +305,7 @@ tile_set = ExtResource("5_3hlt6")
 metadata/_edit_group_ = true
 
 [node name="Plants(Layer1)" type="TileMapLayer" parent="Tiles"]
+visible = false
 texture_filter = 1
 use_parent_material = true
 tile_set = ExtResource("5_3hlt6")
@@ -371,3 +406,10 @@ position = Vector2(1679, -160)
 
 [node name="Throughplatform4" parent="." instance=ExtResource("10_rd7oa")]
 position = Vector2(1680, -248)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Hearts" parent="CanvasLayer" instance=ExtResource("15_qk36j")]
+
+[node name="Manager" parent="CanvasLayer" instance=ExtResource("15_viswo")]
+visible = false

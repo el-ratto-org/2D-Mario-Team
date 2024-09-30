@@ -3,6 +3,13 @@ class_name HurtBox
 
 @export var health_component: HealthComponent
 @export var damage_from: HitBox.DamageType = HitBox.DamageType.Player
+@export var head_hurtbox = false
+
+enum AttackType { # Ensure this is updated to be the same in hitbox script
+	Melee,
+	Projectile,
+	Jumping,
+}
 
 
 # Called when the node enters the scene tree for the first time.
@@ -37,3 +44,9 @@ func _detect_hit(area: Area2D) -> void:
 	if hit_box.damage > 0:
 		if health_component != null:
 			health_component._take_damage(hit_box.damage)
+			
+			# bounce the entity upwards if it's a head jump and has method
+			var entity = hit_box.get_owner()
+			if head_hurtbox and area.attack_type == AttackType.Jumping:
+				if entity.has_method("player_bounced"):
+					entity.player_bounced()

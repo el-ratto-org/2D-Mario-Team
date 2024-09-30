@@ -13,7 +13,6 @@ signal die
 var max_health
 var invulnerability_time: float = 0
 
-
 @export var damage_flash_duration = 0.1
 var damage_flash_time = damage_flash_duration
 var currently_flashing = false
@@ -23,11 +22,15 @@ var currently_flashing = false
 
 @onready var take_damage_shader = load("res://assets/shaders/damaged.tres")
 
+var is_player
 
 func _ready() -> void:
 	max_health = health
 
 	var player_sprite = get_player_sprite()
+
+	if self.get_parent().name == "Player":
+		is_player = true
 
 func _process(delta: float) -> void:
 	if invulnerability_time > 0:
@@ -58,10 +61,13 @@ func _take_damage(damage: float) -> void:
 	
 	# Detect death
 	if health <= 0:
-		PlayerStatsManager.caption_manager.death()
+		if is_player:
+			PlayerStatsManager.caption_manager.death()
 		emit_signal("die")
 	
 	hit_shader(true)
+	
+	_update_health_in_global_manager()
 	
 func get_player_sprite() -> Node:
 	# Get the player node (parent of HealthComponent)
@@ -102,3 +108,10 @@ func _heal(heal_amount: float) -> void:
 	
 	emit_signal("healed")
 	emit_signal("health_changed")
+	
+	_update_health_in_global_manager()
+	
+func _update_health_in_global_manager():
+	if is_player:
+		PlayerStatsManager.player_health = health
+		
