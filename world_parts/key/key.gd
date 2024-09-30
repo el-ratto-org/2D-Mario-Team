@@ -28,7 +28,6 @@ func _process(delta: float):
 	var bob_offset: float = sin(time * frequency * TAU) * amplitude
 
 	# Apply the bobbing motion to the key's Y position
-	print (position.y)
 	position.y += bob_offset
 		
 # This function is called when another body enters the pickup area

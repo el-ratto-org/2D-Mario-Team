@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=4 uid="uid://dytpj5md6fhq5"]
+[gd_scene load_steps=46 format=4 uid="uid://dytpj5md6fhq5"]
 
 [ext_resource type="Script" path="res://scenes/worlds/Test World/stage1.gd" id="1_agl4k"]
 [ext_resource type="PackedScene" uid="uid://crjeudwcdacco" path="res://player/player.tscn" id="1_wsuc6"]
@@ -10,7 +10,6 @@
 [ext_resource type="TileSet" uid="uid://ds33pryupto4x" path="res://assets/tilemaps/plants.tres" id="3_2m7yc"]
 [ext_resource type="PackedScene" uid="uid://s8g34kjtosrr" path="res://assets/shaders/fog.tscn" id="3_7qxwk"]
 [ext_resource type="PackedScene" uid="uid://di7qr3yfd1odi" path="res://managers/MusicManager.tscn" id="3_c7t6s"]
-[ext_resource type="Script" path="res://fog/fog.gd" id="3_dmpnb"]
 [ext_resource type="PackedScene" uid="uid://ct1l81litlaf6" path="res://managers/SfxManager.tscn" id="3_mvg2t"]
 [ext_resource type="Shader" path="res://fog/fog.gdshader" id="3_mwsmo"]
 [ext_resource type="Texture2D" uid="uid://clkntq76m2ev2" path="res://assets/sprites/tiles/tilesheet_test2.png" id="5_p3t3i"]
@@ -355,10 +354,8 @@ script = ExtResource("1_agl4k")
 visible = false
 z_index = 3615
 
-[node name="Tiles" type="Node2D" parent="." node_paths=PackedStringArray("player")]
+[node name="Tiles" type="Node2D" parent="."]
 material = SubResource("ShaderMaterial_uctmw")
-script = ExtResource("3_dmpnb")
-player = NodePath("../Player")
 
 [node name="TEST" type="TileMapLayer" parent="Tiles"]
 texture_filter = 1
