@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://ddpvte1jkpp6r"]
+[gd_scene load_steps=7 format=3 uid="uid://ddpvte1jkpp6r"]
 
 [ext_resource type="Script" path="res://enemies/Bird Missile/bird_missile.gd" id="1_qrhu7"]
 [ext_resource type="Texture2D" uid="uid://cu4e6cd3a47r6" path="res://assets/sprites/characters/enemies/crow.png" id="2_cf428"]
+[ext_resource type="Material" path="res://assets/shaders/damaged.tres" id="2_fcjuq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wk4hu"]
 size = Vector2(12, 22)
@@ -22,6 +23,7 @@ shape = SubResource("RectangleShape2D_wk4hu")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
+material = ExtResource("2_fcjuq")
 texture = ExtResource("2_cf428")
 flip_h = true
 flip_v = true

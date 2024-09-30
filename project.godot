@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="2D Mario Team"
-run/main_scene="res://scenes/worlds/world_1/game.tscn"
+run/main_scene="res://scenes/worlds/World 1/world1.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
 

@@ -3,8 +3,6 @@ extends Node
 @export var movement_controller: PlayerMovementController
 @onready var inventory = $Inventory
 
-
-
 # Movement variables
 var horizontal_axis
 
@@ -65,6 +63,8 @@ func _process_movement(delta: float) -> void:
 func get_inventory():
 	return inventory
 
+func player_bounced() -> void:
+	movement_controller.jump()
 
 func _on_health_component_take_damage() -> void:
 	print("Player was hit")

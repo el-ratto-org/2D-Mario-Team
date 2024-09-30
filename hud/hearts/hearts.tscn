@@ -1,20 +1,20 @@
-[gd_scene load_steps=5 format=3 uid="uid://pogof14sbaoe"]
+[gd_scene load_steps=11 format=3 uid="uid://pogof14sbaoe"]
 
+[ext_resource type="Script" path="res://hud/hearts/hearts.gd" id="1_i14r1"]
 [ext_resource type="Shader" path="res://assets/shaders/liquid.gdshader" id="1_kleik"]
+[ext_resource type="Shader" path="res://hud/hearts/liquid_2.gdshader" id="2_ho0wn"]
+[ext_resource type="Texture2D" uid="uid://dy0vp5hadav85" path="res://assets/ui/vial.png" id="2_i3ub5"]
+[ext_resource type="Texture2D" uid="uid://ddldpwrdqtx3i" path="res://assets/ui/vial_outer.png" id="3_0bj0k"]
+[ext_resource type="Texture2D" uid="uid://desa2sf7orjy" path="res://assets/ui/circle.png" id="5_g50b0"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xmtyj"]
-shader = ExtResource("1_kleik")
-shader_parameter/backFillColour = Color(0.62, 1, 1, 1)
-shader_parameter/frontFillInnerColour = Color(0.35, 1, 1, 1)
-shader_parameter/frontFillOuterColour = Color(0, 0.35, 1, 1)
-shader_parameter/ringColour = Color(0, 0.16, 0.13, 1)
-shader_parameter/fresnelColour = Color(0, 0.88, 1, 1)
-shader_parameter/innerRingGlowColour = Color(0, 0, 0, 1)
-shader_parameter/fillcolour = Color(1, 1, 1, 1)
-shader_parameter/ringWidth = -12.915
-shader_parameter/innerCircleRadiusOffset = 0.0
-shader_parameter/fill_per = 1.0
-shader_parameter/resolution = 32.0
+shader = ExtResource("2_ho0wn")
+shader_parameter/progress = 0.5
+shader_parameter/bg_color = Color(0.556863, 0.670588, 0.745098, 1)
+shader_parameter/wave_1_color = Color(0.647059, 0.188235, 0.188235, 1)
+shader_parameter/wave_2_color = Color(0.470588, 0.0352941, 0.0196078, 1)
+shader_parameter/wave_1_speed = -1.0
+shader_parameter/wave_2_speed = 1.0
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_6iw4o"]
 
@@ -24,16 +24,88 @@ height = 2048
 seamless = true
 noise = SubResource("FastNoiseLite_6iw4o")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y5iss"]
+shader = ExtResource("1_kleik")
+shader_parameter/backFillColour = Color(0.63, 0, 0, 1)
+shader_parameter/frontFillInnerColour = Color(0.996078, 0.121569, 0.0941176, 1)
+shader_parameter/frontFillOuterColour = Color(0.38, 0.0457267, 0.0342, 1)
+shader_parameter/ringColour = Color(0, 0, 0, 1)
+shader_parameter/fresnelColour = Color(0, 0, 0, 1)
+shader_parameter/innerRingGlowColour = Color(0, 0, 0, 1)
+shader_parameter/fillcolour = Color(1, 1, 1, 1)
+shader_parameter/ringWidth = 0.05
+shader_parameter/innerCircleRadiusOffset = 0.0
+shader_parameter/fill_per = 0.525
+shader_parameter/resolution = 64.0
+
 [node name="Hearts" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 8.0
+offset_right = 16.0
+offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_i14r1")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Node2D" type="Node2D" parent="."]
+visible = false
+
+[node name="Vial" type="Sprite2D" parent="Node2D"]
+texture_filter = 1
+position = Vector2(104, 152)
+scale = Vector2(16, 16)
+texture = ExtResource("2_i3ub5")
+
+[node name="blood" type="ColorRect" parent="Node2D"]
+offset_left = 88.0
+offset_top = 128.0
+offset_right = 120.0
+offset_bottom = 224.0
+color = Color(0.47, 0.03384, 0.0188, 1)
+
+[node name="test" type="Sprite2D" parent="Node2D"]
+z_index = 525
 material = SubResource("ShaderMaterial_xmtyj")
-position = Vector2(232, 168)
+position = Vector2(104, 128)
+scale = Vector2(0.015625, 0.0176074)
+texture = SubResource("NoiseTexture2D_2j4sv")
+
+[node name="VialOuter" type="Sprite2D" parent="Node2D"]
+z_index = 2865
+texture_filter = 1
+position = Vector2(104, 152)
+scale = Vector2(16, 16)
+texture = ExtResource("3_0bj0k")
+
+[node name="idea_1" type="Node2D" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="idea_1"]
+visible = false
+offset_left = 72.0
+offset_top = 71.0
+offset_right = 184.0
+offset_bottom = 183.0
+color = Color(0, 0, 0, 1)
+
+[node name="health_container" type="Sprite2D" parent="idea_1"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_y5iss")
+position = Vector2(152, 160)
 scale = Vector2(0.1, 0.1)
 texture = SubResource("NoiseTexture2D_2j4sv")
+
+[node name="Sprite2D" type="Sprite2D" parent="idea_1"]
+visible = false
+material = SubResource("ShaderMaterial_xmtyj")
+position = Vector2(128, 128)
+scale = Vector2(0.05, 0.05)
+texture = SubResource("NoiseTexture2D_2j4sv")
+
+[node name="Circle" type="Sprite2D" parent="idea_1"]
+texture_filter = 1
+position = Vector2(152, 160)
+texture = ExtResource("5_g50b0")

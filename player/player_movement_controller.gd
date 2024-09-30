@@ -98,9 +98,11 @@ func calculate_vertical_movement(delta: float):
 	# Remember that we were on the floor `x` seconds ago
 	if character.is_on_floor():
 		jump_grace_time = jump_grace
+		grounded = true
+	else:
+		grounded = false
 
 	var floored = jump_grace_time > 0
-	grounded = floored
 
 	# Velocity with fast-falling
 	character.velocity.y = clamp(

@@ -1,10 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://bvlrt2gatd3qn"]
+[gd_scene load_steps=7 format=3 uid="uid://bvlrt2gatd3qn"]
 
 [ext_resource type="Script" path="res://world_parts/Drop Through Platform/drop_through_platform.gd" id="1_qqyc8"]
-[ext_resource type="Texture2D" uid="uid://bc1gm271kqew8" path="res://assets/sprites/tiles/platform.png" id="2_g1r2c"]
+[ext_resource type="Shader" path="res://fog/fog.gdshader" id="2_j3k3q"]
+[ext_resource type="Texture2D" uid="uid://chtborb2s1pvy" path="res://assets/sprites/tiles/platform-Sheet.png" id="3_qqpsd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x1mn8"]
 size = Vector2(64, 8)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ppe6y"]
+shader = ExtResource("2_j3k3q")
+shader_parameter/player_position = null
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yft05"]
 size = Vector2(64, 11)
@@ -18,8 +23,12 @@ one_way_collision = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
+material = SubResource("ShaderMaterial_ppe6y")
 position = Vector2(-1.2219e-06, 0)
-texture = ExtResource("2_g1r2c")
+texture = ExtResource("3_qqpsd")
+region_enabled = true
+region_rect = Rect2(0, 0, 64, 13.015)
+region_filter_clip_enabled = true
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 52

@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://fweg21w3smum"]
+
+[ext_resource type="Shader" path="res://fog/fullscreen_fog.gdshader" id="1_1p40c"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j0155"]
+shader = ExtResource("1_1p40c")
+
+[node name="FogLayer" type="CanvasLayer"]
+layer = 5
+
+[node name="FullscreenFog" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_j0155")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
