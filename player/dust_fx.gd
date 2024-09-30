@@ -1,5 +1,7 @@
 extends AnimatedSprite2D
 
+signal landed
+
 # Preloaded scenes
 var animated_sprite_scene = preload("res://scenes/fx/dust_fx.tscn")
 
@@ -22,6 +24,7 @@ func _process(delta: float) -> void:
 	if landing_conditions_met():
 		air_timer_completed = false
 		spawn_vfx("landing_fx", self.global_position, sprite_flip)
+		landed.emit()
 	
 	if start_falling_timer_condition_met():
 		$FallingTimer.start()
