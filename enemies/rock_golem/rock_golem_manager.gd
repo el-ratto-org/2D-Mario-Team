@@ -27,8 +27,11 @@ func _physics_process(delta: float) -> void:
 		timer.wait_time = charge_duration
 		timer.start()
 		is_charging = true
-	else:
+	elif !is_charging:
 		through_boulder._run()
+		timer.wait_time = charge_duration
+		timer.start()
+		is_charging = true
 	
 	if current_charge_behaviour != null:
 		current_charge_behaviour._run()

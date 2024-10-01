@@ -349,7 +349,6 @@ shader_parameter/seed = 5.0
 shader = ExtResource("28_2wm33")
 
 [node name="Stage 1" type="Node2D"]
-position = Vector2(-25, -269)
 script = ExtResource("1_agl4k")
 
 [node name="Shader" parent="." instance=ExtResource("2_k5dke")]
@@ -400,7 +399,7 @@ metadata/_edit_group_ = true
 layer = -128
 
 [node name="Fog" parent="BG (Should replace with World Envrionment)" instance=ExtResource("3_7qxwk")]
-position = Vector2(-3, -124)
+position = Vector2(2, -123)
 
 [node name="ColorRect2" type="ColorRect" parent="BG (Should replace with World Envrionment)"]
 modulate = Color(0.152941, 0.152941, 0.223529, 1)

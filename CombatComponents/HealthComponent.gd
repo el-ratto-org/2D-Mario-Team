@@ -84,7 +84,7 @@ func get_player_sprite() -> Node:
 		
 		# Check if the AnimatedSprite2D is valid
 		if animated_sprite and animated_sprite is AnimatedSprite2D:
-			print ("flag")
+			#print ("flag")
 			return animated_sprite
 		elif sprite and sprite is Sprite2D:
 			return sprite
