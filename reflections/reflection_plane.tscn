@@ -1,12 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://dxl7odrj806wq"]
+[gd_scene load_steps=4 format=3 uid="uid://bnyq2q53tlbja"]
 
 [ext_resource type="Shader" path="res://reflections/reflective.gdshader" id="1_l533t"]
+[ext_resource type="Script" path="res://reflections/reflection_plane.gd" id="2_8htq3"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_m31ci"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jtstp"]
 shader = ExtResource("1_l533t")
+shader_parameter/surface_y = 0.5
+shader_parameter/reflection_strength = 1.0
 
 [node name="ReflectionPlane" type="ColorRect"]
-material = SubResource("ShaderMaterial_m31ci")
-offset_left = -360.0
-offset_right = -9.0
-offset_bottom = 46.0
+material = SubResource("ShaderMaterial_jtstp")
+offset_left = -150.0
+offset_right = 136.0
+offset_bottom = 360.0
+script = ExtResource("2_8htq3")

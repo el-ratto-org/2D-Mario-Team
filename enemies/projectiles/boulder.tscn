@@ -1,16 +1,55 @@
-[gd_scene load_steps=4 format=3 uid="uid://ctgh7sjolo85m"]
+[gd_scene load_steps=8 format=3 uid="uid://ctgh7sjolo85m"]
 
 [ext_resource type="Script" path="res://enemies/scripts/projectile_physics.gd" id="1_afme5"]
-[ext_resource type="Texture2D" uid="uid://cga821fnee43i" path="res://icon.svg" id="2_7txc8"]
+[ext_resource type="Texture2D" uid="uid://dpk08f7ui4ih4" path="res://enemies/projectiles/boulder.png" id="2_0lyml"]
+[ext_resource type="Script" path="res://CombatComponents/HitBox.gd" id="3_wsnx7"]
+[ext_resource type="Script" path="res://random_components/despawner.gd" id="4_v5xoy"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3ulq8"]
 
-[node name="Boulder" type="RigidBody2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_wye4x"]
+
+[sub_resource type="Gradient" id="Gradient_3w0my"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.1, 0.3, 0.5, 0.7, 0.9)
+colors = PackedColorArray(0.0823529, 0.054902, 0.0627451, 1, 0.152941, 0.152941, 0.223529, 1, 0.223529, 0.219608, 0.286275, 1, 0.231373, 0.254902, 0.321569, 1, 0.309804, 0.352941, 0.392157, 1, 0.466667, 0.533333, 0.54902, 1)
+metadata/_snap_enabled = true
+
+[node name="Boulder" type="RigidBody2D" groups=["Projectiles"]]
+contact_monitor = true
+max_contacts_reported = 1
 script = ExtResource("1_afme5")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("2_7txc8")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(0.8, 0.8)
 shape = SubResource("CircleShape2D_3ulq8")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_0lyml")
+
+[node name="HitBox" type="Area2D" parent="."]
+script = ExtResource("3_wsnx7")
+attack_type = 1
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="HitBox"]
+scale = Vector2(0.9, 0.9)
+shape = SubResource("CircleShape2D_wye4x")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 20
+one_shot = true
+explosiveness = 1.0
+spread = 180.0
+initial_velocity_min = 100.0
+initial_velocity_max = 200.0
+scale_amount_min = 2.0
+scale_amount_max = 2.0
+color_initial_ramp = SubResource("Gradient_3w0my")
+
+[node name="Despawner" type="Timer" parent="CPUParticles2D"]
+script = ExtResource("4_v5xoy")
+start_on_ready = false
+
+[connection signal="deal_damage" from="HitBox" to="." method="_on_hit_box_deal_damage"]
