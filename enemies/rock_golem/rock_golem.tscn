@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://ky61qfmbcca1"]
+[gd_scene load_steps=16 format=3 uid="uid://ky61qfmbcca1"]
 
 [ext_resource type="Script" path="res://enemies/rock_golem/rock_golem_manager.gd" id="1_chbgr"]
 [ext_resource type="Script" path="res://enemies/scripts/enemy_controller.gd" id="1_pnddw"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bdit2ihq4xmyc" path="res://enemies/rock_golem/gloopus_base.png" id="3_nxl8h"]
 [ext_resource type="Script" path="res://enemies/scripts/modular_behaviours/behaviours/launch_projectile_at_player.gd" id="4_tuebx"]
 [ext_resource type="Script" path="res://CombatComponents/HurtBox.gd" id="4_wyl35"]
+[ext_resource type="PackedScene" uid="uid://ctgh7sjolo85m" path="res://enemies/projectiles/boulder.tscn" id="5_h0ho3"]
 [ext_resource type="Script" path="res://enemies/scripts/modular_behaviours/base_classes/enemy_physics.gd" id="8_n1ofw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mjn4d"]
@@ -64,24 +65,30 @@ size = Vector2(35, 41)
 [node name="RockGolem" type="CharacterBody2D"]
 script = ExtResource("1_pnddw")
 
-[node name="EnemyBehaviourManager" type="Node" parent="." node_paths=PackedStringArray("charge_left", "charge_right", "through_boulder", "character")]
+[node name="EnemyBehaviourManager" type="Node2D" parent="." node_paths=PackedStringArray("charge_left", "charge_right", "through_boulder", "character")]
 script = ExtResource("1_chbgr")
 charge_left = NodePath("ChargeLeft")
 charge_right = NodePath("ChargeRight")
 through_boulder = NodePath("LaunchProjectileAtPlayer")
 character = NodePath("..")
 
-[node name="ChargeLeft" type="Node" parent="EnemyBehaviourManager"]
+[node name="ChargeLeft" type="Node2D" parent="EnemyBehaviourManager"]
 script = ExtResource("3_ma71j")
-speed = 200.0
+speed = 500.0
 
-[node name="ChargeRight" type="Node" parent="EnemyBehaviourManager"]
+[node name="ChargeRight" type="Node2D" parent="EnemyBehaviourManager"]
 script = ExtResource("3_ma71j")
-speed = 200.0
+speed = 500.0
 direction = 1
 
-[node name="LaunchProjectileAtPlayer" type="Node" parent="EnemyBehaviourManager"]
+[node name="LaunchProjectileAtPlayer" type="Node2D" parent="EnemyBehaviourManager"]
 script = ExtResource("4_tuebx")
+projectile = ExtResource("5_h0ho3")
+max_speed = null
+min_height = null
+
+[node name="Marker2D" type="Marker2D" parent="EnemyBehaviourManager/LaunchProjectileAtPlayer"]
+position = Vector2(0, -32)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1.5, 4.5)

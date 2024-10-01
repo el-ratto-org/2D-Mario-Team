@@ -1,39 +1,121 @@
 extends RigidBody2D
 class_name Projectile
 
-@export var projectile_speed: float = 800
-@export var gravity: float = 800
-@export var min_height: float = 100
+@export var lifetime: float = 5
+@export var despawn_on_collision: bool = true
+@export var collision_particles: CPUParticles2D
 
-var projectile: CharacterBody2D
+# set from other scripts
+var max_speed: float
+var destination: Vector2
+var min_height: float
+var launch_when_ready = false
+
+# internal variables
+var ready_to_launch = false
+var reset_state = false
+var starting_position: Vector2
+
+var gravity: float
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	var node = get_parent()
-	while node is not CharacterBody2D:
-		if node == get_tree().root:
-			printerr("Error: Gravity nod not child of CharacterBody2D")
-			return
-		node = node.get_parent()
-	projectile = node as CharacterBody2D
+	gravity = gravity_scale * ProjectSettings.get_setting("physics/2d/default_gravity")
+	if !contact_monitor && max_contacts_reported <= 0:
+		contact_monitor = true
+		max_contacts_reported = 1
 
+func _set_start_position(position: Vector2) -> void:
+	# reset
+	starting_position = position
+	reset_state = true
 
-func _set_destination(destination: Vector2) -> void:
+func _begin_launch() -> void:
 	# calculate launch angle and other variables
-	var x_difference = abs(projectile.position.x - destination.x)
-	var y_difference = abs(projectile.position.y - destination.y)
-	var travel_time = sqrt(2*y_difference/gravity) + sqrt(2*min_height/gravity)
-	var rad_angle = acos(x_difference / (travel_time * projectile_speed))
-	var launch_direction = Vector2(cos(rad_angle), sin(rad_angle))
-	var launch_velocity = launch_direction * projectile_speed
+	var damp = max(linear_damp, ProjectSettings.get_setting("physics/2d/default_linear_damp"))
+	#print("damp: ", damp)
+	var x_difference = abs(global_position.x - destination.x)
+	var y_difference = abs(global_position.y - destination.y)
+	var time_up = sqrt(-2 * min((destination.y - global_position.y) - min_height, -min_height) / gravity)
+	var time_down = sqrt(-2 * min((global_position.y - destination.y) - min_height, -min_height) / gravity)
+	var travel_time = time_up + time_down
+	var desired_x_speed = (x_difference / travel_time) * sign(destination.x - global_position.x)
+	var desired_y_speed = (gravity * time_up) * -1
+	var launch_velocity = Vector2(desired_x_speed, desired_y_speed)
+	
+	# fix for lineaer damping
+	var full_physics_steps = Engine.physics_ticks_per_second * travel_time
+	#var up_physics_steps = Engine.physics_ticks_per_second * time_up
+	var full_damped_velocity_percentage = pow(1 - ((damp * (x_difference / sqrt(pow(x_difference, 2) + pow((y_difference + min_height * 2), 2)))) / Engine.physics_ticks_per_second), full_physics_steps)
+	#var up_damped_velocity_percentage = pow(1 - ((damp/2) / Engine.physics_ticks_per_second), up_physics_steps)
+	launch_velocity.x = launch_velocity.x / full_damped_velocity_percentage
+	#launch_velocity.y = launch_velocity.y / up_damped_velocity_percentage
+	#print("full_damped_velocity_percentage: ", full_damped_velocity_percentage)
+	
+	# clamp to max speed
+	launch_velocity = launch_velocity.normalized() * min(launch_velocity.length(), max_speed)
+	
+	#print("x_difference: ", x_difference)
+	#print("y_difference: ", y_difference)
+	#print("time_up time: ", time_up)
+	#print("time_down time: ", time_down)
+	#print("travel_time time: ", travel_time)
+	#print("desired_x_speed: ", desired_x_speed)
+	#print("desired_y_speed: ", desired_y_speed)
+	#print("launch_velocity: ", launch_velocity)
+	#print("Begin Launch, starting position: ", global_position, ", destionation: ", destination)
 	
 	# launch
 	_launch_with_velocity(launch_velocity)
 
-func _launch_with_velocity(velocity: Vector2) -> void:
-	projectile.velocity = velocity
+func _launch_with_velocity(launch_velocity: Vector2) -> void:
+	#apply_central_impulse(launch_velocity)
+	linear_velocity = launch_velocity
+	#print("Launch velocity: ", launch_velocity)
 
 
 func _physics_process(delta: float) -> void:
-	projectile.velocity.y = projectile.velocity.y + gravity * delta
-	projectile.move_and_slide()
+	if launch_when_ready && ready_to_launch:
+		launch_when_ready = false
+		ready_to_launch = false
+		_begin_launch()
+	
+	# Die after life time
+	lifetime -= delta
+	if lifetime <= 0:
+		queue_free()
+	
+	# Die on collision
+	if get_colliding_bodies().size() > 0:
+		_despawn()
+
+func _integrate_forces(state):
+	if global_position.distance_to(starting_position) < 10:
+		reset_state = false
+		ready_to_launch = true
+	
+	if reset_state:
+		state.transform = Transform2D(0.0, starting_position)
+		physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_INHERIT
+
+
+
+func _on_hit_box_deal_damage() -> void:
+	_despawn()
+
+func _despawn() -> void:
+	# spawn any child particle systems
+	for child in get_children():
+		if child is CPUParticles2D:
+			var position = child.global_position
+			remove_child(child)
+			get_tree().current_scene.add_child(child)
+			child.global_position = position
+			child.emitting = true
+			# trigger particles to despawn
+			for despawner in child.get_children():
+				if despawner is Despawner:
+					despawner._start_timer()
+	
+	# delete 
+	queue_free()
