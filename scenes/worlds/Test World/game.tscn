@@ -28,7 +28,7 @@
 [ext_resource type="Shader" path="res://assets/shaders/godray.gdshader" id="23_fat8c"]
 [ext_resource type="PackedScene" uid="uid://pogof14sbaoe" path="res://hud/hearts/hearts.tscn" id="26_wr3tb"]
 [ext_resource type="Shader" path="res://assets/shaders/experiment.gdshader" id="28_2wm33"]
-[ext_resource type="PackedScene" uid="uid://fweg21w3smum" path="res://fog/fog_layer.tscn" id="30_jyc0l"]
+[ext_resource type="PackedScene" path="res://fog/fog_layer.tscn" id="30_jyc0l"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_uctmw"]
 shader = ExtResource("3_mwsmo")
@@ -144,7 +144,9 @@ texture_region_size = Vector2i(32, 32)
 2:6/0 = 0
 4:6/0 = 0
 5:6/0 = 0
+5:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 6:6/0 = 0
+6:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 7:6/0 = 0
 8:6/0 = 0
 9:6/0 = 0

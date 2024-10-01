@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=4 uid="uid://eyv6uveq0q8w"]
+[gd_scene load_steps=28 format=4 uid="uid://eyv6uveq0q8w"]
 
 [ext_resource type="PackedScene" uid="uid://crjeudwcdacco" path="res://player/player.tscn" id="1_6ahel"]
 [ext_resource type="PackedScene" path="res://assets/shaders/fog.tscn" id="1_8mnw5"]
@@ -6,6 +6,7 @@
 [ext_resource type="Shader" path="res://fog/fog.gdshader" id="2_vlq2a"]
 [ext_resource type="TileSet" uid="uid://cf3y4libusnrq" path="res://assets/tilemaps/landmarks.tres" id="4_4pxbd"]
 [ext_resource type="TileSet" uid="uid://ds33pryupto4x" path="res://assets/tilemaps/plants.tres" id="5_3hlt6"]
+[ext_resource type="Texture2D" uid="uid://c4o04cmohbefq" path="res://assets/sprites/background_elements/skull_landscape.png" id="5_i7bet"]
 [ext_resource type="Texture2D" uid="uid://clkntq76m2ev2" path="res://assets/sprites/tiles/tilesheet_test2.png" id="6_jtbe4"]
 [ext_resource type="Texture2D" uid="uid://dvgty18vhdnrl" path="res://assets/sprites/tiles/holy_tilesheet_test2.png" id="7_1rgy7"]
 [ext_resource type="Texture2D" uid="uid://dk1hrp5xhois5" path="res://assets/sprites/tiles/misc_tiles.png" id="8_bvlja"]
@@ -17,7 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://b2f388v087to8" path="res://world_parts/key/key.tscn" id="12_55qr5"]
 [ext_resource type="PackedScene" uid="uid://pogof14sbaoe" path="res://hud/hearts/hearts.tscn" id="15_qk36j"]
 [ext_resource type="PackedScene" uid="uid://bvdekxp50xm4b" path="res://managers/caption_manager.tscn" id="15_viswo"]
-[ext_resource type="PackedScene" uid="uid://fweg21w3smum" path="res://fog/fog_layer.tscn" id="19_kbin2"]
+[ext_resource type="PackedScene" path="res://fog/fog_layer.tscn" id="19_kbin2"]
 [ext_resource type="PackedScene" path="res://fog/lantern.tscn" id="19_yhx4n"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3s74n"]
@@ -289,6 +290,18 @@ position = Vector2(-328, -32)
 
 [node name="Tiles" type="Node2D" parent="."]
 material = SubResource("ShaderMaterial_mw0ft")
+
+[node name="UniqueLandmarks" type="Node2D" parent="Tiles"]
+z_index = -411
+use_parent_material = true
+
+[node name="SkullLandmark" type="Sprite2D" parent="Tiles/UniqueLandmarks"]
+texture_filter = 1
+use_parent_material = true
+position = Vector2(-34, -25)
+texture = ExtResource("5_i7bet")
+region_enabled = true
+region_rect = Rect2(0, 0, 70, 50)
 
 [node name="Landmarks (NO COLLISION)" type="TileMapLayer" parent="Tiles"]
 texture_filter = 1
