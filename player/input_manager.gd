@@ -65,3 +65,6 @@ func get_inventory():
 
 func _on_health_component_take_damage() -> void:
 	print("Player was hit")
+
+func player_bounced() -> void:
+	movement_controller.jump()

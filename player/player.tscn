@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://player/input_manager.gd" id="1_41ch4"]
 [ext_resource type="Script" path="res://player/player_movement_controller.gd" id="1_78ula"]
-[ext_resource type="Material" path="res://assets/shaders/damaged.tres" id="1_eh7wd"]
-[ext_resource type="PackedScene" path="res://managers/inventory.tscn" id="3_0ikdi"]
+[ext_resource type="Material" uid="uid://uq6nbmy6mpwl" path="res://assets/shaders/damaged.tres" id="1_eh7wd"]
+[ext_resource type="PackedScene" uid="uid://b617nmvedrdmj" path="res://managers/inventory.tscn" id="3_0ikdi"]
 [ext_resource type="Texture2D" uid="uid://by87n5o5hpm3y" path="res://assets/sprites/characters/animations/idle/main_char_animations-idle-Sheet.png" id="3_cjboq"]
 [ext_resource type="FontFile" uid="uid://b3fp5g5ue1p3k" path="res://assets/fonts/dogica/TTF/dogica.ttf" id="3_p2aie"]
 [ext_resource type="Script" path="res://scenes/worlds/Test World/player_animations.gd" id="4_muvw0"]
@@ -283,6 +283,7 @@ collision_layer = 4
 collision_mask = 15
 script = ExtResource("7_povqq")
 damage_type = 1
+attack_type = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 position = Vector2(0, 17)
@@ -321,7 +322,6 @@ character = NodePath("..")
 
 [node name="HealthComponent" type="Node2D" parent="."]
 script = ExtResource("5_hf0il")
-health = 2.0
 
 [node name="DustFX" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, 8)
