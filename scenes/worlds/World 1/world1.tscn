@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=4 uid="uid://eyv6uveq0q8w"]
+[gd_scene load_steps=30 format=4 uid="uid://eyv6uveq0q8w"]
 
 [ext_resource type="PackedScene" uid="uid://crjeudwcdacco" path="res://player/player.tscn" id="1_6ahel"]
 [ext_resource type="PackedScene" uid="uid://s8g34kjtosrr" path="res://assets/shaders/fog.tscn" id="1_8mnw5"]
@@ -6,9 +6,8 @@
 [ext_resource type="Shader" path="res://fog/fog.gdshader" id="2_vlq2a"]
 [ext_resource type="Script" path="res://player/camera_follow.gd" id="3_osp4x"]
 [ext_resource type="TileSet" uid="uid://cf3y4libusnrq" path="res://assets/tilemaps/landmarks.tres" id="4_4pxbd"]
-[ext_resource type="PackedScene" uid="uid://ck72djxmbvc8e" path="res://rain/rain.tscn" id="4_4tbre"]
+[ext_resource type="PackedScene" uid="uid://dq0wtiauxedic" path="res://rain/rain.tscn" id="4_4tbre"]
 [ext_resource type="TileSet" uid="uid://ds33pryupto4x" path="res://assets/tilemaps/plants.tres" id="5_3hlt6"]
-[ext_resource type="Texture2D" uid="uid://wp5a3xvveuiv" path="res://assets/sprites/particles/rain.png" id="5_wtagj"]
 [ext_resource type="Texture2D" uid="uid://clkntq76m2ev2" path="res://assets/sprites/tiles/tilesheet_test2.png" id="6_jtbe4"]
 [ext_resource type="Texture2D" uid="uid://dvgty18vhdnrl" path="res://assets/sprites/tiles/holy_tilesheet_test2.png" id="7_1rgy7"]
 [ext_resource type="Texture2D" uid="uid://dk1hrp5xhois5" path="res://assets/sprites/tiles/misc_tiles.png" id="8_bvlja"]
@@ -22,6 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://bvdekxp50xm4b" path="res://managers/caption_manager.tscn" id="15_viswo"]
 [ext_resource type="PackedScene" path="res://fog/fog_layer.tscn" id="19_kbin2"]
 [ext_resource type="PackedScene" path="res://fog/lantern.tscn" id="19_yhx4n"]
+[ext_resource type="PackedScene" uid="uid://dxl7odrj806wq" path="res://reflections/reflection_plane.tscn" id="22_rj1h0"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3s74n"]
 shader = ExtResource("2_5uqgo")
@@ -29,21 +29,6 @@ shader_parameter/wiggle = 0.03
 shader_parameter/wiggle_speed = 25.0
 shader_parameter/smear = 1.0
 shader_parameter/blur_samples = 15
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_em0ax"]
-lifetime_randomness = 0.1
-particle_flag_disable_z = true
-emission_shape_scale = Vector3(800, 0, 1)
-emission_shape = 3
-emission_box_extents = Vector3(1, 1, 1)
-angle_min = 1.07288e-05
-angle_max = 1.07288e-05
-direction = Vector3(-0.5, 1, 0)
-spread = 0.0
-initial_velocity_min = 450.0
-initial_velocity_max = 600.0
-gravity = Vector3(0, 0, 0)
-color = Color(1, 1, 1, 0.498039)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mw0ft"]
 shader = ExtResource("2_vlq2a")
@@ -317,12 +302,6 @@ target = NodePath("../Player")
 smoothing = 90.0
 
 [node name="Rain" parent="Camera2D" instance=ExtResource("4_4tbre")]
-position = Vector2(0, -200)
-process_material = SubResource("ParticleProcessMaterial_em0ax")
-texture = ExtResource("5_wtagj")
-lifetime = 2.0
-preprocess = 1.0
-randomness = 0.1
 
 [node name="Player" parent="." instance=ExtResource("1_6ahel")]
 position = Vector2(-328, -32)
@@ -457,3 +436,5 @@ visible = false
 [node name="FogLayer" parent="." instance=ExtResource("19_kbin2")]
 
 [node name="Lantern" parent="." instance=ExtResource("19_yhx4n")]
+
+[node name="ReflectionPlane" parent="." instance=ExtResource("22_rj1h0")]

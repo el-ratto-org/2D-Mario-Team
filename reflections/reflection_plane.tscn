@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://dxl7odrj806wq"]
+
+[ext_resource type="Shader" path="res://reflections/reflective.gdshader" id="1_l533t"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m31ci"]
+shader = ExtResource("1_l533t")
+
+[node name="ReflectionPlane" type="ColorRect"]
+material = SubResource("ShaderMaterial_m31ci")
+offset_left = -360.0
+offset_right = -9.0
+offset_bottom = 46.0

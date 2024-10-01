@@ -1,18 +1,27 @@
-[gd_scene load_steps=2 format=3 uid="uid://ck72djxmbvc8e"]
+[gd_scene load_steps=3 format=3 uid="uid://dq0wtiauxedic"]
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qk0x5"]
+[ext_resource type="Texture2D" uid="uid://wp5a3xvveuiv" path="res://assets/sprites/particles/rain.png" id="1_b8a2v"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_em0ax"]
 lifetime_randomness = 0.1
 particle_flag_disable_z = true
-emission_shape_scale = Vector3(640, 0, 1)
+emission_shape_scale = Vector3(800, 0, 1)
 emission_shape = 3
 emission_box_extents = Vector3(1, 1, 1)
-direction = Vector3(1, 1, 0)
+angle_min = 1.07288e-05
+angle_max = 1.07288e-05
+direction = Vector3(-0.5, 1, 0)
 spread = 0.0
-initial_velocity_min = 629.33
-initial_velocity_max = 629.33
+initial_velocity_min = 450.0
+initial_velocity_max = 600.0
 gravity = Vector3(0, 0, 0)
+color = Color(1, 1, 1, 0.498039)
 
 [node name="Rain" type="GPUParticles2D"]
-position = Vector2(0, -182)
+position = Vector2(0, -200)
 amount = 500
-process_material = SubResource("ParticleProcessMaterial_qk0x5")
+process_material = SubResource("ParticleProcessMaterial_em0ax")
+texture = ExtResource("1_b8a2v")
+lifetime = 2.0
+preprocess = 1.0
+randomness = 0.1
