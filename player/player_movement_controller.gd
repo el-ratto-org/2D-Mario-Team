@@ -31,8 +31,16 @@ var inertia: float = 0
 var fatigue: float = 0
 var current_move: float = 0
 var jumped: bool = false
+var double_jump: bool = false
 var auto_jump_time: float = 0
 var jump_grace_time: float = 0
+
+# Dash settings
+var dash_speed = 3
+var dash_duration = 0.15
+var dash_cooldown = 1
+var can_dash = true
+var is_dashing = false
 
 # Connections
 @onready var bottom_left_ray: RayCast2D = $"../CollisionShape2D/BottomLeft"
@@ -58,6 +66,10 @@ func _set_input(h_axis: float, v_dictionary: Dictionary) -> void:
 	horizontal_axis = h_axis
 	
 func _physics_process(delta: float) -> void:
+	if Input.is_action_just_pressed("dash") and not is_dashing and can_dash:
+		is_dashing = true
+		can_dash = false
+		
 	calculate_vertical_movement(delta)
 	calculate_horizontal_movement(delta)
 	step_check(character.velocity.x, delta)
@@ -86,10 +98,16 @@ func calculate_horizontal_movement(delta: float):
 	current_move = clamp(lerp(inertia, horizontal_axis, turning_control), -1, 1) * move_speed
 
 	if horizontal_axis:
-		character.velocity.x = current_move
+		if is_dashing:
+			character.velocity.x = current_move * dash_speed
+			await get_tree().create_timer(dash_duration).timeout
+			is_dashing = false
+			await get_tree().create_timer(dash_cooldown).timeout
+			can_dash = true
+		else:
+			character.velocity.x = current_move
 	else:
 		character.velocity.x = 0
-	
 
 func calculate_vertical_movement(delta: float):
 	# Decay jump grace time
@@ -99,9 +117,10 @@ func calculate_vertical_movement(delta: float):
 	if character.is_on_floor():
 		jump_grace_time = jump_grace
 		grounded = true
+		double_jump = false
 	else:
 		grounded = false
-
+		
 	var floored = jump_grace_time > 0
 
 	# Velocity with fast-falling
@@ -114,12 +133,20 @@ func calculate_vertical_movement(delta: float):
 	if vertical_dictionary["move_up_pressed"]:
 		if floored:
 			jump()
+		elif character.is_on_wall():
+			jump()
 		else:
 			auto_jump_time = auto_jump
+			# double jump
+			if vertical_dictionary["move_up_pressed"]:
+				if not double_jump:  # Check if we haven't double jumped yet
+					jump()  # Call the jump function
+					double_jump = true  # Set double jump to true
+					print('Double jump executed!')
 	elif floored and auto_jump_time > 0:
 		if Input.is_action_pressed("move_up"):
-			jump()
-	
+			jump()		
+
 	# Jump when holding space
 	#if floored and vertical_dictionary["move_up_held"]:
 		#jump()
