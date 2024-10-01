@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://fweg21w3smum"]
+[gd_scene load_steps=3 format=3 uid="uid://bd5lhjs4n6df5"]
 
 [ext_resource type="Shader" path="res://fog/fullscreen_fog.gdshader" id="1_1p40c"]
 

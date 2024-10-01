@@ -1,15 +1,12 @@
 shader_type canvas_item;
 
-void vertex() {
-	// Called for every vertex the material is visible on.
-}
+uniform sampler2D screen_texture : hint_screen_texture;
+
+uniform float surface_y;  // The Y position of the water surface (in screen coordinates)
+uniform float reflection_strength : hint_range(0.0, 1.0) = 0.5; // How strong the reflection is
 
 void fragment() {
-	// Called for every pixel the material is visible on.
-	COLOR = vec4(1, 0, 1, 0.05);
+    vec4 reflected_color = texture(screen_texture, vec2(SCREEN_UV.x, surface_y - UV.y));
+    vec4 original_color = texture(screen_texture, SCREEN_UV);
+    COLOR = mix(original_color, reflected_color, reflection_strength);
 }
-
-//void light() {
-	// Called for every pixel for every light affecting the CanvasItem.
-	// Uncomment to replace the default light processing function with this one.
-//}
