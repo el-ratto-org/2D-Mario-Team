@@ -84,8 +84,6 @@ direction = 1
 [node name="LaunchProjectileAtPlayer" type="Node2D" parent="EnemyBehaviourManager"]
 script = ExtResource("4_tuebx")
 projectile = ExtResource("5_h0ho3")
-max_speed = null
-min_height = null
 
 [node name="Marker2D" type="Marker2D" parent="EnemyBehaviourManager/LaunchProjectileAtPlayer"]
 position = Vector2(0, -32)
