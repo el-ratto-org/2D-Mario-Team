@@ -242,17 +242,6 @@ sprite_frames = SubResource("SpriteFrames_sps2v")
 animation = &"run"
 script = ExtResource("4_muvw0")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-process_priority = 3
-process_physics_priority = 3
-zoom = Vector2(2, 2)
-position_smoothing_enabled = true
-position_smoothing_speed = 10.0
-rotation_smoothing_enabled = true
-drag_vertical_enabled = true
-drag_left_margin = 0.3
-drag_top_margin = 0.3
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 3)
 shape = SubResource("RectangleShape2D_kj2bg")
@@ -283,6 +272,7 @@ collision_layer = 4
 collision_mask = 15
 script = ExtResource("7_povqq")
 damage_type = 1
+attack_type = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 position = Vector2(0, 17)
@@ -321,7 +311,6 @@ character = NodePath("..")
 
 [node name="HealthComponent" type="Node2D" parent="."]
 script = ExtResource("5_hf0il")
-health = 2.0
 
 [node name="DustFX" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, 8)

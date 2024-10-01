@@ -32,9 +32,12 @@ window/stretch/aspect="expand"
 folder_colors={
 "res://CombatComponents/": "gray",
 "res://enemies/": "red",
+"res://fog/": "green",
 "res://hud/": "yellow",
 "res://managers/": "purple",
 "res://player/": "green",
+"res://rain/": "blue",
+"res://reflections/": "pink",
 "res://scenes/": "blue"
 }
 
