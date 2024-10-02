@@ -66,9 +66,7 @@ func _set_input(h_axis: float, v_dictionary: Dictionary) -> void:
 	horizontal_axis = h_axis
 	
 func _physics_process(delta: float) -> void:
-	if Input.is_action_just_pressed("dash") and not is_dashing and can_dash:
-		is_dashing = true
-		can_dash = false
+
 		
 	calculate_vertical_movement(delta)
 	calculate_horizontal_movement(delta)
@@ -96,14 +94,15 @@ func calculate_horizontal_movement(delta: float):
 
 	var turning_control = 1 - abs(inertia)
 	current_move = clamp(lerp(inertia, horizontal_axis, turning_control), -1, 1) * move_speed
-
+	
+	#detect dash
+	if Input.is_action_just_pressed("dash") and not is_dashing and can_dash:
+		is_dashing = true
+		can_dash = false
+		
 	if horizontal_axis:
 		if is_dashing:
-			character.velocity.x = current_move * dash_speed
-			await get_tree().create_timer(dash_duration).timeout
-			is_dashing = false
-			await get_tree().create_timer(dash_cooldown).timeout
-			can_dash = true
+			dash()
 		else:
 			character.velocity.x = current_move
 	else:
@@ -139,10 +138,9 @@ func calculate_vertical_movement(delta: float):
 			auto_jump_time = auto_jump
 			# double jump
 			if vertical_dictionary["move_up_pressed"]:
-				if not double_jump:  # Check if we haven't double jumped yet
-					jump()  # Call the jump function
-					double_jump = true  # Set double jump to true
-					print('Double jump executed!')
+				if not double_jump:
+					jump()
+					double_jump = true  
 	elif floored and auto_jump_time > 0:
 		if Input.is_action_pressed("move_up"):
 			jump()		
@@ -209,3 +207,10 @@ func jump():
 	jumped = true
 	auto_jump_time = 0
 	jump_grace_time = 0
+
+func dash():
+	character.velocity.x = current_move * dash_speed
+	await get_tree().create_timer(dash_duration).timeout
+	is_dashing = false
+	await get_tree().create_timer(dash_cooldown).timeout
+	can_dash = true
