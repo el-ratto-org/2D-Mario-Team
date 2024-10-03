@@ -28,7 +28,7 @@
 [ext_resource type="Shader" path="res://assets/shaders/godray.gdshader" id="23_fat8c"]
 [ext_resource type="PackedScene" uid="uid://pogof14sbaoe" path="res://hud/hearts/hearts.tscn" id="26_wr3tb"]
 [ext_resource type="Shader" path="res://assets/shaders/experiment.gdshader" id="28_2wm33"]
-[ext_resource type="PackedScene" path="res://fog/fog_layer.tscn" id="30_jyc0l"]
+[ext_resource type="PackedScene" uid="uid://bd5lhjs4n6df5" path="res://fog/fog_layer.tscn" id="30_jyc0l"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_uctmw"]
 shader = ExtResource("3_mwsmo")

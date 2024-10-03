@@ -1,6 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://bwdkhrpb53qq3"]
+[gd_scene load_steps=3 format=3 uid="uid://dj0624svyhpwc"]
 
 [ext_resource type="Script" path="res://fog/lantern.gd" id="1_4b5yl"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_fce1w"]
+radius = 204.088
+
 [node name="Lantern" type="Node2D"]
 script = ExtResource("1_4b5yl")
+
+[node name="LanternAuraCollision" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LanternAuraCollision"]
+shape = SubResource("CircleShape2D_fce1w")

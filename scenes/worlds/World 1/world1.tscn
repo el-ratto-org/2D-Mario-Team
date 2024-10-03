@@ -1,7 +1,7 @@
 [gd_scene load_steps=31 format=4 uid="uid://eyv6uveq0q8w"]
 
 [ext_resource type="PackedScene" uid="uid://crjeudwcdacco" path="res://player/player.tscn" id="1_6ahel"]
-[ext_resource type="PackedScene" uid="uid://s8g34kjtosrr" path="res://assets/shaders/fog.tscn" id="1_8mnw5"]
+[ext_resource type="PackedScene" path="res://assets/shaders/fog.tscn" id="1_8mnw5"]
 [ext_resource type="Shader" path="res://assets/shaders/VHS.gdshader" id="2_5uqgo"]
 [ext_resource type="Shader" path="res://fog/fog.gdshader" id="2_vlq2a"]
 [ext_resource type="Script" path="res://player/camera_follow.gd" id="3_osp4x"]
@@ -21,7 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://pogof14sbaoe" path="res://hud/hearts/hearts.tscn" id="15_qk36j"]
 [ext_resource type="PackedScene" uid="uid://bvdekxp50xm4b" path="res://managers/caption_manager.tscn" id="15_viswo"]
 [ext_resource type="PackedScene" uid="uid://bd5lhjs4n6df5" path="res://fog/fog_layer.tscn" id="19_kbin2"]
-[ext_resource type="PackedScene" path="res://fog/lantern.tscn" id="19_yhx4n"]
+[ext_resource type="PackedScene" uid="uid://dj0624svyhpwc" path="res://fog/lantern.tscn" id="19_yhx4n"]
 [ext_resource type="PackedScene" uid="uid://bnyq2q53tlbja" path="res://reflections/reflection_plane.tscn" id="22_rj1h0"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3s74n"]
@@ -395,10 +395,10 @@ position = Vector2(2352, -137)
 position = Vector2(743, -17)
 
 [node name="Goomba2" parent="Enemies" instance=ExtResource("11_gsnct")]
-position = Vector2(321, -18)
+position = Vector2(638, -184)
 
 [node name="Goomba3" parent="Enemies" instance=ExtResource("11_gsnct")]
-position = Vector2(-78, -20)
+position = Vector2(594, -102)
 
 [node name="Goomba4" parent="Enemies" instance=ExtResource("11_gsnct")]
 position = Vector2(1495, -19)

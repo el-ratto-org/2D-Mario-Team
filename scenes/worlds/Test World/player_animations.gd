@@ -1,6 +1,8 @@
 extends AnimatedSprite2D
 @onready var player_movement_controller = $"../PlayerMovementController"
 
+signal flip_sprite(flip: bool)
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -21,8 +23,11 @@ func _process(delta: float) -> void:
 		switch_animation("idle")
 		
 		
-	if player_movement_controller.character.velocity.x < 0:
-		flip_h = true
-	if player_movement_controller.character.velocity.x > 0:
-		flip_h = false
-	pass
+	# Flip sprite
+	var player_x_velocity = player_movement_controller.character.velocity.x
+	
+	# if player is moving
+	if player_x_velocity != 0:
+		var flip = player_x_velocity < 0
+		flip_h = flip
+		flip_sprite.emit(flip)

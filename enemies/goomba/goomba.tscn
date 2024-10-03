@@ -9,7 +9,7 @@
 [ext_resource type="Script" path="res://CombatComponents/HurtBox.gd" id="4_lagrl"]
 [ext_resource type="Script" path="res://enemies/scripts/modular_behaviours/behaviours/use_weapon.gd" id="5_885oj"]
 [ext_resource type="Script" path="res://CombatComponents/HealthComponent.gd" id="5_y0ftw"]
-[ext_resource type="Material" uid="uid://uq6nbmy6mpwl" path="res://assets/shaders/damaged.tres" id="6_l7e6x"]
+[ext_resource type="Material" path="res://assets/shaders/damaged.tres" id="6_l7e6x"]
 [ext_resource type="Shader" path="res://assets/shaders/damaged.gdshader" id="7_fbaj0"]
 [ext_resource type="Script" path="res://enemies/scripts/modular_behaviours/base_classes/enemy_physics.gd" id="8_qt62w"]
 
