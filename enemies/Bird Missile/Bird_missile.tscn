@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://enemies/Bird Missile/bird_missile.gd" id="1_qrhu7"]
 [ext_resource type="Texture2D" uid="uid://cu4e6cd3a47r6" path="res://assets/sprites/characters/enemies/crow.png" id="2_cf428"]
-[ext_resource type="Material" path="res://assets/shaders/damaged.tres" id="2_fcjuq"]
+[ext_resource type="Material" uid="uid://uq6nbmy6mpwl" path="res://assets/shaders/damaged.tres" id="2_fcjuq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wk4hu"]
 size = Vector2(12, 22)
