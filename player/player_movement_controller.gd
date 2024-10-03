@@ -44,6 +44,15 @@ var is_dashing = false
 
 var wall_slide_speed = 50
 
+# slide settings
+var slide_speed = 500.0
+var slide_end_speed = 185.0
+var slide_cooldown = .5
+var is_sliding = false
+var can_slide = true
+var slide_time_passed = 0
+var slide_duration = .5
+
 # Connections
 @onready var bottom_left_ray: RayCast2D = $"../CollisionShape2D/BottomLeft"
 @onready var bottom_right_ray: RayCast2D = $"../CollisionShape2D/BottomRight"
@@ -74,7 +83,7 @@ func _physics_process(delta: float) -> void:
 		can_dash = false
 		
 	#detect slide
-	if Input.is_action_just_pressed("slide") and not is_sliding and can_slide:
+	if Input.is_action_just_pressed("slide") and not is_sliding and can_slide and character.is_on_floor():
 		is_sliding = true
 		can_slide = false
 		
@@ -109,7 +118,7 @@ func calculate_horizontal_movement(delta: float):
 		if is_dashing:
 			dash()
 		elif is_sliding:
-			slide()
+			ground_slide(delta)
 		else:
 			character.velocity.x = current_move
 	else:
@@ -225,35 +234,31 @@ func dash():
 
 func wall_jump_slide():
 	if character.velocity.y >= 0 and character.get_wall_normal().x != horizontal_axis:
-		character.velocity.y = wall_slide_speed
+		if horizontal_axis != 0:
+			character.velocity.y = wall_slide_speed
+		
 		if Input.is_action_just_pressed('move_up'):
 			jump()
-			# this doesnt work
-			if Input.is_action_just_pressed('move_left'):
-				character.velocity.x = current_move
-			elif Input.is_action_just_pressed('move_left'):
-				character.velocity.x = -current_move
 
-var slide_speed = 5.0
-var slide_duration = 3
-var slide_cooldown = 1
-var is_sliding = false
-var can_slide = true
 
-func slide():
-	var start_time = 0.0
-	var end_time = slide_duration
+func ground_slide(delta):
+	slide_time_passed += delta
+	var t = clamp(slide_time_passed / slide_duration, 0, 1)
+	var easing = t * t * t
+	
+	var initial_push_amount = slide_speed
+	initial_push_amount -= slide_time_passed
 
-	while start_time < end_time:
-		var t = pow(0.5, start_time / end_time) 
-		# Scale speed over the duration but lerp is linear right? idek
-		var scaled_speed = lerp(slide_speed, slide_speed * 0.5, 1 - t)
-		print(scaled_speed)
-		character.velocity.x = current_move * scaled_speed
-
-		await get_tree().process_frame
-		start_time += get_physics_process_delta_time()
-
-	is_sliding = false
-	await get_tree().create_timer(slide_cooldown).timeout
-	can_slide = true
+	var current_push_amount = lerp(initial_push_amount, slide_end_speed, easing)
+	
+	if character.velocity.x > 0:
+		character.velocity.x = current_push_amount
+	elif character.velocity.x < 0:
+		character.velocity.x = -current_push_amount
+		
+	if Input.is_action_just_released("slide") or current_push_amount == 200:
+		is_sliding = false
+		character.velocity.x = 0
+		slide_time_passed = 0
+		await get_tree().create_timer(slide_cooldown).timeout
+		can_slide = true
