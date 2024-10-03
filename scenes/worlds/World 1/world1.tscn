@@ -417,7 +417,7 @@ position = Vector2(-168, -112)
 amplitude = 0.04
 
 [node name="door" parent="." instance=ExtResource("10_4p45i")]
-position = Vector2(1616, -23)
+position = Vector2(1593, -31)
 
 [node name="Throughplatform" parent="." instance=ExtResource("10_rd7oa")]
 position = Vector2(128, -89)

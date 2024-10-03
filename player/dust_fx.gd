@@ -86,7 +86,7 @@ func _on_step_dust_timer_timeout():
 	pass # Replace with function body.
 
 func _on_falling_timer_timeout() -> void:
-	print("Falling timer out")
+	#print("Falling timer out")
 	air_timer_completed = true
 	pass # Replace with function body.
 	
@@ -95,7 +95,7 @@ func _on_falling_timer_timeout() -> void:
 	
 func _on_player_movement_controller_player_jump() -> void:
 	var player_x_velocity = $"../PlayerMovementController".character.velocity.x
-	print(player_x_velocity)
+	#print(player_x_velocity)
 	if not player_floored():
 		anim_type = "jump_air"
 	else:

@@ -31,8 +31,18 @@ var inertia: float = 0
 var fatigue: float = 0
 var current_move: float = 0
 var jumped: bool = false
+var double_jump: bool = false
 var auto_jump_time: float = 0
 var jump_grace_time: float = 0
+
+# Dash settings
+var dash_speed = 3
+var dash_duration = 0.15
+var dash_cooldown = 1
+var can_dash = true
+var is_dashing = false
+
+var wall_slide_speed = 50
 
 # Connections
 @onready var bottom_left_ray: RayCast2D = $"../CollisionShape2D/BottomLeft"
@@ -58,6 +68,16 @@ func _set_input(h_axis: float, v_dictionary: Dictionary) -> void:
 	horizontal_axis = h_axis
 	
 func _physics_process(delta: float) -> void:
+	#detect dash
+	if Input.is_action_just_pressed("dash") and not is_dashing and can_dash:
+		is_dashing = true
+		can_dash = false
+		
+	#detect slide
+	if Input.is_action_just_pressed("slide") and not is_sliding and can_slide:
+		is_sliding = true
+		can_slide = false
+		
 	calculate_vertical_movement(delta)
 	calculate_horizontal_movement(delta)
 	step_check(character.velocity.x, delta)
@@ -84,12 +104,16 @@ func calculate_horizontal_movement(delta: float):
 
 	var turning_control = 1 - abs(inertia)
 	current_move = clamp(lerp(inertia, horizontal_axis, turning_control), -1, 1) * move_speed
-
+	
 	if horizontal_axis:
-		character.velocity.x = current_move
+		if is_dashing:
+			dash()
+		elif is_sliding:
+			slide()
+		else:
+			character.velocity.x = current_move
 	else:
 		character.velocity.x = 0
-	
 
 func calculate_vertical_movement(delta: float):
 	# Decay jump grace time
@@ -99,9 +123,10 @@ func calculate_vertical_movement(delta: float):
 	if character.is_on_floor():
 		jump_grace_time = jump_grace
 		grounded = true
+		double_jump = false
 	else:
 		grounded = false
-
+		
 	var floored = jump_grace_time > 0
 
 	# Velocity with fast-falling
@@ -110,16 +135,24 @@ func calculate_vertical_movement(delta: float):
 			(slow_gravity if not vertical_dictionary["move_down_pressed"] else fast_gravity) * delta,
 		-terminal_velocity,
 		terminal_velocity)
-
+		
+	if character.is_on_wall():
+		wall_jump_slide()
+		
 	if vertical_dictionary["move_up_pressed"]:
 		if floored:
 			jump()
 		else:
 			auto_jump_time = auto_jump
+			# double jump
+			if vertical_dictionary["move_up_pressed"]:
+				if not double_jump:
+					jump()
+					double_jump = true  
 	elif floored and auto_jump_time > 0:
 		if Input.is_action_pressed("move_up"):
-			jump()
-	
+			jump()		
+
 	# Jump when holding space
 	#if floored and vertical_dictionary["move_up_held"]:
 		#jump()
@@ -182,3 +215,45 @@ func jump():
 	jumped = true
 	auto_jump_time = 0
 	jump_grace_time = 0
+
+func dash():
+	character.velocity.x = current_move * dash_speed
+	await get_tree().create_timer(dash_duration).timeout
+	is_dashing = false
+	await get_tree().create_timer(dash_cooldown).timeout
+	can_dash = true
+
+func wall_jump_slide():
+	if character.velocity.y >= 0 and character.get_wall_normal().x != horizontal_axis:
+		character.velocity.y = wall_slide_speed
+		if Input.is_action_just_pressed('move_up'):
+			jump()
+			# this doesnt work
+			if Input.is_action_just_pressed('move_left'):
+				character.velocity.x = current_move
+			elif Input.is_action_just_pressed('move_left'):
+				character.velocity.x = -current_move
+
+var slide_speed = 5.0
+var slide_duration = 3
+var slide_cooldown = 1
+var is_sliding = false
+var can_slide = true
+
+func slide():
+	var start_time = 0.0
+	var end_time = slide_duration
+
+	while start_time < end_time:
+		var t = pow(0.5, start_time / end_time) 
+		# Scale speed over the duration but lerp is linear right? idek
+		var scaled_speed = lerp(slide_speed, slide_speed * 0.5, 1 - t)
+		print(scaled_speed)
+		character.velocity.x = current_move * scaled_speed
+
+		await get_tree().process_frame
+		start_time += get_physics_process_delta_time()
+
+	is_sliding = false
+	await get_tree().create_timer(slide_cooldown).timeout
+	can_slide = true
