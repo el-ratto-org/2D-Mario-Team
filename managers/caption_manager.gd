@@ -6,6 +6,7 @@ extends Node
 @onready var audio_player = $AudioStreamPlayer2D
 @onready var timer = $Timer  # Ensure this matches your Timer node name
 @onready var death_caption = $death/YouFailed
+@onready var feather_rect = $item_feather
 
 var fading_bg: bool = false  # Flag to check if we are fading_bg
 var fade_duration: float = 1.0  # Duration of the fade
@@ -17,6 +18,8 @@ var fade_targets: Dictionary = {}
 
 var death_snd = "res://assets/sfx/death_sound.mp3"
 var lantern_snd = "res://assets/sfx/BB_item_get.mp3"
+var item_snd = "res://assets/sfx/BOTW_item_get.mp3"
+var item_snd_feather = "res://assets/sfx/item_get_feather.ogg"
 
 func wait(seconds: float) -> void:
 	OS.delay_msec(seconds * 1000)
@@ -47,6 +50,9 @@ func _process(delta: float) -> void:
 					else:
 						fade_targets[target]["complete_fade_signal_on_finish"] = false
 						_on_fade_complete(target)  # Call the completion function for this target
+						
+	if Input.is_action_just_pressed("debug"):
+		feather()
 
 # Function to start the fade for a specific target and color
 func fade_to_color(target: ColorRect, start_alpha: float, final_alpha: float, duration: float, wait_duration: float,fade_to_clear_on_finish: bool, tail_wait: float) -> void:
@@ -92,6 +98,14 @@ func lit():
 	
 	
 	fade_to_opaque(lantern_rect, 2, 1, 0)
+	
+func feather():
+	var audio_stream = load(item_snd_feather)
+	audio_player.stream = audio_stream
+
+	audio_player.play()
+	
+	fade_to_opaque(feather_rect, 0.4, 0.7, 3)
 	
 	
 func _ready() -> void:

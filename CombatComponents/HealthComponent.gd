@@ -92,27 +92,30 @@ func get_player_sprite() -> Node:
 	print("HealthComponent Error: Sprite/AnimSprite not found or is not a valid instance for ", player)
 	return null  # Return null if not found or not valid
 
-func hit_shader(on: bool):
+func hit_shader(on: bool): # no longer shader but name remains
 	if on == true:
 		if player_sprite != null:
-			player_sprite.material.set_shader_parameter("mix_ratio", 1.0)
+			#player_sprite.material.set_shader_parameter("mix_ratio", 1.0)
+			player_sprite.set_modulate(Color(1, 0, 0))
+
 			damage_flash_time = damage_flash_duration
 			currently_flashing = true
 			
 			
 	else:
 		if player_sprite != null:
-			player_sprite.material.set_shader_parameter("mix_ratio", 0.0)
+			#player_sprite.material.set_shader_parameter("mix_ratio", 0.0)
+			player_sprite.set_modulate(Color(1, 1, 1))
 			currently_flashing = false
 		# Optionally, you can add logic for other effects, like changing the color
 		# sprite.material.set_shader_param("your_param_name", value)
 	
-func update_flash_frame(): 
+func update_flash_frame_(): 
 	if player_sprite != null:
 		player_sprite.material.set_shader_parameter("current_frame", damage_frame_counter/10)
 		damage_frame_counter += 1
 	
-func reset_flash_frame():
+func reset_flash_frame_():
 	damage_frame_counter = 1
 	
 func _heal(heal_amount: float) -> void:
