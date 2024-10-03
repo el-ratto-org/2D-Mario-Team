@@ -18,7 +18,7 @@ var damage_flash_time = damage_flash_duration
 var currently_flashing = false
 var damage_frame_counter: int = 1
 
-@onready var player_sprite = $"../AnimatedSprite2D"
+var player_sprite
 @onready var caption_manager = %caption_manager
 
 @onready var take_damage_shader = load("res://assets/shaders/damaged.tres")
@@ -28,9 +28,8 @@ var is_player
 func _ready() -> void:
 	max_health = health
 
-	var player_sprite = get_player_sprite()
-
 	if self.get_parent().name == "Player":
+		player_sprite = get_player_sprite()
 		is_player = true
 
 func _process(delta: float) -> void:
