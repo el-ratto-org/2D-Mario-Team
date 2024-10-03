@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=4 uid="uid://eyv6uveq0q8w"]
+[gd_scene load_steps=34 format=4 uid="uid://eyv6uveq0q8w"]
 
 [ext_resource type="PackedScene" uid="uid://crjeudwcdacco" path="res://player/player.tscn" id="1_6ahel"]
 [ext_resource type="PackedScene" uid="uid://s8g34kjtosrr" path="res://assets/shaders/fog.tscn" id="1_8mnw5"]
@@ -24,6 +24,7 @@
 [ext_resource type="PackedScene" uid="uid://bwdkhrpb53qq3" path="res://fog/lantern.tscn" id="19_yhx4n"]
 [ext_resource type="PackedScene" uid="uid://bnyq2q53tlbja" path="res://reflections/reflection_plane.tscn" id="22_rj1h0"]
 [ext_resource type="Shader" path="res://reflections/pixelize_reflection.gdshader" id="24_h2n7a"]
+[ext_resource type="PackedScene" uid="uid://d1fnoq4c0i2pd" path="res://enemies/wasp/wasp.tscn" id="25_60rd0"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3s74n"]
 shader = ExtResource("2_5uqgo")
@@ -469,3 +470,9 @@ offset_left = -5000.0
 offset_top = 20.0
 offset_right = 5000.0
 offset_bottom = 380.0
+
+[node name="Wasp" parent="." instance=ExtResource("25_60rd0")]
+position = Vector2(125, -155)
+
+[node name="Wasp2" parent="." instance=ExtResource("25_60rd0")]
+position = Vector2(485, -243)
