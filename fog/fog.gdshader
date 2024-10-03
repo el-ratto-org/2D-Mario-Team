@@ -1,4 +1,5 @@
 shader_type canvas_item;
+render_mode blend_mix;
 
 #include "fog_util.gdshaderinc"
 
