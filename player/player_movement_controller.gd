@@ -256,7 +256,7 @@ func ground_slide(delta):
 	elif character.velocity.x < 0:
 		character.velocity.x = -current_push_amount
 		
-	if Input.is_action_just_released("slide") or current_push_amount == 200:
+	if Input.is_action_just_released("slide") or current_push_amount == slide_end_speed:
 		is_sliding = false
 		character.velocity.x = 0
 		slide_time_passed = 0
