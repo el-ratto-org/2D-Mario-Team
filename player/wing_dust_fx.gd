@@ -54,7 +54,7 @@ func _on_wing_flap_timer_timeout() -> void:
 
 
 func _on_wings_wing_fx(in_light: bool) -> void:
-	print("Set to")
+	print("Set to "+str(in_light))
 	wing_fx_allowed = in_light
 	$WingFlapTimer.start()
 	pass # Replace with function body.

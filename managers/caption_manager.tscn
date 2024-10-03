@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://bvdekxp50xm4b"]
+[gd_scene load_steps=5 format=3 uid="uid://bvdekxp50xm4b"]
 
 [ext_resource type="Script" path="res://managers/caption_manager.gd" id="1_sutae"]
 [ext_resource type="Texture2D" uid="uid://bnk7p3i6vy6v1" path="res://assets/captions/lantern lit.png" id="2_rxkk0"]
 [ext_resource type="Texture2D" uid="uid://bh361ia5ckiok" path="res://assets/captions/YOU Failed.png" id="2_t15a0"]
+[ext_resource type="Texture2D" uid="uid://bcs4yn04aikcp" path="res://assets/captions/item_get_feather.png" id="4_l8j2h"]
 
 [node name="Manager" type="Node2D"]
 script = ExtResource("1_sutae")
@@ -33,6 +34,21 @@ modulate = Color(1, 1, 1, 0)
 offset_right = 1280.0
 offset_bottom = 720.0
 color = Color(0.0823529, 0.054902, 0.0627451, 1)
+
+[node name="item_feather" type="ColorRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+offset_left = -179.0
+offset_top = 46.0
+offset_right = -139.0
+offset_bottom = 86.0
+color = Color(1, 1, 1, 0)
+
+[node name="ItemGetFeather" type="Sprite2D" parent="item_feather"]
+texture_filter = 1
+position = Vector2(179, -46)
+scale = Vector2(4, 4)
+texture = ExtResource("4_l8j2h")
+centered = false
 
 [node name="death" type="ColorRect" parent="."]
 modulate = Color(1, 1, 1, 0)

@@ -8,17 +8,17 @@ signal healed
 signal die
 
 @export var health: float = 1
-@export var invulnerability_duration: float = 2
+@export var invulnerability_duration: float = 0.5
 
 var max_health
 var invulnerability_time: float = 0
 
-@export var damage_flash_duration: float = 2
+@export var damage_flash_duration: float = 0.5
 var damage_flash_time = damage_flash_duration
 var currently_flashing = false
 var damage_frame_counter: int = 1
 
-@onready var player_sprite = $"../AnimatedSprite2D"
+var player_sprite
 @onready var caption_manager = %caption_manager
 
 @onready var take_damage_shader = load("res://assets/shaders/damaged.tres")
@@ -28,9 +28,8 @@ var is_player
 func _ready() -> void:
 	max_health = health
 
-	var player_sprite = get_player_sprite()
-
 	if self.get_parent().name == "Player":
+		player_sprite = get_player_sprite()
 		is_player = true
 
 func _process(delta: float) -> void:
@@ -45,7 +44,7 @@ func _process(delta: float) -> void:
 		#reset_flash_frame()
 		
 	if Input.is_action_just_pressed("debug"):
-		_take_damage(0.5)
+		_take_damage(0.001)
 
 func _take_damage(damage: float) -> void:
 	if invulnerability_time > 0:
@@ -84,35 +83,61 @@ func get_player_sprite() -> Node:
 		
 		# Check if the AnimatedSprite2D is valid
 		if animated_sprite and animated_sprite is AnimatedSprite2D:
-			#print ("flag")
+			print ("Found anim sprite for ", player.name, animated_sprite)
 			return animated_sprite
 		elif sprite and sprite is Sprite2D:
+			print ("Found sprite for ", player.name, sprite, "this does not play damage frames (for some reason)")
 			return sprite
 			
 	print("HealthComponent Error: Sprite/AnimSprite not found or is not a valid instance for ", player)
 	return null  # Return null if not found or not valid
 
-func hit_shader(on: bool):
+func hit_shader__(on: bool):
 	if on == true:
 		if player_sprite != null:
 			player_sprite.material.set_shader_parameter("mix_ratio", 1.0)
+			#player_sprite.set_modulate(Color(1, 0, 0))
+
 			damage_flash_time = damage_flash_duration
 			currently_flashing = true
-			
+		else:
+			print ("no sprite for damage flash ", self.get_parent().name, player_sprite)
 			
 	else:
 		if player_sprite != null:
 			player_sprite.material.set_shader_parameter("mix_ratio", 0.0)
+			#player_sprite.set_modulate(Color(1, 1, 1))
 			currently_flashing = false
 		# Optionally, you can add logic for other effects, like changing the color
 		# sprite.material.set_shader_param("your_param_name", value)
-	
-func update_flash_frame(): 
+
+func hit_shader(on: bool):  
+	if player_sprite != null:
+		if on == true:
+			# Ensure each Goomba has a unique shader instance
+			if player_sprite.material:  # If there's a material assigned
+				# Duplicate the material so it's unique to this Goomba
+				player_sprite.material = player_sprite.material.duplicate()
+
+			# Apply the damage flash effect
+			player_sprite.material.set_shader_parameter("mix_ratio", 1.0)
+
+			damage_flash_time = damage_flash_duration
+			currently_flashing = true
+		else:
+			# Revert the flash effect
+			player_sprite.material.set_shader_parameter("mix_ratio", 0.0)
+			currently_flashing = false
+	else:
+		print ("no sprite for damage flash ", self.get_parent().name, player_sprite)
+
+
+func update_flash_frame_(): 
 	if player_sprite != null:
 		player_sprite.material.set_shader_parameter("current_frame", damage_frame_counter/10)
 		damage_frame_counter += 1
 	
-func reset_flash_frame():
+func reset_flash_frame_():
 	damage_frame_counter = 1
 	
 func _heal(heal_amount: float) -> void:
