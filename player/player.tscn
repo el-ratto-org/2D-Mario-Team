@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" path="res://player/input_manager.gd" id="1_41ch4"]
 [ext_resource type="Script" path="res://player/player_movement_controller.gd" id="1_78ula"]
-[ext_resource type="Material" uid="uid://uq6nbmy6mpwl" path="res://assets/shaders/damaged.tres" id="1_eh7wd"]
 [ext_resource type="PackedScene" uid="uid://b617nmvedrdmj" path="res://managers/inventory.tscn" id="3_0ikdi"]
 [ext_resource type="FontFile" uid="uid://b3fp5g5ue1p3k" path="res://assets/fonts/dogica/TTF/dogica.ttf" id="3_p2aie"]
+[ext_resource type="Shader" path="res://fog/experiment.gdshader" id="3_vq52x"]
 [ext_resource type="Script" path="res://scenes/worlds/Test World/player_animations.gd" id="4_muvw0"]
 [ext_resource type="Script" path="res://scenes/worlds/Test World/player_debug_header.gd" id="4_qg5aq"]
 [ext_resource type="Texture2D" uid="uid://dq6fw86loolks" path="res://assets/sprites/characters/main_char_fall-Sheet.png" id="4_wt83r"]
@@ -25,7 +25,10 @@
 [ext_resource type="Script" path="res://player/halo.gd" id="22_0sd5k"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wi1ve"]
-shader = ExtResource("20_1ctaa")
+shader = ExtResource("3_vq52x")
+shader_parameter/start_frame = 1
+shader_parameter/current_frame = 0
+shader_parameter/mix_ratio = 0.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tenc8"]
 atlas = ExtResource("4_wt83r")
@@ -353,7 +356,6 @@ animations = [{
 }]
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("movement_controller") groups=["Players"]]
-material = ExtResource("1_eh7wd")
 collision_layer = 4
 script = ExtResource("1_41ch4")
 movement_controller = NodePath("PlayerMovementController")
