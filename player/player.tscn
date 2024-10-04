@@ -1,7 +1,7 @@
 [gd_scene load_steps=71 format=3 uid="uid://crjeudwcdacco"]
 
 [ext_resource type="Script" path="res://player/player_movement_controller.gd" id="1_78ula"]
-[ext_resource type="PackedScene" uid="uid://b617nmvedrdmj" path="res://managers/inventory.tscn" id="3_0ikdi"]
+[ext_resource type="PackedScene" path="res://managers/inventory.tscn" id="3_0ikdi"]
 [ext_resource type="FontFile" uid="uid://b3fp5g5ue1p3k" path="res://assets/fonts/dogica/TTF/dogica.ttf" id="3_p2aie"]
 [ext_resource type="Shader" path="res://fog/experiment.gdshader" id="3_vq52x"]
 [ext_resource type="Script" path="res://scenes/worlds/Test World/player_animations.gd" id="4_muvw0"]
@@ -232,7 +232,7 @@ size = Vector2(12, 29)
 size = Vector2(24, 2.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ck7dp"]
-size = Vector2(10, 26)
+size = Vector2(14, 27)
 
 [sub_resource type="Theme" id="Theme_hyf61"]
 default_font = ExtResource("3_p2aie")
@@ -396,6 +396,7 @@ target_position = Vector2(0, 28)
 hit_from_inside = true
 
 [node name="FootHitBox" type="Area2D" parent="."]
+position = Vector2(0, 1)
 collision_layer = 128
 collision_mask = 16
 script = ExtResource("7_povqq")
@@ -412,7 +413,7 @@ collision_mask = 32
 script = ExtResource("6_7ypip")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
-position = Vector2(0, 3)
+position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_ck7dp")
 
 [node name="player_debug_header" type="Label" parent="."]
