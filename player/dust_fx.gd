@@ -10,106 +10,80 @@ var anim_type = "jump_straight"
 var sprite_flip = false
 
 # Timer variables
-var timer_between_step_completed = false # This is used to check if this FX manager is allowed to place a step (
+var timer_between_step_completed = false # This is used to check if this FX manager is allowed to place a step
 var air_timer_completed = false
 
-#Player stats
+# Player stats
 var recent_ground_location = Vector2(0,0)
 
 func _process(delta: float) -> void:
-	
 	if step_conditions_met():
-		dust_step("step")
+		step_dust()
 	
 	if landing_conditions_met():
-		air_timer_completed = false
-		spawn_vfx("landing_fx", self.global_position, sprite_flip)
-		landed.emit()
+		landing_dust()
 	
 	if start_falling_timer_condition_met():
 		$FallingTimer.start()
-	
-	
+
 func step_conditions_met():
-	var player_x_velocity = $"../PlayerMovementController".character.velocity.x
-	if player_x_velocity != 0 and timer_between_step_completed:
-		if player_on_ground():
-			return true
-	return false
-	
+	return  owner.velocity.x != 0 and \
+			timer_between_step_completed and \
+			player_on_ground()
+
 func landing_conditions_met():
-	var player_y_velocity = $"../PlayerMovementController".character.velocity.y
-	if player_y_velocity == 0 and air_timer_completed:
-		if player_on_ground():
-			return true
-	return false	
+	return  owner.velocity.y == 0 and \
+			air_timer_completed and \
+			player_on_ground()
+
+func step_dust():
+	timer_between_step_completed = false
+	spawn_vfx("step", self.global_position, sprite_flip)
+	$StepDustTimer.start()
+
+func landing_dust():
+	air_timer_completed = false
+	spawn_vfx("landing_fx", self.global_position, sprite_flip)
+	landed.emit()
 
 func player_on_ground():
-	var floored = $"../PlayerMovementController".grounded
-	if floored:
-			return true
-	return false	
-	
-func start_falling_timer_condition_met():
-	if not player_on_ground():
-		if $"../DustFX/FallingTimer".time_left == 0 and air_timer_completed == false:
-			return true
-	return false
+	return owner.grounded
 
-func dust_step(animation_name):
-	timer_between_step_completed = false
-	spawn_vfx(animation_name, self.global_position, sprite_flip)
-	$StepDustTimer.start()
-	
+func start_falling_timer_condition_met():
+	return  $"../DustFX/FallingTimer".time_left == 0 and \
+			not air_timer_completed and \
+			not player_on_ground()
+
 func spawn_vfx(animation_name, position, flipped:bool):
 	var new_sprite = animated_sprite_scene.instantiate() as AnimatedSprite2D
 	new_sprite.global_position = position
 	new_sprite.animation = animation_name
 	new_sprite.play()
 	new_sprite.flip_h = flipped
-	#add_child(new_sprite)
-	#print(new_sprite.animation)
 	get_tree().root.add_child(new_sprite)
-		
-	
-func player_floored():
-	if $"../PlayerMovementController".grounded:
-		return true
-	else:
-		return false
-	
-	
-	# Timers #
-	
+
 func _on_step_dust_timer_timeout():
 	timer_between_step_completed = true
-	pass # Replace with function body.
 
 func _on_falling_timer_timeout() -> void:
-	#print("Falling timer out")
 	air_timer_completed = true
-	pass # Replace with function body.
+
+func _on_player_jumped() -> void:
+	var player_x_velocity = owner.velocity.x
 	
-	
-	# Player Movement Script Signal Attachments #
-	
-func _on_player_movement_controller_player_jump() -> void:
-	var player_x_velocity = $"../PlayerMovementController".character.velocity.x
-	#print(player_x_velocity)
-	if not player_floored():
+	# Figure out which animation to play
+	if not owner.is_on_floor():
 		anim_type = "jump_air"
 	else:
-		
 		if player_x_velocity < 100 and player_x_velocity > -100:
 			anim_type = "jump_straight"
 		else:
 			anim_type = "jump_angle"
 	
-	if $"../PlayerMovementController".character.velocity.x > 100:
+	# Check if player sprite should be flipped
+	if owner.velocity.x > 100:
 		sprite_flip = true
 	else:
 		sprite_flip = false
-	spawn_vfx(anim_type, self.global_position, sprite_flip)
-	pass # Replace with function body.
 	
-	pass # Replace with function body.
+	spawn_vfx(anim_type, self.global_position, sprite_flip)

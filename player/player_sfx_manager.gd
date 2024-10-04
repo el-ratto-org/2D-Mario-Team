@@ -11,25 +11,21 @@ func _process(delta: float) -> void:
 	step_sound()
 			
 func step_sound():
-	var player_x_velocity = $"../PlayerMovementController".character.velocity.x
+	var player_x_velocity = owner.velocity.x
 	
 	if not abs(player_x_velocity) > 0 :
 		return
-	if not player_floored():
+	
+	if not owner.is_on_floor():
 		return
 		
 	if $StepTimer.time_left <= 0:
 		$Step_sound.pitch_scale = randf_range(0.8, 1.2)
 		$Step_sound.play()
 		$StepTimer.start()
-			
-func player_floored():
-	if $"../PlayerMovementController".grounded:
-		return true
-	else:
-		return false
-		
-func _on_player_movement_controller_player_jump() -> void:
+
+
+func _on_player_jumped() -> void:
 	$JumpSound.pitch_scale = randf_range(0.8, 1.2)
 	$JumpSound.play()
 

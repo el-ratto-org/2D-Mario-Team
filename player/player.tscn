@@ -1,8 +1,7 @@
-[gd_scene load_steps=71 format=3 uid="uid://crjeudwcdacco"]
+[gd_scene load_steps=70 format=3 uid="uid://crjeudwcdacco"]
 
-[ext_resource type="Script" path="res://player/input_manager.gd" id="1_41ch4"]
 [ext_resource type="Script" path="res://player/player_movement_controller.gd" id="1_78ula"]
-[ext_resource type="PackedScene" path="res://managers/inventory.tscn" id="3_0ikdi"]
+[ext_resource type="PackedScene" uid="uid://b617nmvedrdmj" path="res://managers/inventory.tscn" id="3_0ikdi"]
 [ext_resource type="FontFile" uid="uid://b3fp5g5ue1p3k" path="res://assets/fonts/dogica/TTF/dogica.ttf" id="3_p2aie"]
 [ext_resource type="Shader" path="res://fog/experiment.gdshader" id="3_vq52x"]
 [ext_resource type="Script" path="res://scenes/worlds/Test World/player_animations.gd" id="4_muvw0"]
@@ -355,10 +354,9 @@ animations = [{
 "speed": 16.0
 }]
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("movement_controller") groups=["Players"]]
+[node name="Player" type="CharacterBody2D" groups=["Players"]]
 collision_layer = 4
-script = ExtResource("1_41ch4")
-movement_controller = NodePath("PlayerMovementController")
+script = ExtResource("1_78ula")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
@@ -431,10 +429,6 @@ script = ExtResource("4_qg5aq")
 
 [node name="Inventory" parent="." instance=ExtResource("3_0ikdi")]
 
-[node name="PlayerMovementController" type="Node2D" parent="." node_paths=PackedStringArray("character")]
-script = ExtResource("1_78ula")
-character = NodePath("..")
-
 [node name="HealthComponent" type="Node2D" parent="."]
 script = ExtResource("5_hf0il")
 
@@ -487,9 +481,9 @@ position = Vector2(1, -26)
 sprite_frames = SubResource("SpriteFrames_1w84j")
 script = ExtResource("22_0sd5k")
 
+[connection signal="jumped" from="." to="DustFX" method="_on_player_jumped"]
+[connection signal="jumped" from="." to="SFX manager" method="_on_player_jumped"]
 [connection signal="deal_damage" from="HitBox" to="." method="_on_hit_box_deal_damage"]
-[connection signal="player_jump" from="PlayerMovementController" to="DustFX" method="_on_player_movement_controller_player_jump"]
-[connection signal="player_jump" from="PlayerMovementController" to="SFX manager" method="_on_player_movement_controller_player_jump"]
 [connection signal="take_damage" from="HealthComponent" to="." method="_on_health_component_take_damage"]
 [connection signal="landed" from="DustFX" to="SFX manager" method="_on_dust_fx_landed"]
 [connection signal="timeout" from="DustFX/StepDustTimer" to="DustFX" method="_on_step_dust_timer_timeout"]
