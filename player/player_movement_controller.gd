@@ -21,6 +21,8 @@ signal jumped
 @export var jump_grace: float = 0.1
 @export var auto_jump: float = 0.1
 
+@onready var inventory = $Inventory
+
 var grounded
 
 # Movement variables
@@ -236,10 +238,14 @@ func ground_slide(delta):
 		velocity.x = current_push_amount
 	elif velocity.x < 0:
 		velocity.x = -current_push_amount
-		
+	
 	if Input.is_action_just_released("slide") or current_push_amount == slide_end_speed:
 		is_sliding = false
 		velocity.x = 0
 		slide_time_passed = 0
 		await get_tree().create_timer(slide_cooldown).timeout
 		can_slide = true
+
+
+func _on_foot_hit_box_area_entered(area: Area2D) -> void:
+	jump() # Bounce

@@ -91,9 +91,8 @@ script = ExtResource("3_bujyf")
 [node name="RunFromPlayerBehaviour" type="Node2D" parent="GoombaManager"]
 script = ExtResource("4_1gnvp")
 
-[node name="UseWeapon" type="Node2D" parent="GoombaManager" node_paths=PackedStringArray("weapon")]
+[node name="UseWeapon" type="Node2D" parent="GoombaManager"]
 script = ExtResource("5_885oj")
-weapon = NodePath("../../HitBox2")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 
@@ -106,34 +105,35 @@ debug_color = Color(0, 0.6, 0.701961, 0.419608)
 [node name="HealthComponent" type="Node2D" parent="."]
 script = ExtResource("5_y0ftw")
 
-[node name="HurtBox" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 128
 script = ExtResource("4_lagrl")
-health_component = NodePath("../HealthComponent")
-head_hurtbox = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 position = Vector2(0, -19)
 shape = SubResource("RectangleShape2D_bemg5")
-one_way_collision = true
 debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
-[node name="HitBox - disabled!!!" type="Area2D" parent="."]
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 0
 script = ExtResource("3_lynn6")
-detection_mode = 1
+damage = 0.2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+shape = SubResource("RectangleShape2D_76orl")
+debug_color = Color(1, 0, 0, 0.419608)
+
+[node name="HitBox - disabled!!!" type="Area2D" parent="."]
+visible = false
+collision_layer = 32
+script = ExtResource("3_lynn6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox - disabled!!!"]
 z_index = -1600
 shape = SubResource("RectangleShape2D_eskq7")
 disabled = true
-debug_color = Color(1, 0, 0, 0.419608)
-
-[node name="HitBox2" type="Area2D" parent="."]
-script = ExtResource("3_lynn6")
-damage = 0.25
-detection_mode = 1
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox2"]
-shape = SubResource("RectangleShape2D_76orl")
 debug_color = Color(1, 0, 0, 0.419608)
 
 [node name="EnemyPhysics" type="Node" parent="."]
@@ -145,3 +145,5 @@ material = SubResource("ShaderMaterial_t7cv7")
 sprite_frames = SubResource("SpriteFrames_baduv")
 
 [connection signal="die" from="HealthComponent" to="." method="_on_health_component_die"]
+[connection signal="area_entered" from="HurtBox" to="HurtBox" method="_on_area_entered"]
+[connection signal="damage_recieved" from="HurtBox" to="HealthComponent" method="_on_hurt_box_damage_recieved"]

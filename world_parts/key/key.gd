@@ -29,17 +29,9 @@ func _process(delta: float):
 
 	# Apply the bobbing motion to the key's Y position
 	position.y += bob_offset
-		
+
 # This function is called when another body enters the pickup area
 func _on_pickup_area_area_entered(body: Node) -> void:
-	pick_up_key(body)
-
-# Function to handle key pickup logic
-func pick_up_key(hitbox: Node) -> void:
-	var body = hitbox.get_owner()
-	if body.has_method("get_inventory"):
-		print("=-=--=-=-=-=-=-=-=-=-=-= Key picked up!")
-		var inventory = body.get_inventory()  # Call the method to get the inventory
-		if inventory:
-			inventory.add_key(door_code)  # Call the add_key method on the inventory
-			queue_free()  # Remove the key from the scene
+	assert(body.owner.get("inventory") != null, "Player has no inventory")
+	body.owner.inventory.add_key(door_code)  # Call the add_key method on the inventory
+	queue_free()  # Remove the key from the scene

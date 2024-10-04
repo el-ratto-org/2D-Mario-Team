@@ -1,6 +1,6 @@
 [gd_scene load_steps=18 format=3 uid="uid://d1fnoq4c0i2pd"]
 
-[ext_resource type="Material" uid="uid://uq6nbmy6mpwl" path="res://assets/shaders/damaged.tres" id="1_dxjb4"]
+[ext_resource type="Material" uid="uid://bbor6bxyoj5ht" path="res://assets/shaders/damaged.tres" id="1_dxjb4"]
 [ext_resource type="Script" path="res://enemies/scripts/enemy_controller.gd" id="2_yqefr"]
 [ext_resource type="Script" path="res://enemies/wasp/wasp_manager.gd" id="3_6w81r"]
 [ext_resource type="Script" path="res://enemies/scripts/modular_behaviours/behaviours/fly_random_direction.gd" id="4_ftvjl"]
@@ -78,10 +78,10 @@ debug_color = Color(0, 0.6, 0.701961, 0.419608)
 [node name="HealthComponent" type="Node2D" parent="."]
 script = ExtResource("9_wsbhk")
 
-[node name="HurtBox" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 128
 script = ExtResource("10_st60j")
-health_component = NodePath("../HealthComponent")
-head_hurtbox = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 position = Vector2(0, -0.5)
@@ -90,9 +90,10 @@ one_way_collision = true
 debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
 [node name="HitBox" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 0
 script = ExtResource("11_k6ynh")
-damage = 0.25
-detection_mode = 1
+damage = 0.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 position = Vector2(0, -0.5)
@@ -112,4 +113,6 @@ frame_progress = 0.70747
 [node name="Timer" type="Timer" parent="."]
 
 [connection signal="die" from="HealthComponent" to="." method="_on_health_component_die"]
+[connection signal="area_entered" from="HurtBox" to="HurtBox" method="_on_area_entered"]
+[connection signal="damage_recieved" from="HurtBox" to="HealthComponent" method="_on_hurt_box_damage_recieved"]
 [connection signal="timeout" from="Timer" to="WaspManager" method="_on_timer_timeout"]
