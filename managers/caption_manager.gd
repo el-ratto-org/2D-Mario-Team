@@ -51,8 +51,8 @@ func _process(delta: float) -> void:
 						fade_targets[target]["complete_fade_signal_on_finish"] = false
 						_on_fade_complete(target)  # Call the completion function for this target
 						
-	if Input.is_action_just_pressed("debug"):
-		feather()
+	#if Input.is_action_just_pressed("debug"):
+	#	feather()
 
 # Function to start the fade for a specific target and color
 func fade_to_color(target: ColorRect, start_alpha: float, final_alpha: float, duration: float, wait_duration: float,fade_to_clear_on_finish: bool, tail_wait: float) -> void:
@@ -107,11 +107,18 @@ func feather():
 	
 	fade_to_opaque(feather_rect, 0.4, 0.7, 3)
 	
+func cloak():
+	print ("no cloak code so playing the feather stuff 🎍")
+	var audio_stream = load(item_snd_feather)
+	audio_player.stream = audio_stream
+
+	audio_player.play()
+	
+	fade_to_opaque(feather_rect, 0.4, 0.7, 3)
+	
 	
 func _ready() -> void:
 	PlayerStatsManager.caption_manager = self
 	
 func _physics_process(delta: float) -> void:
-	if Input.is_action_just_pressed("debug"):
-		pass
-		#death()
+	pass

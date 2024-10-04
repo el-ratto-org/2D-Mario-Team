@@ -28,6 +28,8 @@ var is_player
 func _ready() -> void:
 	max_health = health
 
+	player_sprite = get_player_sprite()
+
 	if self.get_parent().name == "Player":
 		player_sprite = get_player_sprite()
 		is_player = true
