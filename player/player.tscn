@@ -1,4 +1,4 @@
-[gd_scene load_steps=84 format=3 uid="uid://crjeudwcdacco"]
+[gd_scene load_steps=85 format=3 uid="uid://crjeudwcdacco"]
 
 [ext_resource type="Script" path="res://player/input_manager.gd" id="1_41ch4"]
 [ext_resource type="Script" path="res://player/player_movement_controller.gd" id="1_78ula"]
@@ -236,7 +236,11 @@ size = Vector2(12, 29)
 size = Vector2(24, 2.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ck7dp"]
-size = Vector2(10, 26)
+size = Vector2(14, 23)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pc4g8"]
+radius = 13.0
+height = 42.0
 
 [sub_resource type="Theme" id="Theme_hyf61"]
 default_font = ExtResource("3_p2aie")
@@ -450,7 +454,7 @@ script = ExtResource("4_muvw0")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 3)
 shape = SubResource("RectangleShape2D_kj2bg")
-debug_color = Color(0, 0.635683, 0.414225, 0.42)
+debug_color = Color(0, 0.635294, 0.415686, 0.141176)
 
 [node name="BottomLeft" type="RayCast2D" parent="CollisionShape2D"]
 position = Vector2(-5, 13)
@@ -472,28 +476,33 @@ position = Vector2(15, -15)
 target_position = Vector2(0, 28)
 hit_from_inside = true
 
-[node name="HitBox" type="Area2D" parent="."]
-collision_layer = 4
-collision_mask = 15
+[node name="FootHitBox" type="Area2D" parent="."]
+position = Vector2(0, -1)
+collision_layer = 128
+collision_mask = 16
 script = ExtResource("7_povqq")
-damage_type = 1
-attack_type = 2
+damage = 0.5
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
-position = Vector2(0, 17)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FootHitBox"]
+position = Vector2(0, 20)
 shape = SubResource("RectangleShape2D_g81l7")
 debug_color = Color(1, 0, 0, 0.419608)
 
-[node name="HurtBox" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
-collision_layer = 5
-collision_mask = 11
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 64
+collision_mask = 32
 script = ExtResource("6_7ypip")
-health_component = NodePath("../HealthComponent")
-damage_from = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
-position = Vector2(0, 3)
+position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_ck7dp")
+
+[node name="PickupArea" type="Area2D" parent="."]
+collision_layer = 4096
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea"]
+shape = SubResource("CapsuleShape2D_pc4g8")
 
 [node name="player_debug_header" type="Label" parent="."]
 visible = false
@@ -581,9 +590,11 @@ script = ExtResource("22_0sd5k")
 
 [connection signal="flip_sprite" from="AnimatedSprite2D" to="HolyItems/Wings" method="_on_animated_sprite_2d_flip_sprite"]
 [connection signal="flip_sprite" from="AnimatedSprite2D" to="HolyItems/Wings/WingDustFX" method="_on_animated_sprite_2d_flip_sprite"]
-[connection signal="area_entered" from="HitBox" to="HolyItems/Wings" method="_on_hit_box_area_entered"]
-[connection signal="area_exited" from="HitBox" to="HolyItems/Wings" method="_on_hit_box_area_exited"]
-[connection signal="deal_damage" from="HitBox" to="." method="_on_hit_box_deal_damage"]
+[connection signal="area_entered" from="FootHitBox" to="PlayerMovementController" method="_on_foot_hit_box_area_entered"]
+[connection signal="area_entered" from="HurtBox" to="HurtBox" method="_on_area_entered"]
+[connection signal="area_entered" from="HurtBox" to="HolyItems/Wings" method="_on_hurt_box_area_entered"]
+[connection signal="area_exited" from="HurtBox" to="HolyItems/Wings" method="_on_hurt_box_area_exited"]
+[connection signal="damage_recieved" from="HurtBox" to="HealthComponent" method="_on_hurt_box_damage_recieved"]
 [connection signal="player_jump" from="PlayerMovementController" to="DustFX" method="_on_player_movement_controller_player_jump"]
 [connection signal="player_jump" from="PlayerMovementController" to="SFX manager" method="_on_player_movement_controller_player_jump"]
 [connection signal="take_damage" from="HealthComponent" to="." method="_on_health_component_take_damage"]

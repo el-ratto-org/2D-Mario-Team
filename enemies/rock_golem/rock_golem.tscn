@@ -111,16 +111,20 @@ sprite_frames = SubResource("SpriteFrames_ejicp")
 [node name="HealthComponent" type="Node2D" parent="."]
 script = ExtResource("2_375xg")
 
-[node name="HurtBox" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 128
 script = ExtResource("4_wyl35")
-health_component = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 position = Vector2(-1.5, 8.5)
 shape = SubResource("RectangleShape2D_hvbro")
 
 [node name="HitBox" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 0
 script = ExtResource("3_ad1km")
+damage = 0.8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 position = Vector2(-1.5, 4.5)
@@ -133,4 +137,5 @@ script = ExtResource("8_n1ofw")
 [node name="Timer" type="Timer" parent="."]
 
 [connection signal="die" from="HealthComponent" to="." method="_on_health_component_die"]
+[connection signal="damage_recieved" from="HurtBox" to="HealthComponent" method="_on_hurt_box_damage_recieved"]
 [connection signal="timeout" from="Timer" to="EnemyBehaviourManager" method="_on_timer_timeout"]

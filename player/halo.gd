@@ -27,15 +27,13 @@ func _on_animation_finished() -> void:
 func _on_animated_sprite_2d_flip_sprite(flip_value) -> void:
 	flip_h = flip_value
 
-
-func _on_hit_box_area_entered(area: Area2D) -> void:
+func _on_hurt_box_area_entered(area: Area2D) -> void:
 	if area.name == "LanternAuraCollision":
 		uncurl_wings()
 		wing_fx.emit(true)
-	pass # Replace with function body.
 
 
-func _on_hit_box_area_exited(area: Area2D) -> void:
+func _on_hurt_box_area_exited(area: Area2D) -> void:
 	prime_wings()
 	wing_fx.emit(false)
 	pass # Replace with function body.

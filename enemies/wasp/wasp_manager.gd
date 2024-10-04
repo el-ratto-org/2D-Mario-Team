@@ -21,7 +21,6 @@ func _physics_process(delta: float) -> void:
 	# Chose new charge direction
 	if can_shoot:
 		shoot_behaviour._run()
-		print("wasp is shooting")
 		can_shoot = false
 		timer.wait_time = shoot_interval
 		timer.start()

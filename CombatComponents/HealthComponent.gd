@@ -153,3 +153,8 @@ func _update_health_in_global_manager():
 	if is_player:
 		PlayerStatsManager.player_health = health
 		
+
+
+func _on_hurt_box_damage_recieved(damage: float) -> void:
+	_take_damage(damage)
+	pass # Replace with function body.

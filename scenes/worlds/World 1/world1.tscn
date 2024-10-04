@@ -416,7 +416,7 @@ position = Vector2(1196, -20)
 position = Vector2(3803, -21)
 
 [node name="RockGolem" parent="Enemies" instance=ExtResource("15_7lq7o")]
-position = Vector2(465, 100)
+position = Vector2(867, -141)
 
 [node name="key" parent="." instance=ExtResource("12_55qr5")]
 position = Vector2(-168, -112)

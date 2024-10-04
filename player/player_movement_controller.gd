@@ -262,3 +262,9 @@ func ground_slide(delta):
 		slide_time_passed = 0
 		await get_tree().create_timer(slide_cooldown).timeout
 		can_slide = true
+
+
+func _on_foot_hit_box_area_entered(area: Area2D) -> void:
+	print("Landed on something")
+	jump()
+	pass # Replace with function body.

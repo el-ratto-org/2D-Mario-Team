@@ -33,8 +33,8 @@ script = ExtResource("1_wrpk5")
 
 [node name="Pickup_area" type="Area2D" parent="."]
 position = Vector2(-7, -6)
-collision_layer = 8
-collision_mask = 5
+collision_layer = 0
+collision_mask = 4096
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Pickup_area"]
 position = Vector2(7, 6)

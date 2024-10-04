@@ -141,6 +141,9 @@ slide={
 2d_physics/layer_4="World Object"
 2d_physics/layer_5="HurtBox"
 2d_physics/layer_6="HitBox"
+2d_physics/layer_7="PlayerHurtBox"
+2d_physics/layer_8="PlayerHitBox"
+2d_physics/layer_13="PlayerPickup"
 
 [physics]
 
