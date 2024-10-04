@@ -63,8 +63,8 @@ func _ready() -> void:
 	PlayerStatsManager.player = self
 
 func _physics_process(delta: float) -> void:
-	# Detect dash
-	if Input.is_action_just_pressed("dash") and not is_dashing and can_dash:
+	#detect dash
+	if Input.is_action_just_pressed("dash") and not is_dashing and can_dash and PlayerStatsManager.has_dash_item: # last part checks if player has item
 		is_dashing = true
 		can_dash = false
 		
@@ -143,7 +143,7 @@ func calculate_vertical_movement(delta: float):
 			auto_jump_time = auto_jump
 			# Double jump
 			if Input.is_action_just_pressed("move_up"):
-				if not double_jump:
+				if not double_jump and PlayerStatsManager.has_double_jump_item:
 					jump()
 					double_jump = true  
 	elif floored and auto_jump_time > 0:

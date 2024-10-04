@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://b0tvveyocfous"]
+
+[ext_resource type="Script" path="res://world_parts/world item/item.gd" id="1_6ahfb"]
+[ext_resource type="PackedScene" uid="uid://dynpa7g5e0wqj" path="res://world_parts/world item/items/feather/feather.tscn" id="2_6pxsg"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_l2axf"]
+radius = 25.0
+
+[node name="Item" type="CharacterBody2D"]
+collision_layer = 8
+collision_mask = 9
+script = ExtResource("1_6ahfb")
+item_type = ExtResource("2_6pxsg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 0)
+shape = SubResource("CircleShape2D_l2axf")
