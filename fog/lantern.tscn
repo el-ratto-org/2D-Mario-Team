@@ -8,7 +8,9 @@ radius = 204.088
 [node name="Lantern" type="Node2D"]
 script = ExtResource("1_4b5yl")
 
-[node name="LanternAuraCollision" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 256
+collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LanternAuraCollision"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_fce1w")

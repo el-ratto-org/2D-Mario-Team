@@ -21,7 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://pogof14sbaoe" path="res://hud/hearts/hearts.tscn" id="15_qk36j"]
 [ext_resource type="PackedScene" uid="uid://bvdekxp50xm4b" path="res://managers/caption_manager.tscn" id="15_viswo"]
 [ext_resource type="PackedScene" uid="uid://bd5lhjs4n6df5" path="res://fog/fog_layer.tscn" id="19_kbin2"]
-[ext_resource type="PackedScene" path="res://fog/lantern.tscn" id="19_yhx4n"]
+[ext_resource type="PackedScene" uid="uid://dj0624svyhpwc" path="res://fog/lantern.tscn" id="19_yhx4n"]
 [ext_resource type="PackedScene" uid="uid://bnyq2q53tlbja" path="res://reflections/reflection_plane.tscn" id="22_rj1h0"]
 [ext_resource type="Shader" path="res://reflections/pixelize_reflection.gdshader" id="24_h2n7a"]
 [ext_resource type="PackedScene" uid="uid://d1fnoq4c0i2pd" path="res://enemies/wasp/wasp.tscn" id="25_60rd0"]
