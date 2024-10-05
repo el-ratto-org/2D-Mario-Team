@@ -11,6 +11,7 @@ func _process(delta: float) -> void:
 	pass
 	
 func _on_pickup_range_area_entered(area: Area2D) -> void:
+	print("item flag")
 	var entity = area.get_parent()
 	if entity.name == "Player":
 		print("player picked up item feather / 2xjump")

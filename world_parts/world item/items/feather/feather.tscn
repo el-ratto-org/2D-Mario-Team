@@ -27,7 +27,7 @@ texture = ExtResource("2_l20om")
 
 [node name="pickup_range" type="Area2D" parent="."]
 collision_layer = 8
-collision_mask = 4
+collision_mask = 4100
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="pickup_range"]
 position = Vector2(-1, 0)
