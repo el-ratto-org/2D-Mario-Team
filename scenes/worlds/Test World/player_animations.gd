@@ -10,7 +10,9 @@ func switch_animation(anim_name):
 	self.play(anim_name)
 	
 func _process(delta: float) -> void:
-	if owner.velocity.y > 0:
+	if owner.is_sliding == true:
+		switch_animation("slide")
+	elif owner.velocity.y > 0:
 		switch_animation("fall")
 	elif owner.velocity.y < 0:
 		switch_animation("jump")

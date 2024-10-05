@@ -85,10 +85,10 @@ func get_player_sprite() -> Node:
 		
 		# Check if the AnimatedSprite2D is valid
 		if animated_sprite and animated_sprite is AnimatedSprite2D:
-			print ("Found anim sprite for ", player.name, animated_sprite)
+			#print ("Found anim sprite for ", player.name, animated_sprite)
 			return animated_sprite
 		elif sprite and sprite is Sprite2D:
-			print ("Found sprite for ", player.name, sprite, "this does not play damage frames (for some reason)")
+			#print ("Found sprite for ", player.name, sprite, "this does not play damage frames (for some reason)")
 			return sprite
 			
 	print("HealthComponent Error: Sprite/AnimSprite not found or is not a valid instance for ", player)

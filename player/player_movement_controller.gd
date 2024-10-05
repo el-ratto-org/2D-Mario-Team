@@ -70,6 +70,7 @@ func _physics_process(delta: float) -> void:
 		
 	# Detect slide
 	if Input.is_action_just_pressed("slide") and not is_sliding and can_slide and is_on_floor():
+		print("player slide")
 		is_sliding = true
 		can_slide = false
 		

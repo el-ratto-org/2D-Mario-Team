@@ -1,8 +1,8 @@
-[gd_scene load_steps=86 format=3 uid="uid://crjeudwcdacco"]
+[gd_scene load_steps=89 format=3 uid="uid://crjeudwcdacco"]
 
 [ext_resource type="Script" path="res://player/player_movement_controller.gd" id="1_78ula"]
 [ext_resource type="Material" uid="uid://bbor6bxyoj5ht" path="res://assets/shaders/damaged.tres" id="1_eh7wd"]
-[ext_resource type="PackedScene" uid="uid://b617nmvedrdmj" path="res://managers/inventory.tscn" id="3_0ikdi"]
+[ext_resource type="PackedScene" path="res://managers/inventory.tscn" id="3_0ikdi"]
 [ext_resource type="FontFile" uid="uid://b3fp5g5ue1p3k" path="res://assets/fonts/dogica/TTF/dogica.ttf" id="3_p2aie"]
 [ext_resource type="Shader" path="res://fog/experiment.gdshader" id="3_vq52x"]
 [ext_resource type="Script" path="res://scenes/worlds/Test World/player_animations.gd" id="4_muvw0"]
@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://mf7obk0u30nx" path="res://assets/sprites/characters/main_char_jump-Sheet.png" id="6_dio4j"]
 [ext_resource type="Script" path="res://CombatComponents/HitBox.gd" id="7_povqq"]
 [ext_resource type="Texture2D" uid="uid://b0dnm7plmiydv" path="res://assets/sprites/characters/main_char_run-Sheet.png" id="7_u28nd"]
+[ext_resource type="Texture2D" uid="uid://bibeemm1hb3dd" path="res://assets/sprites/characters/main_char_animations-Sheet_slide.png" id="8_jgvm6"]
 [ext_resource type="Script" path="res://player/player_sfx_manager.gd" id="16_h5jd8"]
 [ext_resource type="AudioStream" uid="uid://qi8ka32w1gjg" path="res://assets/sounds/sfx/Footsteps_Casual_Sand_01.wav" id="17_4n0l4"]
 [ext_resource type="Script" path="res://player/dust_fx.gd" id="17_w4phm"]
@@ -128,6 +129,14 @@ region = Rect2(300, 0, 30, 40)
 atlas = ExtResource("7_u28nd")
 region = Rect2(330, 0, 30, 40)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_0l4r7"]
+atlas = ExtResource("8_jgvm6")
+region = Rect2(0, 0, 30, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ycgeu"]
+atlas = ExtResource("8_jgvm6")
+region = Rect2(30, 0, 30, 40)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_sps2v"]
 animations = [{
 "frames": [],
@@ -226,6 +235,17 @@ animations = [{
 "loop": true,
 "name": &"run",
 "speed": 20.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0l4r7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ycgeu")
+}],
+"loop": true,
+"name": &"slide",
+"speed": 16.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kj2bg"]
@@ -452,7 +472,8 @@ texture_filter = 1
 material = SubResource("ShaderMaterial_wi1ve")
 position = Vector2(0, -1)
 sprite_frames = SubResource("SpriteFrames_sps2v")
-animation = &"run"
+animation = &"slide"
+frame_progress = 0.658921
 script = ExtResource("4_muvw0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

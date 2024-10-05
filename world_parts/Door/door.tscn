@@ -19,7 +19,7 @@ size = Vector2(40, 88)
 texture_filter = 1
 position = Vector2(0, -32)
 collision_layer = 9
-collision_mask = 4
+collision_mask = 4096
 script = ExtResource("1_50e4m")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

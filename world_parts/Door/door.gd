@@ -25,9 +25,6 @@ func _on_unlock_area_area_entered(area: Area2D) -> void:
 	print("Door unlock try")
 	assert(area.get_owner().get("inventory") != null, "Player has no inventory")
 
-	#var player = area.get_owner()
-	#var inventory = area.get_owner().get("inventory")
-	#var keys = inventory.get_key_list()
 	for key in area.get_owner().get("inventory").get_key_list():
 		if key == door_code:
 			_open_door()
