@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://enemies/wasp/wasp_manager.gd" id="3_6w81r"]
 [ext_resource type="Script" path="res://enemies/scripts/modular_behaviours/behaviours/fly_random_direction.gd" id="4_ftvjl"]
 [ext_resource type="Script" path="res://enemies/scripts/modular_behaviours/behaviours/launch_projectile_at_player.gd" id="5_od87v"]
-[ext_resource type="PackedScene" uid="uid://ctgh7sjolo85m" path="res://enemies/projectiles/boulder.tscn" id="6_3ao3o"]
+[ext_resource type="PackedScene" uid="uid://1f2tc1nbqpgn" path="res://enemies/projectiles/dart/dart.tscn" id="6_i7dco"]
 [ext_resource type="Texture2D" uid="uid://gw87u4cukdpy" path="res://enemies/wasp/wasp.png" id="8_nlya2"]
 [ext_resource type="Script" path="res://CombatComponents/HealthComponent.gd" id="9_wsbhk"]
 [ext_resource type="Script" path="res://CombatComponents/HurtBox.gd" id="10_st60j"]
@@ -68,7 +68,8 @@ direction_change_damping = 1.0
 
 [node name="LaunchProjectileAtPlayer" type="Node2D" parent="WaspManager"]
 script = ExtResource("5_od87v")
-projectile = ExtResource("6_3ao3o")
+projectile = ExtResource("6_i7dco")
+max_speed = 200.0
 min_height = 0.0
 
 [node name="Marker2D" type="Marker2D" parent="WaspManager/LaunchProjectileAtPlayer"]

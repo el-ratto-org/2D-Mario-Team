@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dpk08f7ui4ih4"
-path="res://.godot/imported/boulder.png-134afa960843af01ab3149cb57933e82.ctex"
+path="res://.godot/imported/boulder.png-6f1ea9a29277ffc5c04cfb54c29dde7c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://enemies/projectiles/boulder.png"
-dest_files=["res://.godot/imported/boulder.png-134afa960843af01ab3149cb57933e82.ctex"]
+source_file="res://enemies/projectiles/boulder/boulder.png"
+dest_files=["res://.godot/imported/boulder.png-6f1ea9a29277ffc5c04cfb54c29dde7c.ctex"]
 
 [params]
 
