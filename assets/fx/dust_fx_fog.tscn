@@ -1,0 +1,74 @@
+[gd_scene load_steps=13 format=3 uid="uid://h264322n6io1"]
+
+[ext_resource type="Shader" path="res://fog/fog.gdshader" id="1_txlyg"]
+[ext_resource type="Texture2D" uid="uid://2xhabmr0e5p3" path="res://assets/sprites/fx/wing_flap-Sheet.png" id="7_5wsgh"]
+[ext_resource type="Script" path="res://assets/fx/dust_fx.gd" id="8_f66jm"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3uw0x"]
+shader = ExtResource("1_txlyg")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yd8u4"]
+atlas = ExtResource("7_5wsgh")
+region = Rect2(0, 0, 100, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a3xs3"]
+atlas = ExtResource("7_5wsgh")
+region = Rect2(100, 0, 100, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aoeu2"]
+atlas = ExtResource("7_5wsgh")
+region = Rect2(200, 0, 100, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1wusd"]
+atlas = ExtResource("7_5wsgh")
+region = Rect2(300, 0, 100, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lpglo"]
+atlas = ExtResource("7_5wsgh")
+region = Rect2(400, 0, 100, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c5l2x"]
+atlas = ExtResource("7_5wsgh")
+region = Rect2(500, 0, 100, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0hhfu"]
+atlas = ExtResource("7_5wsgh")
+region = Rect2(600, 0, 100, 20)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1m3mw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yd8u4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a3xs3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aoeu2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1wusd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lpglo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c5l2x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0hhfu")
+}],
+"loop": false,
+"name": &"wing_flap",
+"speed": 16.0
+}]
+
+[node name="DustFx" type="AnimatedSprite2D"]
+texture_filter = 1
+material = SubResource("ShaderMaterial_3uw0x")
+sprite_frames = SubResource("SpriteFrames_1m3mw")
+animation = &"wing_flap"
+script = ExtResource("8_f66jm")
+
+[connection signal="animation_finished" from="." to="." method="_on_animation_finished"]

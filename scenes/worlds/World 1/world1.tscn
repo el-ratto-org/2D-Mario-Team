@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=4 uid="uid://eyv6uveq0q8w"]
+[gd_scene load_steps=35 format=4 uid="uid://eyv6uveq0q8w"]
 
 [ext_resource type="PackedScene" uid="uid://crjeudwcdacco" path="res://player/player.tscn" id="1_6ahel"]
 [ext_resource type="PackedScene" uid="uid://s8g34kjtosrr" path="res://assets/shaders/fog.tscn" id="1_8mnw5"]
@@ -21,10 +21,11 @@
 [ext_resource type="PackedScene" uid="uid://pogof14sbaoe" path="res://hud/hearts/hearts.tscn" id="15_qk36j"]
 [ext_resource type="PackedScene" uid="uid://bvdekxp50xm4b" path="res://managers/caption_manager.tscn" id="15_viswo"]
 [ext_resource type="PackedScene" uid="uid://bd5lhjs4n6df5" path="res://fog/fog_layer.tscn" id="19_kbin2"]
-[ext_resource type="PackedScene" uid="uid://dj0624svyhpwc" path="res://fog/lantern.tscn" id="19_yhx4n"]
+[ext_resource type="PackedScene" uid="uid://bwdkhrpb53qq3" path="res://fog/lantern.tscn" id="19_yhx4n"]
 [ext_resource type="PackedScene" uid="uid://bnyq2q53tlbja" path="res://reflections/reflection_plane.tscn" id="22_rj1h0"]
 [ext_resource type="Shader" path="res://reflections/pixelize_reflection.gdshader" id="24_h2n7a"]
 [ext_resource type="PackedScene" uid="uid://d1fnoq4c0i2pd" path="res://enemies/wasp/wasp.tscn" id="25_60rd0"]
+[ext_resource type="PackedScene" uid="uid://b0tvveyocfous" path="res://world_parts/world item/item.tscn" id="25_t6s6u"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3s74n"]
 shader = ExtResource("2_5uqgo")
@@ -258,8 +259,8 @@ use_texture_padding = false
 
 [sub_resource type="TileSet" id="TileSet_4j5lf"]
 tile_size = Vector2i(32, 32)
-physics_layer_0/collision_layer = 7
-physics_layer_0/collision_mask = 7
+physics_layer_0/collision_layer = 1
+physics_layer_0/collision_mask = 0
 sources/4 = SubResource("TileSetAtlasSource_xwf3c")
 sources/0 = SubResource("TileSetAtlasSource_gw2dj")
 sources/3 = SubResource("TileSetAtlasSource_xm6d0")
@@ -448,7 +449,6 @@ position = Vector2(1680, -248)
 [node name="Hearts" parent="CanvasLayer" instance=ExtResource("15_qk36j")]
 
 [node name="Manager" parent="CanvasLayer" instance=ExtResource("15_viswo")]
-visible = false
 
 [node name="FogLayer" parent="." instance=ExtResource("19_kbin2")]
 
@@ -476,3 +476,12 @@ offset_left = -5000.0
 offset_top = 20.0
 offset_right = 5000.0
 offset_bottom = 380.0
+
+[node name="Wasp" parent="." instance=ExtResource("25_60rd0")]
+position = Vector2(125, -155)
+
+[node name="Wasp2" parent="." instance=ExtResource("25_60rd0")]
+position = Vector2(485, -243)
+
+[node name="Item" parent="." instance=ExtResource("25_t6s6u")]
+position = Vector2(-392, -24)

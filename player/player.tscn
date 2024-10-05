@@ -1,7 +1,8 @@
-[gd_scene load_steps=71 format=3 uid="uid://crjeudwcdacco"]
+[gd_scene load_steps=86 format=3 uid="uid://crjeudwcdacco"]
 
 [ext_resource type="Script" path="res://player/player_movement_controller.gd" id="1_78ula"]
-[ext_resource type="PackedScene" path="res://managers/inventory.tscn" id="3_0ikdi"]
+[ext_resource type="Material" uid="uid://bbor6bxyoj5ht" path="res://assets/shaders/damaged.tres" id="1_eh7wd"]
+[ext_resource type="PackedScene" uid="uid://b617nmvedrdmj" path="res://managers/inventory.tscn" id="3_0ikdi"]
 [ext_resource type="FontFile" uid="uid://b3fp5g5ue1p3k" path="res://assets/fonts/dogica/TTF/dogica.ttf" id="3_p2aie"]
 [ext_resource type="Shader" path="res://fog/experiment.gdshader" id="3_vq52x"]
 [ext_resource type="Script" path="res://scenes/worlds/Test World/player_animations.gd" id="4_muvw0"]
@@ -20,8 +21,10 @@
 [ext_resource type="AudioStream" uid="uid://1ibot1bi1gha" path="res://assets/sounds/sfx/Footsteps_Casual_Mud_02.wav" id="18_rss2v"]
 [ext_resource type="Shader" path="res://fog/fog.gdshader" id="20_1ctaa"]
 [ext_resource type="Texture2D" uid="uid://cit24idnyng7x" path="res://assets/sprites/characters/halo-Sheet.png" id="20_pdur3"]
-[ext_resource type="Texture2D" uid="uid://d0yhlmk4i0wiv" path="res://assets/sprites/characters/wings-Sheet.png" id="21_u8mer"]
+[ext_resource type="Texture2D" uid="uid://bxfx4titg4p5y" path="res://assets/sprites/characters/wings-loop-Sheet.png" id="21_jc67u"]
 [ext_resource type="Script" path="res://player/halo.gd" id="22_0sd5k"]
+[ext_resource type="Texture2D" uid="uid://da35rp1inv5ba" path="res://assets/sprites/characters/wings_uncurl-Sheet.png" id="22_4l4af"]
+[ext_resource type="Script" path="res://player/wing_dust_fx.gd" id="24_phvbu"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wi1ve"]
 shader = ExtResource("3_vq52x")
@@ -232,7 +235,11 @@ size = Vector2(12, 29)
 size = Vector2(24, 2.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ck7dp"]
-size = Vector2(10, 26)
+size = Vector2(14, 23)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pc4g8"]
+radius = 13.0
+height = 42.0
 
 [sub_resource type="Theme" id="Theme_hyf61"]
 default_font = ExtResource("3_p2aie")
@@ -240,20 +247,101 @@ default_font = ExtResource("3_p2aie")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_56tus"]
 shader = ExtResource("20_1ctaa")
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_56ph2"]
-atlas = ExtResource("21_u8mer")
-region = Rect2(0, 0, 90, 70)
+[sub_resource type="AtlasTexture" id="AtlasTexture_wwmut"]
+atlas = ExtResource("21_jc67u")
+region = Rect2(0, 0, 120, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k0oct"]
+atlas = ExtResource("21_jc67u")
+region = Rect2(120, 0, 120, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0amfj"]
+atlas = ExtResource("21_jc67u")
+region = Rect2(240, 0, 120, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uxm4h"]
+atlas = ExtResource("21_jc67u")
+region = Rect2(360, 0, 120, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hxxy7"]
+atlas = ExtResource("21_jc67u")
+region = Rect2(480, 0, 120, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dpp6y"]
+atlas = ExtResource("21_jc67u")
+region = Rect2(600, 0, 120, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_21u6d"]
+atlas = ExtResource("22_4l4af")
+region = Rect2(0, 0, 120, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xfdha"]
+atlas = ExtResource("22_4l4af")
+region = Rect2(120, 0, 120, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5nwqn"]
+atlas = ExtResource("22_4l4af")
+region = Rect2(240, 0, 120, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r50u0"]
+atlas = ExtResource("22_4l4af")
+region = Rect2(360, 0, 120, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ne7dv"]
+atlas = ExtResource("22_4l4af")
+region = Rect2(480, 0, 120, 70)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_rbpy6"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_56ph2")
+"texture": SubResource("AtlasTexture_wwmut")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k0oct")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0amfj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uxm4h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hxxy7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dpp6y")
 }],
 "loop": true,
-"name": &"default",
-"speed": 5.0
+"name": &"loop",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_21u6d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xfdha")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5nwqn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r50u0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ne7dv")
+}],
+"loop": false,
+"name": &"uncurl",
+"speed": 8.0
 }]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4cpt0"]
+shader = ExtResource("20_1ctaa")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7e3lw"]
+size = Vector2(8, 11)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ufigm"]
 atlas = ExtResource("20_pdur3")
@@ -354,11 +442,8 @@ animations = [{
 "speed": 16.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_idcnr"]
-radius = 13.0
-height = 38.0
-
 [node name="Player" type="CharacterBody2D" groups=["Players"]]
+material = ExtResource("1_eh7wd")
 collision_layer = 4
 script = ExtResource("1_78ula")
 
@@ -373,7 +458,7 @@ script = ExtResource("4_muvw0")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 3)
 shape = SubResource("RectangleShape2D_kj2bg")
-debug_color = Color(0, 0.635683, 0.414225, 0.42)
+debug_color = Color(0, 0.635294, 0.415686, 0.141176)
 
 [node name="BottomLeft" type="RayCast2D" parent="CollisionShape2D"]
 position = Vector2(-5, 13)
@@ -396,13 +481,14 @@ target_position = Vector2(0, 28)
 hit_from_inside = true
 
 [node name="FootHitBox" type="Area2D" parent="."]
+position = Vector2(0, -1)
 collision_layer = 128
 collision_mask = 16
 script = ExtResource("7_povqq")
 damage = 0.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FootHitBox"]
-position = Vector2(0, 17)
+position = Vector2(0, 20)
 shape = SubResource("RectangleShape2D_g81l7")
 debug_color = Color(1, 0, 0, 0.419608)
 
@@ -412,8 +498,15 @@ collision_mask = 32
 script = ExtResource("6_7ypip")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
-position = Vector2(0, 3)
+position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_ck7dp")
+
+[node name="PickupArea" type="Area2D" parent="."]
+collision_layer = 4096
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea"]
+shape = SubResource("CapsuleShape2D_pc4g8")
 
 [node name="player_debug_header" type="Label" parent="."]
 visible = false
@@ -433,7 +526,7 @@ script = ExtResource("4_qg5aq")
 [node name="HealthComponent" type="Node2D" parent="."]
 script = ExtResource("5_hf0il")
 
-[node name="DustFX" type="AnimatedSprite2D" parent="."]
+[node name="DustFX" type="Node2D" parent="."]
 position = Vector2(0, 8)
 script = ExtResource("17_w4phm")
 
@@ -473,7 +566,29 @@ texture_filter = 1
 material = SubResource("ShaderMaterial_56tus")
 position = Vector2(2, -9)
 sprite_frames = SubResource("SpriteFrames_rbpy6")
+animation = &"loop"
 script = ExtResource("22_0sd5k")
+
+[node name="WingDustFX" type="Node2D" parent="HolyItems/Wings"]
+material = SubResource("ShaderMaterial_4cpt0")
+position = Vector2(-2, 23.075)
+script = ExtResource("24_phvbu")
+
+[node name="WingFlapTimer" type="Timer" parent="HolyItems/Wings/WingDustFX"]
+wait_time = 0.8
+one_shot = true
+
+[node name="WingFXRay" type="RayCast2D" parent="HolyItems/Wings/WingDustFX"]
+position = Vector2(0, -0.0750008)
+target_position = Vector2(0, 262.395)
+
+[node name="LanternDetection" type="Area2D" parent="HolyItems/Wings"]
+collision_layer = 0
+collision_mask = 256
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HolyItems/Wings/LanternDetection"]
+position = Vector2(-2, 10.5)
+shape = SubResource("RectangleShape2D_7e3lw")
 
 [node name="Halo" type="AnimatedSprite2D" parent="HolyItems"]
 texture_filter = 1
@@ -482,18 +597,18 @@ position = Vector2(1, -26)
 sprite_frames = SubResource("SpriteFrames_1w84j")
 script = ExtResource("22_0sd5k")
 
-[node name="PickupArea" type="Area2D" parent="."]
-collision_layer = 4096
-collision_mask = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea"]
-shape = SubResource("CapsuleShape2D_idcnr")
-
 [connection signal="jumped" from="." to="DustFX" method="_on_player_jumped"]
-[connection signal="jumped" from="." to="SFX manager" method="_on_player_jumped"]
+[connection signal="flip_sprite" from="AnimatedSprite2D" to="HolyItems/Wings" method="_on_animated_sprite_2d_flip_sprite"]
+[connection signal="flip_sprite" from="AnimatedSprite2D" to="HolyItems/Wings/WingDustFX" method="_on_animated_sprite_2d_flip_sprite"]
 [connection signal="area_entered" from="FootHitBox" to="." method="_on_foot_hit_box_area_entered"]
+[connection signal="area_entered" from="HurtBox" to="HurtBox" method="_on_area_entered"]
 [connection signal="damage_recieved" from="HurtBox" to="HealthComponent" method="_on_hurt_box_damage_recieved"]
 [connection signal="take_damage" from="HealthComponent" to="." method="_on_health_component_take_damage"]
 [connection signal="landed" from="DustFX" to="SFX manager" method="_on_dust_fx_landed"]
 [connection signal="timeout" from="DustFX/StepDustTimer" to="DustFX" method="_on_step_dust_timer_timeout"]
 [connection signal="timeout" from="DustFX/FallingTimer" to="DustFX" method="_on_falling_timer_timeout"]
+[connection signal="animation_finished" from="HolyItems/Wings" to="HolyItems/Wings" method="_on_animation_finished"]
+[connection signal="wing_fx" from="HolyItems/Wings" to="HolyItems/Wings/WingDustFX" method="_on_wings_wing_fx"]
+[connection signal="timeout" from="HolyItems/Wings/WingDustFX/WingFlapTimer" to="HolyItems/Wings/WingDustFX" method="_on_wing_flap_timer_timeout"]
+[connection signal="area_entered" from="HolyItems/Wings/LanternDetection" to="HolyItems/Wings" method="_on_lantern_detection_area_entered"]
+[connection signal="area_exited" from="HolyItems/Wings/LanternDetection" to="HolyItems/Wings" method="_on_lantern_detection_area_exited"]

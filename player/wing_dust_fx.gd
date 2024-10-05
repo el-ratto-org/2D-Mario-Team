@@ -3,11 +3,11 @@ extends Node2D
 @onready var wing_fx_ray : RayCast2D = $WingFXRay
 
 # Height of wing_fx
-@export var wing_fx_offset = -20
+@export var wing_fx_offset = -10
 
 
 # Preloaded scenes
-var animated_sprite_scene = preload("res://scenes/fx/dust_fx.tscn")
+var animated_sprite_scene = preload("res://assets/fx/dust_fx_fog.tscn")
 
 # Inherited variables
 var wing_fx_allowed = false
@@ -36,9 +36,8 @@ func _on_wing_flap_timer_timeout() -> void:
 	$WingFlapTimer.start()
 	if true:
 		# gather player and ray info
-		var player_controller = $"../../../PlayerMovementController"
-		var player_x = player_controller.character.velocity.x
-		var player_y = player_controller.character.velocity.y
+		var player_x = owner.velocity.x
+		var player_y = owner.velocity.y
 		var ray_cast_point = wing_fx_ray.get_collision_point()
 		
 		# Project the fx forward based on player movement
@@ -57,9 +56,7 @@ func _on_wings_wing_fx(in_light: bool) -> void:
 	print("Set to "+str(in_light))
 	wing_fx_allowed = in_light
 	$WingFlapTimer.start()
-	pass # Replace with function body.
 
 
 func _on_animated_sprite_2d_flip_sprite(flip: bool) -> void:
 	flipped = flip
-	pass # Replace with function body.

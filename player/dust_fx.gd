@@ -3,7 +3,7 @@ extends Node2D
 signal landed
 
 # Preloaded scenes
-var animated_sprite_scene = preload("res://scenes/fx/dust_fx.tscn")
+var animated_sprite_scene = preload("res://assets/fx/dust_fx.tscn")
 
 # Sprite variables
 var anim_type = "jump_straight"
