@@ -2,8 +2,7 @@ extends RigidBody2D
 class_name Projectile
 
 @export var lifetime: float = 5
-@export var despawn_on_collision: bool = true
-@export var collision_particles: CPUParticles2D
+@export var face_movement_direction: bool = true
 
 # set from other scripts
 var max_speed: float
@@ -31,6 +30,12 @@ func _set_start_position(position: Vector2) -> void:
 	reset_state = true
 
 func _begin_launch() -> void:
+	# check for zero gravity
+	if gravity == 0:
+		var launch_velocity = (destination - global_position).normalized() * max_speed
+		_launch_with_velocity(launch_velocity)
+		return
+	
 	# calculate launch angle and other variables
 	var damp = max(linear_damp, ProjectSettings.get_setting("physics/2d/default_linear_damp"))
 	#print("damp: ", damp)
@@ -88,6 +93,12 @@ func _physics_process(delta: float) -> void:
 	# Die on collision
 	if get_colliding_bodies().size() > 0:
 		_despawn()
+	
+	
+	# Point in movement direction
+	if face_movement_direction:
+		look_at(global_position + linear_velocity.normalized())
+	
 
 func _integrate_forces(state):
 	if global_position.distance_to(starting_position) < 10:
@@ -119,3 +130,7 @@ func _despawn() -> void:
 	
 	# delete 
 	queue_free()
+
+
+func _on_hit_box_area_entered(area: Area2D) -> void:
+	_despawn()

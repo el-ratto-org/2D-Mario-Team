@@ -7,7 +7,7 @@
 [ext_resource type="Script" path="res://enemies/scripts/modular_behaviours/behaviours/charge.gd" id="3_ma71j"]
 [ext_resource type="Script" path="res://enemies/scripts/modular_behaviours/behaviours/launch_projectile_at_player.gd" id="4_tuebx"]
 [ext_resource type="Script" path="res://CombatComponents/HurtBox.gd" id="4_wyl35"]
-[ext_resource type="PackedScene" uid="uid://ctgh7sjolo85m" path="res://enemies/projectiles/boulder.tscn" id="5_h0ho3"]
+[ext_resource type="PackedScene" uid="uid://ctgh7sjolo85m" path="res://enemies/projectiles/boulder/boulder.tscn" id="5_h0ho3"]
 [ext_resource type="Texture2D" uid="uid://dtbxqsrppd57k" path="res://assets/sprites/characters/enemies/gloopus/gloopus_base.png" id="6_pdhof"]
 [ext_resource type="Script" path="res://enemies/scripts/modular_behaviours/base_classes/enemy_physics.gd" id="8_n1ofw"]
 
