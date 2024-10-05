@@ -3,6 +3,7 @@ extends Node2D
 @export var radius: float = 1
 
 var lantern_radius_current: float = 0
+signal lantern_radius(lantern_scale: float)
 
 func _process(delta: float) -> void:
 	var viewport_size = get_viewport_rect().size
@@ -23,12 +24,15 @@ func _process(delta: float) -> void:
 func set_active(active: bool) -> void:
 	create_tween().tween_property(self, 'lantern_opacity', 1 if active else 0, 0.25)
 	if active:
+		lantern_radius.emit(1)
 		create_tween() \
 			.tween_property(self, 'lantern_radius_current', radius, 0.75) \
 			.set_trans(Tween.TRANS_CUBIC) \
 			.set_ease(Tween.EASE_OUT)
 	else:
+		lantern_radius.emit(0)
 		create_tween() \
 			.tween_property(self, 'lantern_radius_current', 0, 0.35) \
 			.set_trans(Tween.TRANS_CUBIC) \
 			.set_ease(Tween.EASE_OUT)
+		

@@ -15,6 +15,7 @@ root_node = NodePath("../background")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(648, 392)
+volume_db = -33.24
 
 [node name="lantern" type="ColorRect" parent="."]
 modulate = Color(1, 1, 1, 0)
