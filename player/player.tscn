@@ -1,4 +1,4 @@
-[gd_scene load_steps=85 format=3 uid="uid://crjeudwcdacco"]
+[gd_scene load_steps=86 format=3 uid="uid://crjeudwcdacco"]
 
 [ext_resource type="Script" path="res://player/player_movement_controller.gd" id="1_78ula"]
 [ext_resource type="Material" uid="uid://uq6nbmy6mpwl" path="res://assets/shaders/damaged.tres" id="1_eh7wd"]
@@ -314,7 +314,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"loop",
-"speed": 12.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -336,6 +336,9 @@ animations = [{
 "name": &"uncurl",
 "speed": 8.0
 }]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4cpt0"]
+shader = ExtResource("20_1ctaa")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7e3lw"]
 size = Vector2(8, 11)
@@ -563,15 +566,16 @@ texture_filter = 1
 material = SubResource("ShaderMaterial_56tus")
 position = Vector2(2, -9)
 sprite_frames = SubResource("SpriteFrames_rbpy6")
-animation = &"uncurl"
+animation = &"loop"
 script = ExtResource("22_0sd5k")
 
 [node name="WingDustFX" type="Node2D" parent="HolyItems/Wings"]
+material = SubResource("ShaderMaterial_4cpt0")
 position = Vector2(-2, 23.075)
 script = ExtResource("24_phvbu")
 
 [node name="WingFlapTimer" type="Timer" parent="HolyItems/Wings/WingDustFX"]
-wait_time = 0.5
+wait_time = 0.8
 one_shot = true
 
 [node name="WingFXRay" type="RayCast2D" parent="HolyItems/Wings/WingDustFX"]

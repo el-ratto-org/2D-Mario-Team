@@ -3,11 +3,11 @@ extends Node2D
 @onready var wing_fx_ray : RayCast2D = $WingFXRay
 
 # Height of wing_fx
-@export var wing_fx_offset = -20
+@export var wing_fx_offset = -10
 
 
 # Preloaded scenes
-var animated_sprite_scene = preload("res://scenes/fx/dust_fx.tscn")
+var animated_sprite_scene = preload("res://assets/fx/dust_fx_fog.tscn")
 
 # Inherited variables
 var wing_fx_allowed = false

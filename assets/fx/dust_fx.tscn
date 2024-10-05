@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://gl7bgwjt6et0" path="res://assets/sprites/fx/jump_angle_FX-Sheet.png" id="1_5ra6l"]
 [ext_resource type="Texture2D" uid="uid://cnulul2dml2mr" path="res://assets/sprites/fx/jump_mid_airFX-Sheet.png" id="1_wch15"]
-[ext_resource type="Script" path="res://scenes/fx/dust_fx.gd" id="2_8e117"]
+[ext_resource type="Script" path="res://assets/fx/dust_fx.gd" id="2_8e117"]
 [ext_resource type="Texture2D" uid="uid://bmgpik4wixtxh" path="res://assets/sprites/fx/jump_FX-Sheet.png" id="2_hojfg"]
 [ext_resource type="Texture2D" uid="uid://cq7qn8hcolwc1" path="res://assets/sprites/fx/step_fx-Sheet.png" id="3_oi8cc"]
 [ext_resource type="Texture2D" uid="uid://bbivu0nvv2qxn" path="res://assets/sprites/fx/landing_fx-Sheet.png" id="3_yg0on"]
