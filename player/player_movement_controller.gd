@@ -233,6 +233,7 @@ func ground_slide(delta):
 	initial_push_amount -= slide_time_passed
 
 	var current_push_amount = lerp(initial_push_amount, slide_end_speed, easing)
+	print((current_push_amount - slide_end_speed) / (initial_push_amount-slide_end_speed))
 	
 	if velocity.x > 0:
 		velocity.x = current_push_amount

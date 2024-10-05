@@ -22,7 +22,6 @@ func spawn_vfx(animation_name, position):
 	var new_sprite = animated_sprite_scene.instantiate() as AnimatedSprite2D
 	new_sprite.global_position = position
 	new_sprite.animation = animation_name.pick_random()
-	print(new_sprite.animation)
 	new_sprite.play()
 	new_sprite.flip_h = sprite_flip
 	get_tree().root.add_child(new_sprite)
