@@ -313,7 +313,7 @@ smoothing = 90.0
 [node name="Rain" parent="Camera2D" instance=ExtResource("4_4tbre")]
 
 [node name="Player" parent="." instance=ExtResource("1_6ahel")]
-position = Vector2(-328, -17)
+position = Vector2(-328, -32)
 
 [node name="Tiles" type="Node2D" parent="."]
 material = SubResource("ShaderMaterial_mw0ft")
@@ -449,6 +449,7 @@ position = Vector2(1680, -248)
 [node name="Hearts" parent="CanvasLayer" instance=ExtResource("15_qk36j")]
 
 [node name="Manager" parent="CanvasLayer" instance=ExtResource("15_viswo")]
+visible = false
 
 [node name="FogLayer" parent="." instance=ExtResource("19_kbin2")]
 
@@ -468,6 +469,7 @@ offset_bottom = 380.0
 
 [node name="PixelizeCanvas" type="CanvasLayer" parent="Water"]
 layer = 2
+visible = false
 follow_viewport_enabled = true
 
 [node name="Pixelize" parent="Water/PixelizeCanvas" instance=ExtResource("22_rj1h0")]

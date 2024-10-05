@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dhd0dqit2lkvs"]
+[gd_scene load_steps=8 format=3 uid="uid://dhd0dqit2lkvs"]
 
 [ext_resource type="PackedScene" uid="uid://b8sytvp8cwfvx" path="res://scenes/main_menu/fog.tscn" id="1_ddg53"]
 [ext_resource type="Texture2D" uid="uid://d02kgyd0iwhwl" path="res://assets/sprites/backgrounds/TreeBG.png" id="2_0ao30"]
@@ -7,14 +7,18 @@
 [ext_resource type="Script" path="res://scenes/main_menu/quit_buttob.gd" id="4_mqawi"]
 [ext_resource type="Script" path="res://scenes/main_menu/sprite_2d.gd" id="4_usr4q"]
 
+[sub_resource type="Theme" id="Theme_cqcuh"]
+
 [node name="MainMenu" type="Node2D"]
 
 [node name="Parallax2D" parent="." instance=ExtResource("1_ddg53")]
 modulate = Color(0, 0, 0, 1)
+scale = Vector2(1.2, 1.2)
+scroll_offset = Vector2(-40, -8)
 
 [node name="Sprite2D2" type="Sprite2D" parent="."]
 texture_filter = 1
-position = Vector2(687, 285)
+position = Vector2(688, 320)
 scale = Vector2(3, 3)
 texture = ExtResource("2_0ao30")
 
@@ -32,19 +36,20 @@ script = ExtResource("3_abg0s")
 
 [node name="Button2" type="Button" parent="."]
 z_index = 1465
-offset_left = 545.0
-offset_top = 501.0
-offset_right = 664.0
-offset_bottom = 532.0
+offset_left = 528.0
+offset_top = 496.0
+offset_right = 694.0
+offset_bottom = 527.0
+theme = SubResource("Theme_cqcuh")
 text = "Abandon Cure"
 script = ExtResource("4_mqawi")
 
 [node name="Button3" type="Button" parent="."]
 z_index = 1465
-offset_left = 539.0
-offset_top = 397.0
-offset_right = 668.0
-offset_bottom = 428.0
+offset_left = 536.0
+offset_top = 400.0
+offset_right = 665.0
+offset_bottom = 431.0
 text = "Configure Tools"
 icon_alignment = 1
 
