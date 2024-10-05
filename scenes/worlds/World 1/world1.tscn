@@ -1,7 +1,7 @@
 [gd_scene load_steps=34 format=4 uid="uid://eyv6uveq0q8w"]
 
 [ext_resource type="PackedScene" uid="uid://crjeudwcdacco" path="res://player/player.tscn" id="1_6ahel"]
-[ext_resource type="PackedScene" path="res://assets/shaders/fog.tscn" id="1_8mnw5"]
+[ext_resource type="PackedScene" uid="uid://s8g34kjtosrr" path="res://assets/shaders/fog.tscn" id="1_8mnw5"]
 [ext_resource type="Shader" path="res://assets/shaders/VHS.gdshader" id="2_5uqgo"]
 [ext_resource type="Shader" path="res://fog/fog.gdshader" id="2_vlq2a"]
 [ext_resource type="Script" path="res://player/camera_follow.gd" id="3_osp4x"]
@@ -258,8 +258,8 @@ use_texture_padding = false
 
 [sub_resource type="TileSet" id="TileSet_4j5lf"]
 tile_size = Vector2i(32, 32)
-physics_layer_0/collision_layer = 7
-physics_layer_0/collision_mask = 7
+physics_layer_0/collision_layer = 1
+physics_layer_0/collision_mask = 0
 sources/4 = SubResource("TileSetAtlasSource_xwf3c")
 sources/0 = SubResource("TileSetAtlasSource_gw2dj")
 sources/3 = SubResource("TileSetAtlasSource_xm6d0")
