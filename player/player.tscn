@@ -1,4 +1,4 @@
-[gd_scene load_steps=89 format=3 uid="uid://crjeudwcdacco"]
+[gd_scene load_steps=90 format=3 uid="uid://crjeudwcdacco"]
 
 [ext_resource type="Script" path="res://player/player_movement_controller.gd" id="1_78ula"]
 [ext_resource type="Material" uid="uid://bbor6bxyoj5ht" path="res://assets/shaders/damaged.tres" id="1_eh7wd"]
@@ -17,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://bibeemm1hb3dd" path="res://assets/sprites/characters/main_char_animations-Sheet_slide.png" id="8_jgvm6"]
 [ext_resource type="Script" path="res://player/player_sfx_manager.gd" id="16_h5jd8"]
 [ext_resource type="AudioStream" uid="uid://qi8ka32w1gjg" path="res://assets/sounds/sfx/Footsteps_Casual_Sand_01.wav" id="17_4n0l4"]
+[ext_resource type="Script" path="res://player/dust_fx_slide.gd" id="17_q7sh8"]
 [ext_resource type="Script" path="res://player/dust_fx.gd" id="17_w4phm"]
 [ext_resource type="AudioStream" uid="uid://db00phbrulolc" path="res://assets/sounds/sfx/SFX_Game_Jump.wav" id="17_ycnoh"]
 [ext_resource type="AudioStream" uid="uid://1ibot1bi1gha" path="res://assets/sounds/sfx/Footsteps_Casual_Mud_02.wav" id="18_rss2v"]
@@ -473,7 +474,7 @@ material = SubResource("ShaderMaterial_wi1ve")
 position = Vector2(0, -1)
 sprite_frames = SubResource("SpriteFrames_sps2v")
 animation = &"slide"
-frame_progress = 0.658921
+frame_progress = 0.6
 script = ExtResource("4_muvw0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -560,6 +561,14 @@ autostart = true
 wait_time = 0.216
 one_shot = true
 
+[node name="DustFXSlide" type="Node2D" parent="."]
+position = Vector2(0, 8)
+script = ExtResource("17_q7sh8")
+
+[node name="SlideDustTimer" type="Timer" parent="DustFXSlide"]
+wait_time = 0.012
+one_shot = true
+
 [node name="SFX manager" type="Node2D" parent="."]
 script = ExtResource("16_h5jd8")
 
@@ -618,6 +627,8 @@ position = Vector2(1, -26)
 sprite_frames = SubResource("SpriteFrames_1w84j")
 script = ExtResource("22_0sd5k")
 
+[node name="Node2D" type="Node2D" parent="."]
+
 [connection signal="jumped" from="." to="DustFX" method="_on_player_jumped"]
 [connection signal="flip_sprite" from="AnimatedSprite2D" to="HolyItems/Wings" method="_on_animated_sprite_2d_flip_sprite"]
 [connection signal="flip_sprite" from="AnimatedSprite2D" to="HolyItems/Wings/WingDustFX" method="_on_animated_sprite_2d_flip_sprite"]
@@ -628,6 +639,7 @@ script = ExtResource("22_0sd5k")
 [connection signal="landed" from="DustFX" to="SFX manager" method="_on_dust_fx_landed"]
 [connection signal="timeout" from="DustFX/StepDustTimer" to="DustFX" method="_on_step_dust_timer_timeout"]
 [connection signal="timeout" from="DustFX/FallingTimer" to="DustFX" method="_on_falling_timer_timeout"]
+[connection signal="timeout" from="DustFXSlide/SlideDustTimer" to="DustFXSlide" method="_on_slide_dust_timer_timeout"]
 [connection signal="animation_finished" from="HolyItems/Wings" to="HolyItems/Wings" method="_on_animation_finished"]
 [connection signal="wing_fx" from="HolyItems/Wings" to="HolyItems/Wings/WingDustFX" method="_on_wings_wing_fx"]
 [connection signal="timeout" from="HolyItems/Wings/WingDustFX/WingFlapTimer" to="HolyItems/Wings/WingDustFX" method="_on_wing_flap_timer_timeout"]

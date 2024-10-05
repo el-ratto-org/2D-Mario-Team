@@ -1,0 +1,37 @@
+extends Node2D
+
+# Preloaded scenes
+var animated_sprite_scene = preload("res://assets/fx/dust_fx.tscn")
+
+# Sprite variables
+var anim_type = ["slide_fx_1", "slide_fx_2"]
+var sprite_flip = false
+var slide_timer_completed = true
+
+func _process(delta: float) -> void:
+	if start_slide_timer_condition_met():
+		$SlideDustTimer.start()
+	
+
+
+func spawn_vfx(animation_name, position):
+	if owner.velocity.x > 100:
+		sprite_flip = true
+	else:
+		sprite_flip = false
+	var new_sprite = animated_sprite_scene.instantiate() as AnimatedSprite2D
+	new_sprite.global_position = position
+	new_sprite.animation = animation_name.pick_random()
+	print(new_sprite.animation)
+	new_sprite.play()
+	new_sprite.flip_h = sprite_flip
+	get_tree().root.add_child(new_sprite)
+
+
+func start_slide_timer_condition_met():
+	return  $SlideDustTimer.time_left == 0 and \
+			owner.is_sliding == true
+
+func _on_slide_dust_timer_timeout() -> void:
+	slide_timer_completed = true
+	spawn_vfx(anim_type, self.global_position)
