@@ -473,8 +473,7 @@ texture_filter = 1
 material = SubResource("ShaderMaterial_wi1ve")
 position = Vector2(0, -1)
 sprite_frames = SubResource("SpriteFrames_sps2v")
-animation = &"slide"
-frame_progress = 0.6
+animation = &"idle"
 script = ExtResource("4_muvw0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -548,6 +547,10 @@ script = ExtResource("4_qg5aq")
 [node name="HealthComponent" type="Node2D" parent="."]
 script = ExtResource("5_hf0il")
 
+[node name="InvulnerabilityTimer" type="Timer" parent="HealthComponent"]
+wait_time = 0.1
+one_shot = true
+
 [node name="DustFX" type="Node2D" parent="."]
 position = Vector2(0, 8)
 script = ExtResource("17_w4phm")
@@ -566,7 +569,7 @@ position = Vector2(0, 8)
 script = ExtResource("17_q7sh8")
 
 [node name="SlideDustTimer" type="Timer" parent="DustFXSlide"]
-wait_time = 0.012
+wait_time = 0.023
 one_shot = true
 
 [node name="SFX manager" type="Node2D" parent="."]
@@ -626,8 +629,6 @@ material = SubResource("ShaderMaterial_56tus")
 position = Vector2(1, -26)
 sprite_frames = SubResource("SpriteFrames_1w84j")
 script = ExtResource("22_0sd5k")
-
-[node name="Node2D" type="Node2D" parent="."]
 
 [connection signal="jumped" from="." to="DustFX" method="_on_player_jumped"]
 [connection signal="flip_sprite" from="AnimatedSprite2D" to="HolyItems/Wings" method="_on_animated_sprite_2d_flip_sprite"]

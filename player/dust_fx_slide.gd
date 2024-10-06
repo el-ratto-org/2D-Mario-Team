@@ -4,7 +4,7 @@ extends Node2D
 var animated_sprite_scene = preload("res://assets/fx/dust_fx.tscn")
 
 # Sprite variables
-var anim_type = ["slide_fx_1", "slide_fx_2"]
+var anim_type = ["slide_fx_1", "slide_fx_2", "slide_fx_3"]
 var sprite_flip = false
 var slide_timer_completed = true
 
@@ -15,7 +15,7 @@ func _process(delta: float) -> void:
 
 
 func spawn_vfx(animation_name, position):
-	if owner.velocity.x > 100:
+	if owner.velocity.x < -100:
 		sprite_flip = true
 	else:
 		sprite_flip = false
