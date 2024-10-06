@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://bm7ggh5n8goun"]
 
 [ext_resource type="Script" path="res://enemies/scripts/projectile_physics.gd" id="1_afme5"]
-[ext_resource type="Texture2D" path="res://enemies/projectiles/boulder.png" id="2_0lyml"]
+[ext_resource type="Texture2D" uid="uid://dpk08f7ui4ih4" path="res://enemies/projectiles/boulder/boulder.png" id="2_0lyml"]
 [ext_resource type="Script" path="res://CombatComponents/HitBox.gd" id="3_wsnx7"]
 [ext_resource type="Script" path="res://random_components/despawner.gd" id="4_v5xoy"]
 
