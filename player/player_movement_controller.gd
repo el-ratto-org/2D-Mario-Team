@@ -25,6 +25,10 @@ signal jumped
 
 var grounded
 
+# God mode
+var god_mode: bool = false
+var current_lantern: Node2D
+
 # Movement variables
 var inertia: float = 0
 var fatigue: float = 0
@@ -63,6 +67,11 @@ func _ready() -> void:
 	PlayerStatsManager.player = self
 
 func _physics_process(delta: float) -> void:
+	# run god mode physics
+	if god_mode:
+		_god_mode_physics(delta)
+		return
+	
 	#detect dash
 	if Input.is_action_just_pressed("dash") and not is_dashing and can_dash and PlayerStatsManager.has_dash_item: # last part checks if player has item
 		is_dashing = true
@@ -74,6 +83,13 @@ func _physics_process(delta: float) -> void:
 		can_slide = false
 		
 	calculate_vertical_movement(delta)
+	calculate_horizontal_movement(delta)
+	step_check(velocity.x, delta)
+	move_and_slide()
+	PlayerStatsManager._set_player_position(position)
+
+func _god_mode_physics(delta: float) -> void:
+	calculate_godmode_vertical_movement(delta)
 	calculate_horizontal_movement(delta)
 	step_check(velocity.x, delta)
 	move_and_slide()
@@ -160,6 +176,30 @@ func calculate_vertical_movement(delta: float):
 	if has_jumped and Input.is_action_just_released("move_up") and velocity.y < 0:
 		velocity *= min_jump_height / max_jump_height
 		has_jumped = false
+
+func calculate_godmode_vertical_movement(delta: float):
+	
+	# calculate gravity
+	var cpllision_shape = current_lantern.get_child(0).get_child(0) as CollisionShape2D
+	var lantern_radius = cpllision_shape.shape.radius
+	var distance_percentage = global_position.distance_to(current_lantern.global_position) / lantern_radius
+	distance_percentage = clamp((distance_percentage - 0.75) * 4, 0, 1)
+	var gravity = slow_gravity * delta * distance_percentage
+	gravity *= 10
+	print("Gravity: ", gravity)
+	
+	
+	# calculate fly force
+	if Input.is_action_pressed("move_up"):
+		velocity.y = -move_speed
+	elif Input.is_action_pressed("move_down"):
+		velocity.y = move_speed
+	else:
+		velocity.y = 0
+	
+	# apply gravity
+	velocity.y = clamp(velocity.y + gravity, -terminal_velocity, terminal_velocity)
+
 
 func step_check(horizontal_stride: float, delta: float):
 	# Figure out which raycast to use
@@ -250,3 +290,13 @@ func ground_slide(delta):
 
 func _on_foot_hit_box_area_entered(area: Area2D) -> void:
 	jump() # Bounce
+
+
+func _on_lantern_detection_area_entered(area: Area2D) -> void:
+	god_mode = true
+	current_lantern = area.get_parent()
+
+
+func _on_lantern_detection_area_exited(area: Area2D) -> void:
+	god_mode = false
+	current_lantern = null

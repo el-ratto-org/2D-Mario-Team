@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://player/player_movement_controller.gd" id="1_78ula"]
 [ext_resource type="Material" uid="uid://bbor6bxyoj5ht" path="res://assets/shaders/damaged.tres" id="1_eh7wd"]
-[ext_resource type="PackedScene" uid="uid://b617nmvedrdmj" path="res://managers/inventory.tscn" id="3_0ikdi"]
+[ext_resource type="PackedScene" path="res://managers/inventory.tscn" id="3_0ikdi"]
 [ext_resource type="FontFile" uid="uid://b3fp5g5ue1p3k" path="res://assets/fonts/dogica/TTF/dogica.ttf" id="3_p2aie"]
 [ext_resource type="Shader" path="res://fog/experiment.gdshader" id="3_vq52x"]
 [ext_resource type="Script" path="res://scenes/worlds/Test World/player_animations.gd" id="4_muvw0"]
@@ -644,5 +644,7 @@ script = ExtResource("22_0sd5k")
 [connection signal="animation_finished" from="HolyItems/Wings" to="HolyItems/Wings" method="_on_animation_finished"]
 [connection signal="wing_fx" from="HolyItems/Wings" to="HolyItems/Wings/WingDustFX" method="_on_wings_wing_fx"]
 [connection signal="timeout" from="HolyItems/Wings/WingDustFX/WingFlapTimer" to="HolyItems/Wings/WingDustFX" method="_on_wing_flap_timer_timeout"]
+[connection signal="area_entered" from="HolyItems/Wings/LanternDetection" to="." method="_on_lantern_detection_area_entered"]
 [connection signal="area_entered" from="HolyItems/Wings/LanternDetection" to="HolyItems/Wings" method="_on_lantern_detection_area_entered"]
+[connection signal="area_exited" from="HolyItems/Wings/LanternDetection" to="." method="_on_lantern_detection_area_exited"]
 [connection signal="area_exited" from="HolyItems/Wings/LanternDetection" to="HolyItems/Wings" method="_on_lantern_detection_area_exited"]
