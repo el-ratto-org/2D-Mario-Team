@@ -59,13 +59,16 @@ func spawn_vfx(animation_name, position, flipped:bool):
 	new_sprite.flip_h = flipped
 	get_tree().root.add_child(new_sprite)
 
+
 func _on_step_dust_timer_timeout():
 	timer_between_step_completed = true
+
 
 func _on_falling_timer_timeout() -> void:
 	air_timer_completed = true
 
-func _on_player_jumped() -> void:
+
+func _on_jump_jumped() -> void:
 	var player_x_velocity = owner.velocity.x
 	
 	# Figure out which animation to play

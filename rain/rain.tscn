@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dq0wtiauxedic"]
+[gd_scene load_steps=6 format=3 uid="uid://dq0wtiauxedic"]
 
 [ext_resource type="Texture2D" uid="uid://wp5a3xvveuiv" path="res://assets/sprites/particles/rain.png" id="1_b8a2v"]
 
@@ -25,11 +25,20 @@ initial_velocity_max = 600.0
 gravity = Vector3(0, 0, 0)
 color = Color(1, 1, 1, 0.498039)
 alpha_curve = SubResource("CurveTexture_jjih1")
+collision_mode = 2
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_ulwj5"]
+polygon = PackedVector2Array(-104, 6, 137, 196, -66, 224, -290, 76)
 
 [node name="Rain" type="GPUParticles2D"]
 position = Vector2(0, -200)
 amount = 250
+sub_emitter = NodePath(".")
 process_material = SubResource("ParticleProcessMaterial_em0ax")
 texture = ExtResource("1_b8a2v")
 preprocess = 1.0
 randomness = 0.1
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+visible = false
+occluder = SubResource("OccluderPolygon2D_ulwj5")

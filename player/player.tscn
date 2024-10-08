@@ -483,8 +483,7 @@ texture_filter = 1
 material = SubResource("ShaderMaterial_wi1ve")
 position = Vector2(0, -1)
 sprite_frames = SubResource("SpriteFrames_sps2v")
-animation = &"slide"
-frame_progress = 0.6
+animation = &"idle"
 script = ExtResource("4_muvw0")
 
 [node name="Movement" type="Node2D" parent="."]
@@ -506,6 +505,7 @@ wait_time = 0.1
 one_shot = true
 
 [node name="Slide" type="Node2D" parent="Movement" node_paths=PackedStringArray("target")]
+visible = false
 script = ExtResource("12_pe3bx")
 target = NodePath("../..")
 
@@ -596,16 +596,20 @@ script = ExtResource("4_qg5aq")
 [node name="HealthComponent" type="Node2D" parent="."]
 script = ExtResource("5_hf0il")
 
-[node name="DustFx" type="Node2D" parent="."]
+[node name="InvulnerabilityTimer" type="Timer" parent="HealthComponent"]
+wait_time = 0.1
+one_shot = true
+
+[node name="DustFX" type="Node2D" parent="."]
 position = Vector2(0, 8)
 script = ExtResource("17_w4phm")
 
-[node name="StepDustTimer" type="Timer" parent="DustFx"]
+[node name="StepDustTimer" type="Timer" parent="DustFX"]
 wait_time = 0.391
 one_shot = true
 autostart = true
 
-[node name="FallingTimer" type="Timer" parent="DustFx"]
+[node name="FallingTimer" type="Timer" parent="DustFX"]
 wait_time = 0.216
 one_shot = true
 
@@ -614,7 +618,7 @@ position = Vector2(0, 8)
 script = ExtResource("17_q7sh8")
 
 [node name="SlideDustTimer" type="Timer" parent="SlideFx"]
-wait_time = 0.012
+wait_time = 0.023
 one_shot = true
 
 [node name="SFX manager" type="Node2D" parent="."]
@@ -677,19 +681,17 @@ script = ExtResource("22_0sd5k")
 
 [connection signal="flip_sprite" from="AnimatedSprite2D" to="HolyItems/Wings" method="_on_animated_sprite_2d_flip_sprite"]
 [connection signal="flip_sprite" from="AnimatedSprite2D" to="HolyItems/Wings/WingDustFX" method="_on_animated_sprite_2d_flip_sprite"]
-[connection signal="jumped" from="Movement/Jump" to="DustFx" method="_on_player_jumped"]
+[connection signal="jumped" from="Movement/Jump" to="DustFX" method="_on_jump_jumped"]
 [connection signal="area_entered" from="Hitboxes/FootHitBox" to="." method="_on_foot_hit_box_area_entered"]
 [connection signal="area_entered" from="Hitboxes/HurtBox" to="Hitboxes/HurtBox" method="_on_area_entered"]
 [connection signal="damage_recieved" from="Hitboxes/HurtBox" to="HealthComponent" method="_on_hurt_box_damage_recieved"]
 [connection signal="take_damage" from="HealthComponent" to="." method="_on_health_component_take_damage"]
-[connection signal="landed" from="DustFx" to="SFX manager" method="_on_dust_fx_landed"]
-[connection signal="timeout" from="DustFx/StepDustTimer" to="DustFx" method="_on_step_dust_timer_timeout"]
-[connection signal="timeout" from="DustFx/FallingTimer" to="DustFx" method="_on_falling_timer_timeout"]
-[connection signal="timeout" from="SlideFx/SlideDustTimer" to="SlideFx" method="_on_slide_dust_timer_timeout"]
+[connection signal="timeout" from="DustFX/StepDustTimer" to="DustFX" method="_on_step_dust_timer_timeout"]
+[connection signal="timeout" from="DustFX/FallingTimer" to="DustFX" method="_on_falling_timer_timeout"]
 [connection signal="animation_finished" from="HolyItems/Wings" to="HolyItems/Wings" method="_on_animation_finished"]
 [connection signal="wing_fx" from="HolyItems/Wings" to="HolyItems/Wings/WingDustFX" method="_on_wings_wing_fx"]
 [connection signal="timeout" from="HolyItems/Wings/WingDustFX/WingFlapTimer" to="HolyItems/Wings/WingDustFX" method="_on_wing_flap_timer_timeout"]
-[connection signal="area_entered" from="HolyItems/Wings/LanternDetection" to="HolyItems/Wings" method="_on_lantern_detection_area_entered"]
 [connection signal="area_entered" from="HolyItems/Wings/LanternDetection" to="Movement/Flying" method="_on_lantern_detection_area_entered"]
-[connection signal="area_exited" from="HolyItems/Wings/LanternDetection" to="HolyItems/Wings" method="_on_lantern_detection_area_exited"]
+[connection signal="area_entered" from="HolyItems/Wings/LanternDetection" to="HolyItems/Wings" method="_on_lantern_detection_area_entered"]
 [connection signal="area_exited" from="HolyItems/Wings/LanternDetection" to="Movement/Flying" method="_on_lantern_detection_area_exited"]
+[connection signal="area_exited" from="HolyItems/Wings/LanternDetection" to="HolyItems/Wings" method="_on_lantern_detection_area_exited"]
