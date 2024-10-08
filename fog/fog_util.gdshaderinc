@@ -11,14 +11,14 @@ float circular_smooth(float dist, float smoothing) {
 	// Simple value clamping
 	if (dist < 0.0) return 0.0;
 	if (dist > 1.0) return 1.0;
-	
+
 	//      2ʲ
 	//  (2x)
 	//  ────
 	//   2
 	// where x=dist, j=smoothing
 	if (dist < 0.5) return pow(2.0 * dist, pow(2.0, smoothing)) / 2.0;
-	
+
 	//          2ʲ
 	//  2-(2-2x)
 	//  ──────────
