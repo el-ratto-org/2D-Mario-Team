@@ -28,10 +28,19 @@ float circular_smooth(float dist, float smoothing) {
 }
 
 float rand(vec2 co) {
-    highp float a = 12.9898;
-    highp float b = 78.233;
-    highp float c = 43758.5453;
-    highp float dt = dot(co.xy ,vec2(a,b));
-    highp float sn = mod(dt,3.14);
-    return fract(sin(sn) * c);
+	highp float a = 12.9898;
+	highp float b = 78.233;
+	highp float c = 43758.5453;
+	highp float dt = dot(co.xy ,vec2(a,b));
+	highp float sn = mod(dt,3.14);
+	return fract(sin(sn) * c);
+}
+
+vec2 calculate_aspect(vec2 size) {
+	float actual = 1.0;
+	if (size.x <= size.y) {
+		return vec2(size.x / size.y, 1) * actual;
+	} else {
+		return vec2(1, size.y / size.x) * actual;
+	}
 }

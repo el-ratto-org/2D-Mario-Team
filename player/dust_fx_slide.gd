@@ -8,10 +8,10 @@ var anim_type = ["slide_fx_1", "slide_fx_2"]
 var sprite_flip = false
 var slide_timer_completed = true
 
+
 func _process(delta: float) -> void:
 	if start_slide_timer_condition_met():
 		$SlideDustTimer.start()
-	
 
 
 func spawn_vfx(animation_name, position):
@@ -29,7 +29,8 @@ func spawn_vfx(animation_name, position):
 
 func start_slide_timer_condition_met():
 	return  $SlideDustTimer.time_left == 0 and \
-			owner.is_sliding == true
+			owner.slide.is_sliding()
+
 
 func _on_slide_dust_timer_timeout() -> void:
 	slide_timer_completed = true

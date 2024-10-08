@@ -2,30 +2,34 @@ extends AnimatedSprite2D
 
 signal flip_sprite(flip: bool)
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+const FLYING_EPSILON: float = 0.01
 
-func switch_animation(anim_name):
-	self.play(anim_name)
-	
+
 func _process(delta: float) -> void:
-	if owner.is_sliding == true:
-		switch_animation("slide")
-	elif owner.velocity.y > 0:
-		switch_animation("fall")
-	elif owner.velocity.y < 0:
-		switch_animation("jump")
-	elif owner.velocity.x > 0 or owner.velocity.x < 0:
-		switch_animation("run")
-	else:
-		switch_animation("idle")
-		
-	# Flip sprite
-	var player_x_velocity = owner.velocity.x
-	var flip = player_x_velocity < 0
+	# Figure out which way the player is intending to move
+	var horizontal_axis = Input.get_axis("move_left", "move_right")
 	
-	# If player is moving
-	if player_x_velocity != 0:
+	# Check if the player is actually moving
+	if abs(owner.velocity.x) == 0:
+		# Player is stopped, don't show move
+		horizontal_axis = 0
+	else:
+		# Check if we should flip the sprite
+		var flip = owner.velocity.x < 0
 		flip_h = flip
 		flip_sprite.emit(flip)
+	
+	var on_floor = owner.is_on_floor()
+	
+	# Determine which animation to play
+	if owner.slide.is_sliding():
+		play("slide")
+	elif not on_floor and (owner.velocity.y >= -FLYING_EPSILON or owner.flying.flying_amount > 0):
+		play("fall")
+	elif not on_floor and owner.velocity.y < 0:
+		play("jump")
+	elif on_floor and (horizontal_axis > 0 or horizontal_axis < 0):
+		play("run")
+	else:
+		# No animation was viable, play idle instead
+		play("idle")

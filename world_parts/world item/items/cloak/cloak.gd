@@ -15,8 +15,8 @@ func _on_pickup_range_area_entered(area: Area2D) -> void:
 	var entity = area.get_parent()
 	if entity.name == "Player":
 		print("player picked up item cloak/dash")
-		PlayerStatsManager.has_dash_item = true
-		PlayerStatsManager.play_caption('cloak')
+		PlayerManager.has_dash_item = true
+		PlayerManager.play_caption('cloak')
 		queue_free()
 	else:
 		print("non player entity tried to pick up item, layers/masks are wrong 🐕‍🦺")

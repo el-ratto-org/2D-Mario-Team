@@ -118,7 +118,7 @@ func cloak():
 	
 	
 func _ready() -> void:
-	PlayerStatsManager.caption_manager = self
+	PlayerManager.caption_manager = self
 	
 func _physics_process(delta: float) -> void:
 	pass
