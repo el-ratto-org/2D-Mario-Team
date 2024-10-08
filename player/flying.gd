@@ -1,7 +1,7 @@
 extends Node2D
 
 @export var target: CharacterBody2D
-@export var move_speed: float = 12.5
+@export var move_speed: float = 15
 @export_range(0, 1000, 0.5) var jump_force: float = 300
 @export_range(0, 100, 0.1, "suffix:%") var turning_speed: float = 30
 

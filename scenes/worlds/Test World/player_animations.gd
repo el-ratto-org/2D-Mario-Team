@@ -22,7 +22,7 @@ func _process(delta: float) -> void:
 	var on_floor = owner.is_on_floor()
 	
 	# Determine which animation to play
-	if owner.slide.is_sliding():
+	if on_floor and owner.slide.is_sliding():
 		play("slide")
 	elif not on_floor and (owner.velocity.y >= -FLYING_EPSILON or owner.flying.flying_amount > 0):
 		play("fall")
