@@ -1,8 +1,7 @@
-[gd_scene load_steps=18 format=4 uid="uid://dav0wpvw58snf"]
+[gd_scene load_steps=17 format=4 uid="uid://dav0wpvw58snf"]
 
 [ext_resource type="PackedScene" uid="uid://crjeudwcdacco" path="res://player/player.tscn" id="1_4kjn4"]
 [ext_resource type="Shader" path="res://fog/fog.gdshader" id="1_bexyp"]
-[ext_resource type="Material" uid="uid://uq6nbmy6mpwl" path="res://assets/shaders/damaged.tres" id="2_bb4p8"]
 [ext_resource type="TileSet" uid="uid://cf3y4libusnrq" path="res://assets/tilemaps/landmarks.tres" id="2_bybit"]
 [ext_resource type="TileSet" uid="uid://ds33pryupto4x" path="res://assets/tilemaps/plants.tres" id="3_l6ath"]
 [ext_resource type="Texture2D" uid="uid://clkntq76m2ev2" path="res://assets/sprites/tiles/tilesheet_test2.png" id="4_aflja"]
@@ -247,7 +246,6 @@ sources/1 = SubResource("TileSetAtlasSource_18xfb")
 [node name="World 2" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_4kjn4")]
-material = ExtResource("2_bb4p8")
 position = Vector2(1196, 6)
 
 [node name="Tiles" type="Node2D" parent="."]

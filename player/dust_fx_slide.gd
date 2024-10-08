@@ -4,7 +4,7 @@ extends Node2D
 var animated_sprite_scene = preload("res://assets/fx/dust_fx.tscn")
 
 # Sprite variables
-var anim_type = ["slide_fx_1", "slide_fx_2", "slide_fx_3"]
+var anim_type = ["slide_fx_1", "slide_fx_2", "slide_fx_3", "slide_fx_4"]
 var sprite_flip = false
 var slide_timer_completed = true
 

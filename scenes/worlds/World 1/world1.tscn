@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=4 uid="uid://eyv6uveq0q8w"]
+[gd_scene load_steps=46 format=4 uid="uid://eyv6uveq0q8w"]
 
 [ext_resource type="PackedScene" uid="uid://crjeudwcdacco" path="res://player/player.tscn" id="1_6ahel"]
 [ext_resource type="PackedScene" uid="uid://s8g34kjtosrr" path="res://assets/shaders/fog.tscn" id="1_8mnw5"]
@@ -26,6 +26,7 @@
 [ext_resource type="Shader" path="res://reflections/pixelize_reflection.gdshader" id="24_h2n7a"]
 [ext_resource type="PackedScene" uid="uid://d1fnoq4c0i2pd" path="res://enemies/wasp/wasp.tscn" id="25_60rd0"]
 [ext_resource type="PackedScene" uid="uid://b0tvveyocfous" path="res://world_parts/world item/item.tscn" id="25_t6s6u"]
+[ext_resource type="PackedScene" uid="uid://bt3q2npak3to" path="res://enemies/boss_phoenix/phoenix.tscn" id="27_fh2qu"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3s74n"]
 shader = ExtResource("2_5uqgo")
@@ -565,3 +566,6 @@ position = Vector2(485, -243)
 position = Vector2(-392, -24)
 
 [node name="Node2D" type="Node2D" parent="."]
+
+[node name="Phoenix" parent="." instance=ExtResource("27_fh2qu")]
+position = Vector2(-85, -78)
