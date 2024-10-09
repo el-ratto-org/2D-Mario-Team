@@ -1,0 +1,35 @@
+[gd_resource type="ShaderMaterial" load_steps=5 format=3 uid="uid://bfx636j5gd7wg"]
+
+[ext_resource type="Shader" path="res://assets/shaders/vcr.gdshader" id="1_ppirv"]
+
+[sub_resource type="Gradient" id="Gradient_3c0yh"]
+colors = PackedColorArray(0, 0, 0, 1, 0.12, 0.12, 0.12, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_36mql"]
+noise_type = 2
+frequency = 0.0205
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ox6tg"]
+width = 1920
+height = 1080
+invert = true
+seamless = true
+color_ramp = SubResource("Gradient_3c0yh")
+noise = SubResource("FastNoiseLite_36mql")
+
+[resource]
+shader = ExtResource("1_ppirv")
+shader_parameter/vhs_resolution = Vector2(720, 480)
+shader_parameter/samples = 2
+shader_parameter/crease_noise = 1.0
+shader_parameter/crease_opacity = 0.5
+shader_parameter/filter_intensity = 0.1
+shader_parameter/tape_crease_smear = 0.2
+shader_parameter/tape_crease_intensity = 0.2
+shader_parameter/tape_crease_jitter = 0.1
+shader_parameter/tape_crease_speed = 0.5
+shader_parameter/tape_crease_discoloration = 1.0
+shader_parameter/bottom_border_thickness = 6.0
+shader_parameter/bottom_border_jitter = 6.0
+shader_parameter/noise_intensity = 0.1
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_ox6tg")
