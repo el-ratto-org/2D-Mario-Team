@@ -375,6 +375,7 @@ color = Color(0, 1, 1, 1)
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("target")]
 process_priority = 3
 process_physics_priority = 3
+position = Vector2(-328, -124)
 zoom = Vector2(2, 2)
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0

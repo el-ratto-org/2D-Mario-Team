@@ -1,15 +1,14 @@
-[gd_scene load_steps=95 format=3 uid="uid://crjeudwcdacco"]
+[gd_scene load_steps=96 format=3 uid="uid://crjeudwcdacco"]
 
 [ext_resource type="Script" path="res://player/player_movement_controller.gd" id="1_78ula"]
 [ext_resource type="Material" uid="uid://bbor6bxyoj5ht" path="res://assets/shaders/damaged.tres" id="1_eh7wd"]
 [ext_resource type="PackedScene" uid="uid://b617nmvedrdmj" path="res://managers/inventory.tscn" id="3_0ikdi"]
 [ext_resource type="FontFile" uid="uid://b3fp5g5ue1p3k" path="res://assets/fonts/dogica/TTF/dogica.ttf" id="3_p2aie"]
-[ext_resource type="Shader" path="res://fog/experiment.gdshader" id="3_vq52x"]
+[ext_resource type="Shader" path="res://CombatComponents/damage_flash.gdshader" id="3_w3mw3"]
 [ext_resource type="Script" path="res://scenes/worlds/Test World/player_animations.gd" id="4_muvw0"]
 [ext_resource type="Script" path="res://scenes/worlds/Test World/player_debug_header.gd" id="4_qg5aq"]
 [ext_resource type="Texture2D" uid="uid://dq6fw86loolks" path="res://assets/sprites/characters/main_char_fall-Sheet.png" id="4_wt83r"]
 [ext_resource type="Texture2D" uid="uid://dkq4ug7ojs4v2" path="res://assets/sprites/characters/main_char_animations-Sheet.png" id="4_xnc45"]
-[ext_resource type="Script" path="res://CombatComponents/HealthComponent.gd" id="5_hf0il"]
 [ext_resource type="Script" path="res://CombatComponents/HurtBox.gd" id="6_7ypip"]
 [ext_resource type="Texture2D" uid="uid://mf7obk0u30nx" path="res://assets/sprites/characters/main_char_jump-Sheet.png" id="6_dio4j"]
 [ext_resource type="Script" path="res://CombatComponents/HitBox.gd" id="7_povqq"]
@@ -29,6 +28,7 @@
 [ext_resource type="Shader" path="res://fog/fog.gdshader" id="20_1ctaa"]
 [ext_resource type="Texture2D" uid="uid://cit24idnyng7x" path="res://assets/sprites/characters/halo-Sheet.png" id="20_pdur3"]
 [ext_resource type="Texture2D" uid="uid://bxfx4titg4p5y" path="res://assets/sprites/characters/wings-loop-Sheet.png" id="21_jc67u"]
+[ext_resource type="PackedScene" uid="uid://qn86ksb5378j" path="res://CombatComponents/health.tscn" id="21_v1fk3"]
 [ext_resource type="Script" path="res://player/halo.gd" id="22_0sd5k"]
 [ext_resource type="Texture2D" uid="uid://da35rp1inv5ba" path="res://assets/sprites/characters/wings_uncurl-Sheet.png" id="22_4l4af"]
 [ext_resource type="Script" path="res://player/wing_dust_fx.gd" id="24_phvbu"]
@@ -37,10 +37,7 @@
 size = Vector2(12, 29)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wi1ve"]
-shader = ExtResource("3_vq52x")
-shader_parameter/start_frame = 1
-shader_parameter/current_frame = 0
-shader_parameter/mix_ratio = 0.0
+shader = ExtResource("20_1ctaa")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tenc8"]
 atlas = ExtResource("4_wt83r")
@@ -256,6 +253,12 @@ animations = [{
 "name": &"slide",
 "speed": 16.0
 }]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_37g83"]
+shader = ExtResource("3_w3mw3")
+shader_parameter/start_frame = 1
+shader_parameter/current_frame = 0
+shader_parameter/mix_ratio = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g81l7"]
 size = Vector2(24, 2.5)
@@ -486,6 +489,15 @@ sprite_frames = SubResource("SpriteFrames_sps2v")
 animation = &"idle"
 script = ExtResource("4_muvw0")
 
+[node name="DamagedSprite2D" type="AnimatedSprite2D" parent="."]
+visible = false
+texture_filter = 1
+material = SubResource("ShaderMaterial_37g83")
+position = Vector2(0, -2)
+sprite_frames = SubResource("SpriteFrames_sps2v")
+animation = &"idle"
+script = ExtResource("4_muvw0")
+
 [node name="Movement" type="Node2D" parent="."]
 
 [node name="Run" type="Node2D" parent="Movement" node_paths=PackedStringArray("target")]
@@ -589,14 +601,10 @@ text = "test"
 horizontal_alignment = 1
 script = ExtResource("4_qg5aq")
 
+[node name="Health" parent="." node_paths=PackedStringArray("damaged_sprite") instance=ExtResource("21_v1fk3")]
+damaged_sprite = NodePath("../DamagedSprite2D")
+
 [node name="Inventory" parent="." instance=ExtResource("3_0ikdi")]
-
-[node name="HealthComponent" type="Node2D" parent="."]
-script = ExtResource("5_hf0il")
-
-[node name="InvulnerabilityTimer" type="Timer" parent="HealthComponent"]
-wait_time = 0.1
-one_shot = true
 
 [node name="DustFX" type="Node2D" parent="."]
 position = Vector2(0, 8)
@@ -679,12 +687,12 @@ script = ExtResource("22_0sd5k")
 
 [connection signal="flip_sprite" from="AnimatedSprite2D" to="HolyItems/Wings" method="_on_animated_sprite_2d_flip_sprite"]
 [connection signal="flip_sprite" from="AnimatedSprite2D" to="HolyItems/Wings/WingDustFX" method="_on_animated_sprite_2d_flip_sprite"]
+[connection signal="flip_sprite" from="DamagedSprite2D" to="HolyItems/Wings" method="_on_animated_sprite_2d_flip_sprite"]
+[connection signal="flip_sprite" from="DamagedSprite2D" to="HolyItems/Wings/WingDustFX" method="_on_animated_sprite_2d_flip_sprite"]
 [connection signal="jumped" from="Movement/Jump" to="DustFX" method="_on_jump_jumped"]
 [connection signal="jumped" from="Movement/Jump" to="SFX manager" method="_on_jump_jumped"]
 [connection signal="area_entered" from="Hitboxes/FootHitBox" to="." method="_on_foot_hit_box_area_entered"]
-[connection signal="area_entered" from="Hitboxes/HurtBox" to="Hitboxes/HurtBox" method="_on_area_entered"]
-[connection signal="damage_recieved" from="Hitboxes/HurtBox" to="HealthComponent" method="_on_hurt_box_damage_recieved"]
-[connection signal="take_damage" from="HealthComponent" to="." method="_on_health_component_take_damage"]
+[connection signal="damage_recieved" from="Hitboxes/HurtBox" to="Health" method="_on_hurt_box_damage_recieved"]
 [connection signal="timeout" from="DustFX/StepDustTimer" to="DustFX" method="_on_step_dust_timer_timeout"]
 [connection signal="timeout" from="DustFX/FallingTimer" to="DustFX" method="_on_falling_timer_timeout"]
 [connection signal="animation_finished" from="HolyItems/Wings" to="HolyItems/Wings" method="_on_animation_finished"]

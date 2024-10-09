@@ -7,7 +7,7 @@ extends CharacterBody2D
 
 # Subnodes
 @onready var inventory = $Inventory
-@onready var health = $HealthComponent
+@onready var health = $Health
 @onready var run = $Movement/Run
 @onready var jump = $Movement/Jump
 @onready var slide = $Movement/Slide

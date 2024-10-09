@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=4 uid="uid://dytpj5md6fhq5"]
+[gd_scene load_steps=44 format=4 uid="uid://dytpj5md6fhq5"]
 
 [ext_resource type="Script" path="res://scenes/worlds/Test World/stage1.gd" id="1_agl4k"]
 [ext_resource type="PackedScene" uid="uid://crjeudwcdacco" path="res://player/player.tscn" id="1_wsuc6"]
@@ -27,7 +27,6 @@
 [ext_resource type="PackedScene" uid="uid://ddpvte1jkpp6r" path="res://enemies/Bird Missile/Bird_missile.tscn" id="22_4nmku"]
 [ext_resource type="Shader" path="res://assets/shaders/godray.gdshader" id="23_fat8c"]
 [ext_resource type="PackedScene" uid="uid://pogof14sbaoe" path="res://hud/hearts/hearts.tscn" id="26_wr3tb"]
-[ext_resource type="Shader" path="res://fog/experiment.gdshader" id="28_2wm33"]
 [ext_resource type="PackedScene" uid="uid://bd5lhjs4n6df5" path="res://fog/fog_layer.tscn" id="30_jyc0l"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_uctmw"]
@@ -345,12 +344,6 @@ shader_parameter/color = Vector4(1, 0.9, 0.65, 0.32)
 shader_parameter/hdr = false
 shader_parameter/seed = 5.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_1a6n4"]
-shader = ExtResource("28_2wm33")
-shader_parameter/start_frame = 0
-shader_parameter/current_frame = 0
-shader_parameter/mix_ratio = 0.0
-
 [node name="Stage 1" type="Node2D"]
 script = ExtResource("1_agl4k")
 
@@ -521,13 +514,5 @@ offset_bottom = 117.0
 [node name="caption_manager" parent="ui" instance=ExtResource("2_ncl68")]
 unique_name_in_owner = true
 z_index = 4096
-
-[node name="shader_testr" type="ColorRect" parent="ui"]
-visible = false
-z_index = 650
-material = SubResource("ShaderMaterial_1a6n4")
-offset_right = 1280.0
-offset_bottom = 720.0
-color = Color(0.959286, 0, 0.332655, 1)
 
 [node name="FogLayer" parent="." instance=ExtResource("30_jyc0l")]

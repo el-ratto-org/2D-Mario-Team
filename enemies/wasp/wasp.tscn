@@ -4,30 +4,18 @@
 [ext_resource type="Script" path="res://enemies/scripts/enemy_controller.gd" id="2_yqefr"]
 [ext_resource type="Script" path="res://enemies/wasp/wasp_manager.gd" id="3_6w81r"]
 [ext_resource type="Script" path="res://enemies/scripts/modular_behaviours/behaviours/fly_random_direction.gd" id="4_ftvjl"]
+[ext_resource type="Shader" path="res://CombatComponents/damage_flash.gdshader" id="5_8v7xc"]
 [ext_resource type="Script" path="res://enemies/scripts/modular_behaviours/behaviours/launch_projectile_at_player.gd" id="5_od87v"]
+[ext_resource type="PackedScene" uid="uid://qn86ksb5378j" path="res://CombatComponents/health.tscn" id="6_asjhg"]
 [ext_resource type="PackedScene" uid="uid://1f2tc1nbqpgn" path="res://enemies/projectiles/dart/dart.tscn" id="6_i7dco"]
 [ext_resource type="Script" path="res://enemies/wasp/look_at_player.gd" id="7_r7r7l"]
 [ext_resource type="Texture2D" uid="uid://gw87u4cukdpy" path="res://enemies/wasp/wasp.png" id="8_nlya2"]
-[ext_resource type="Script" path="res://CombatComponents/HealthComponent.gd" id="9_wsbhk"]
 [ext_resource type="Script" path="res://CombatComponents/HurtBox.gd" id="10_st60j"]
 [ext_resource type="Script" path="res://CombatComponents/HitBox.gd" id="11_k6ynh"]
-[ext_resource type="Shader" path="res://assets/shaders/damaged.gdshader" id="11_vfyx1"]
 [ext_resource type="Script" path="res://enemies/scripts/modular_behaviours/base_classes/enemy_physics.gd" id="12_ad8b7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eskq7"]
 size = Vector2(32, 31)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_bemg5"]
-size = Vector2(32, 31.1562)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_76orl"]
-size = Vector2(32, 19.75)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_485fj"]
-shader = ExtResource("11_vfyx1")
-shader_parameter/start_frame = 1
-shader_parameter/current_frame = 0
-shader_parameter/mix_ratio = 0.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_27sv7"]
 atlas = ExtResource("8_nlya2")
@@ -51,35 +39,23 @@ animations = [{
 "speed": 30.0
 }]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sqr5n"]
+shader = ExtResource("5_8v7xc")
+shader_parameter/start_frame = 1
+shader_parameter/current_frame = 0
+shader_parameter/mix_ratio = 0.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bemg5"]
+size = Vector2(32, 31.1562)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_76orl"]
+size = Vector2(32, 19.75)
+
 [node name="Wasp" type="CharacterBody2D"]
 material = ExtResource("1_dxjb4")
 collision_layer = 2
 collision_mask = 3
 script = ExtResource("2_yqefr")
-
-[node name="WaspManager" type="Node2D" parent="." node_paths=PackedStringArray("fly_behaviour", "shoot_behaviour", "character")]
-script = ExtResource("3_6w81r")
-fly_behaviour = NodePath("FlyRandomDirection")
-shoot_behaviour = NodePath("LaunchProjectileAtPlayer")
-character = NodePath("..")
-
-[node name="FlyRandomDirection" type="Node2D" parent="WaspManager"]
-script = ExtResource("4_ftvjl")
-direction_change_damping = 1.0
-
-[node name="LaunchProjectileAtPlayer" type="Node2D" parent="WaspManager"]
-script = ExtResource("5_od87v")
-projectile = ExtResource("6_i7dco")
-max_speed = 200.0
-min_height = 0.0
-
-[node name="Marker2D" type="Marker2D" parent="WaspManager/LaunchProjectileAtPlayer"]
-position = Vector2(0, 24)
-
-[node name="LookAtPlayer" type="Node2D" parent="WaspManager"]
-script = ExtResource("7_r7r7l")
-
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 z_index = -1600
@@ -87,8 +63,26 @@ position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_eskq7")
 debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
-[node name="HealthComponent" type="Node2D" parent="."]
-script = ExtResource("9_wsbhk")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_buwfe")
+autoplay = "default"
+frame_progress = 0.70747
+
+[node name="DamagedSprite2D" type="AnimatedSprite2D" parent="."]
+visible = false
+texture_filter = 1
+material = SubResource("ShaderMaterial_sqr5n")
+sprite_frames = SubResource("SpriteFrames_buwfe")
+autoplay = "default"
+frame_progress = 0.70747
+
+[node name="Health" parent="." node_paths=PackedStringArray("damaged_sprite") instance=ExtResource("6_asjhg")]
+damaged_sprite = NodePath("../DamagedSprite2D")
+
+[node name="EnemyPhysics" type="Node" parent="."]
+script = ExtResource("12_ad8b7")
+gravity = 0.0
 
 [node name="HurtBox" type="Area2D" parent="."]
 collision_layer = 16
@@ -112,20 +106,32 @@ position = Vector2(0, 6.125)
 shape = SubResource("RectangleShape2D_76orl")
 debug_color = Color(1, 0, 0, 0.419608)
 
-[node name="EnemyPhysics" type="Node" parent="."]
-script = ExtResource("12_ad8b7")
-gravity = 0.0
+[node name="WaspManager" type="Node2D" parent="." node_paths=PackedStringArray("fly_behaviour", "shoot_behaviour", "character")]
+script = ExtResource("3_6w81r")
+fly_behaviour = NodePath("FlyRandomDirection")
+shoot_behaviour = NodePath("LaunchProjectileAtPlayer")
+character = NodePath("..")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-texture_filter = 1
-material = SubResource("ShaderMaterial_485fj")
-sprite_frames = SubResource("SpriteFrames_buwfe")
-autoplay = "default"
-frame_progress = 0.70747
+[node name="FlyRandomDirection" type="Node2D" parent="WaspManager"]
+script = ExtResource("4_ftvjl")
+direction_change_damping = 1.0
 
-[node name="Timer" type="Timer" parent="."]
+[node name="LaunchProjectileAtPlayer" type="Node2D" parent="WaspManager"]
+script = ExtResource("5_od87v")
+projectile = ExtResource("6_i7dco")
+max_speed = 200.0
+min_height = 0.0
 
-[connection signal="die" from="HealthComponent" to="." method="_on_health_component_die"]
-[connection signal="area_entered" from="HurtBox" to="HurtBox" method="_on_area_entered"]
-[connection signal="damage_recieved" from="HurtBox" to="HealthComponent" method="_on_hurt_box_damage_recieved"]
-[connection signal="timeout" from="Timer" to="WaspManager" method="_on_timer_timeout"]
+[node name="Marker2D" type="Marker2D" parent="WaspManager/LaunchProjectileAtPlayer"]
+position = Vector2(0, 24)
+
+[node name="LookAtPlayer" type="Node2D" parent="WaspManager"]
+script = ExtResource("7_r7r7l")
+
+[node name="ShootTimer" type="Timer" parent="."]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+
+[connection signal="changed" from="Health" to="." method="_on_health_changed"]
+[connection signal="damage_recieved" from="HurtBox" to="Health" method="_on_hurt_box_damage_recieved"]
+[connection signal="timeout" from="ShootTimer" to="WaspManager" method="_on_shoot_timer_timeout"]

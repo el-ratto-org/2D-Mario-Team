@@ -7,7 +7,7 @@ extends EnemyBehaviourManager
 var is_charging: bool = false
 var current_charge_behaviour: EnemyBehaviour
 
-@onready var timer: Timer = $"../Timer"
+@onready var charge_timer: Timer = $"../ChargeTimer"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -24,18 +24,18 @@ func _physics_process(delta: float) -> void:
 		else:
 			current_charge_behaviour = charge_right
 		
-		timer.wait_time = charge_duration
-		timer.start()
+		charge_timer.wait_time = charge_duration
+		charge_timer.start()
 		is_charging = true
 	elif !is_charging:
 		through_boulder._run()
-		timer.wait_time = charge_duration
-		timer.start()
+		charge_timer.wait_time = charge_duration
+		charge_timer.start()
 		is_charging = true
 	
 	if current_charge_behaviour != null:
 		current_charge_behaviour._run()
 
 
-func _on_timer_timeout() -> void:
+func _on_charge_timer_timeout() -> void:
 	is_charging = false
