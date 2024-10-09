@@ -1,6 +1,13 @@
 extends Node2D
 
 var checkpoints = {}
+var completion = {
+	"Clinic" : false,
+	"Wall" : false,
+	"Executioner" : false,
+	"Young prince" : false,
+	"Red Hold" : false,
+}
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

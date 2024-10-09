@@ -1,0 +1,66 @@
+[gd_scene load_steps=8 format=3 uid="uid://dpyeohy7uejjr"]
+
+[ext_resource type="Texture2D" uid="uid://dxyhe1hxoibca" path="res://assets/world select/map02.png" id="1_vsffg"]
+[ext_resource type="Material" uid="uid://bfx636j5gd7wg" path="res://assets/shaders/vhs.tres" id="2_56ksd"]
+[ext_resource type="Script" path="res://scenes/world select/white_noise_player.gd" id="3_7ga5l"]
+[ext_resource type="AudioStream" uid="uid://bwoxw1cwl8psg" path="res://assets/ambience/ganzfeld_short.ogg" id="3_f42vw"]
+[ext_resource type="AudioStream" uid="uid://b01krsb3ygetq" path="res://assets/sfx/main-door-opening-closing-38280.mp3" id="5_84kap"]
+[ext_resource type="AudioStream" uid="uid://bqbwup1bel86l" path="res://assets/sfx/breathing-6811.mp3" id="6_ridaf"]
+[ext_resource type="AudioStream" uid="uid://d2u43yqdrw1p8" path="res://assets/sfx/real-heartbeat-sound-17663.mp3" id="7_4nmk1"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="shader" type="CanvasLayer" parent="."]
+
+[node name="vhs" type="ColorRect" parent="shader"]
+unique_name_in_owner = true
+material = ExtResource("2_56ksd")
+offset_right = 1280.0
+offset_bottom = 720.0
+mouse_filter = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0.337255, 0.168627, 0.152941, 1)
+
+[node name="Inside" type="Node2D" parent="."]
+position = Vector2(640, 360)
+scale = Vector2(3, 3)
+
+[node name="Map02" type="Sprite2D" parent="Inside"]
+texture = ExtResource("1_vsffg")
+
+[node name="White noise player" type="Node2D" parent="."]
+script = ExtResource("3_7ga5l")
+
+[node name="AudioStreamPlayer2D2" type="AudioStreamPlayer2D" parent="White noise player"]
+position = Vector2(640, 360)
+stream = ExtResource("3_f42vw")
+volume_db = -80.0
+pitch_scale = 0.71
+parameters/looping = true
+
+[node name="SFX" type="Node2D" parent="."]
+position = Vector2(640, 360)
+scale = Vector2(0.999999, 0.999999)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="SFX"]
+position = Vector2(-640.001, -360)
+scale = Vector2(1, 1)
+stream = ExtResource("5_84kap")
+autoplay = true
+
+[node name="AudioStreamPlayer2D2" type="AudioStreamPlayer2D" parent="SFX"]
+position = Vector2(-640.001, -360)
+scale = Vector2(1, 1)
+stream = ExtResource("6_ridaf")
+autoplay = true
+parameters/looping = true
+
+[node name="AudioStreamPlayer2D3" type="AudioStreamPlayer2D" parent="SFX"]
+position = Vector2(-640.001, -360)
+scale = Vector2(1, 1)
+stream = ExtResource("7_4nmk1")
+autoplay = true
+parameters/looping = true
