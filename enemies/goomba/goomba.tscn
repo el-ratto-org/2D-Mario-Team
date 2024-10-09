@@ -4,13 +4,13 @@
 [ext_resource type="Texture2D" uid="uid://dl0qg1ywitqjk" path="res://assets/sprites/characters/goomba.png" id="1_g03p6"]
 [ext_resource type="Script" path="res://enemies/scripts/goomba_manager.gd" id="2_vo436"]
 [ext_resource type="Script" path="res://enemies/scripts/modular_behaviours/behaviours/chase_player.gd" id="3_bujyf"]
-[ext_resource type="Script" path="res://CombatComponents/HitBox.gd" id="3_lynn6"]
+[ext_resource type="Script" path="res://combat/HitBox.gd" id="3_lynn6"]
 [ext_resource type="Script" path="res://enemies/scripts/modular_behaviours/behaviours/run_from_player.gd" id="4_1gnvp"]
-[ext_resource type="Script" path="res://CombatComponents/HurtBox.gd" id="4_lagrl"]
+[ext_resource type="Script" path="res://combat/HurtBox.gd" id="4_lagrl"]
 [ext_resource type="Script" path="res://enemies/scripts/modular_behaviours/behaviours/use_weapon.gd" id="5_885oj"]
-[ext_resource type="PackedScene" uid="uid://qn86ksb5378j" path="res://CombatComponents/health.tscn" id="6_84hw3"]
+[ext_resource type="PackedScene" uid="uid://qn86ksb5378j" path="res://combat/health.tscn" id="6_84hw3"]
 [ext_resource type="Script" path="res://enemies/scripts/modular_behaviours/base_classes/enemy_physics.gd" id="8_qt62w"]
-[ext_resource type="Shader" path="res://CombatComponents/damage_flash.gdshader" id="11_0b3l0"]
+[ext_resource type="Shader" path="res://combat/damage_flash.gdshader" id="11_0b3l0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eskq7"]
 size = Vector2(32, 31)

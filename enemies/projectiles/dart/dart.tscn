@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://enemies/scripts/projectile_physics.gd" id="1_u2wvr"]
 [ext_resource type="Texture2D" uid="uid://355narprtmuw" path="res://enemies/projectiles/dart/dart.png" id="2_mhgak"]
-[ext_resource type="Script" path="res://CombatComponents/HitBox.gd" id="3_nenis"]
+[ext_resource type="Script" path="res://combat/HitBox.gd" id="3_nenis"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h362k"]
 size = Vector2(10, 6.25)
