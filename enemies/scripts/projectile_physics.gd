@@ -17,7 +17,7 @@ var starting_position: Vector2
 
 var gravity: float
 
-# Called when the node enters the scene tree for the first time.
+
 func _ready() -> void:
 	gravity = gravity_scale * ProjectSettings.get_setting("physics/2d/default_gravity")
 	if !contact_monitor && max_contacts_reported <= 0:
@@ -25,20 +25,20 @@ func _ready() -> void:
 		max_contacts_reported = 1
 
 func _set_start_position(position: Vector2) -> void:
-	# reset
+	# Reset
 	starting_position = position
 	reset_state = true
 
+
 func _begin_launch() -> void:
-	# check for zero gravity
+	# Check for zero gravity
 	if gravity == 0:
 		var launch_velocity = (destination - global_position).normalized() * max_speed
 		_launch_with_velocity(launch_velocity)
 		return
 	
-	# calculate launch angle and other variables
+	# Calculate launch angle and other variables
 	var damp = max(linear_damp, ProjectSettings.get_setting("physics/2d/default_linear_damp"))
-	#print("damp: ", damp)
 	var x_difference = abs(global_position.x - destination.x)
 	var y_difference = abs(global_position.y - destination.y)
 	var time_up = sqrt(-2 * min((destination.y - global_position.y) - min_height, -min_height) / gravity)
@@ -50,33 +50,18 @@ func _begin_launch() -> void:
 	
 	# fix for lineaer damping
 	var full_physics_steps = Engine.physics_ticks_per_second * travel_time
-	#var up_physics_steps = Engine.physics_ticks_per_second * time_up
 	var full_damped_velocity_percentage = pow(1 - ((damp * (x_difference / sqrt(pow(x_difference, 2) + pow((y_difference + min_height * 2), 2)))) / Engine.physics_ticks_per_second), full_physics_steps)
-	#var up_damped_velocity_percentage = pow(1 - ((damp/2) / Engine.physics_ticks_per_second), up_physics_steps)
 	launch_velocity.x = launch_velocity.x / full_damped_velocity_percentage
-	#launch_velocity.y = launch_velocity.y / up_damped_velocity_percentage
-	#print("full_damped_velocity_percentage: ", full_damped_velocity_percentage)
 	
 	# clamp to max speed
 	launch_velocity = launch_velocity.normalized() * min(launch_velocity.length(), max_speed)
 	
-	#print("x_difference: ", x_difference)
-	#print("y_difference: ", y_difference)
-	#print("time_up time: ", time_up)
-	#print("time_down time: ", time_down)
-	#print("travel_time time: ", travel_time)
-	#print("desired_x_speed: ", desired_x_speed)
-	#print("desired_y_speed: ", desired_y_speed)
-	#print("launch_velocity: ", launch_velocity)
-	#print("Begin Launch, starting position: ", global_position, ", destionation: ", destination)
-	
 	# launch
 	_launch_with_velocity(launch_velocity)
 
+
 func _launch_with_velocity(launch_velocity: Vector2) -> void:
-	#apply_central_impulse(launch_velocity)
 	linear_velocity = launch_velocity
-	#print("Launch velocity: ", launch_velocity)
 
 
 func _physics_process(delta: float) -> void:
@@ -98,7 +83,7 @@ func _physics_process(delta: float) -> void:
 	# Point in movement direction
 	if face_movement_direction:
 		look_at(global_position + linear_velocity.normalized())
-	
+
 
 func _integrate_forces(state):
 	if global_position.distance_to(starting_position) < 10:
@@ -110,12 +95,12 @@ func _integrate_forces(state):
 		physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_INHERIT
 
 
-
 func _on_hit_box_deal_damage() -> void:
 	_despawn()
 
+
 func _despawn() -> void:
-	# spawn any child particle systems
+	# Spawn any child particle systems
 	for child in get_children():
 		if child is CPUParticles2D:
 			var position = child.global_position
@@ -123,12 +108,13 @@ func _despawn() -> void:
 			get_tree().current_scene.add_child(child)
 			child.global_position = position
 			child.emitting = true
-			# trigger particles to despawn
+			
+			# Trigger particles to despawn
 			for despawner in child.get_children():
 				if despawner is Despawner:
 					despawner._start_timer()
 	
-	# delete 
+	# Delete
 	queue_free()
 
 

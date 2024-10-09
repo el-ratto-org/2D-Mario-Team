@@ -34,4 +34,4 @@ func start_slide_timer_condition_met():
 
 func _on_slide_dust_timer_timeout() -> void:
 	slide_timer_completed = true
-	spawn_vfx(anim_type, self.global_position)
+	spawn_vfx(anim_type, global_position)

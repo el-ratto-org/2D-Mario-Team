@@ -84,8 +84,8 @@ var corrupt_static_player
 
 func _ready():
 	
-	regular_static_player = self.get_child(0)
-	corrupt_static_player = self.get_child(1)
+	regular_static_player = get_child(0)
+	corrupt_static_player = get_child(1)
 
 	regular_static_player.volume_db = 0
 	corrupt_static_player.volume_db = 0
@@ -130,9 +130,7 @@ func _process(delta: float) -> void:
 	for parameter in PARAMETERS:
 		var parameter_intensity = scale_value_to_range(mouse_ratio, parameter["default_value"], parameter["max_value"])
 		vhs.material.set_shader_parameter(parameter["parameter_name"], parameter_intensity)
-	
-	# Optional: Debug output
-	print("mouse ratios: ", mouse_ratio)
+
 
 # Function to scale a value from [0.0, 1.0] to a new range [min_value, max_value]
 func scale_value_to_range(normalized_value: float, max_value: float, min_value: float) -> float: # max and min are mixed up ⨘⨒⨠⨪

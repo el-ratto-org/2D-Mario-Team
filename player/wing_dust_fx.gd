@@ -18,7 +18,6 @@ func spawn_vfx(animation_name, position, flipped:bool, height_difference):
 	#await get_tree().create_timer(height_difference/1000).timeout
 	#var opacity_value = 1 - height_difference/10
 	#opacity_value = clamp(opacity_value, 0.1, 1.0)
-	#print(opacity_value)
 	var new_sprite = animated_sprite_scene.instantiate() as AnimatedSprite2D
 	#new_sprite.modulate.a = opacity_value
 	new_sprite.global_position = position
@@ -27,7 +26,6 @@ func spawn_vfx(animation_name, position, flipped:bool, height_difference):
 	
 	new_sprite.flip_h = flipped
 	#add_child(new_sprite)
-	#print(new_sprite.animation)
 	get_tree().root.add_child(new_sprite)
 
 func _on_wing_flap_timer_timeout() -> void:
@@ -53,7 +51,6 @@ func _on_wing_flap_timer_timeout() -> void:
 
 
 func _on_wings_wing_fx(in_light: bool) -> void:
-	print("Set to "+str(in_light))
 	wing_fx_allowed = in_light
 	$WingFlapTimer.start()
 

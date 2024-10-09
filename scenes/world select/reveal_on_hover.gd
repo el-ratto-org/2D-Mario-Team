@@ -2,7 +2,7 @@ extends Control
 
 
 @onready var selected = false
-@onready var parent = self.get_parent()
+@onready var parent = get_parent()
 @onready var sprite = parent.get_child(0)
 
 func _on_Panel_mouse_entered():

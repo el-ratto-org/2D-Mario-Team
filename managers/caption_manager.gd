@@ -108,7 +108,8 @@ func feather():
 	fade_to_opaque(feather_rect, 0.4, 0.7, 3)
 	
 func cloak():
-	print ("no cloak code so playing the feather stuff 🎍")
+	# TODO: Make the cloak code, currently using feather code
+	print("no cloak code so playing the feather stuff 🎍")
 	var audio_stream = load(item_snd_feather)
 	audio_player.stream = audio_stream
 

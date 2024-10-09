@@ -38,12 +38,12 @@ func landing_conditions_met():
 
 func step_dust():
 	timer_between_step_completed = false
-	spawn_vfx("step", self.global_position, sprite_flip)
+	spawn_vfx("step", global_position, sprite_flip)
 	$StepDustTimer.start()
 
 func landing_dust():
 	air_timer_completed = false
-	spawn_vfx("landing_fx", self.global_position, sprite_flip)
+	spawn_vfx("landing_fx", global_position, sprite_flip)
 	landed.emit()
 
 func start_falling_timer_condition_met():
@@ -86,4 +86,4 @@ func _on_jump_jumped() -> void:
 	else:
 		sprite_flip = false
 	
-	spawn_vfx(anim_type, self.global_position, sprite_flip)
+	spawn_vfx(anim_type, global_position, sprite_flip)

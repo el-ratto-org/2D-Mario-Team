@@ -9,7 +9,7 @@ func _on_pressed() -> void:
 		# Correct method for changing scenes
 		get_tree().change_scene_to_file(scene_to_load)
 	else:
-		print("Error: Scene not found at: ", scene_to_load)
+		printerr("Error: Scene not found at: ", scene_to_load)
 
 
 func _on_button_2_pressed() -> void:

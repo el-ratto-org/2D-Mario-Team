@@ -32,11 +32,9 @@ func change_state(turning_on: bool):
 	var turn_on = null
 	
 	if activation_status == state.active:
-		#print ("on -> off ", activation_status) 
 		turning_on = false
 		_turn_on()
 	else:
-		#print ("off -> on ", activation_status) 
 		turning_on = true
 		_turn_off()
 	
@@ -69,7 +67,5 @@ func _turn_off():
 func _on_activation_area_area_entered(area: Area2D) -> void:
 	var is_turning_on = false
 	if area.name == "HitBox":
-		print ("lamp change state") 
-		
 		if change_state(is_turning_on):
 			%caption_manager.lit()

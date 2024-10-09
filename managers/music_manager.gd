@@ -19,15 +19,14 @@ var sounds = {
 func play_sound(sound_name: String) -> void:
 	if sound_name in sounds:
 		var sound_path = sounds[sound_name]
-		var audio_stream = load(sound_path)  # Load the sound file
+		var audio_stream = load(sound_path) # Load the sound file
 		if audio_stream:
 			audio_player.stream = audio_stream
-			audio_player.play()  # Play the sound
-			print("Now playing: " + sounds[sound_name])
+			audio_player.play() # Play the sound
 		else:
-			print("Failed to load sound file for: " + sound_name)
+			printerr("Failed to load sound file for: " + sound_name)
 	else:
-		print("No sound found for: " + sound_name)
+		printerr("No sound found for: " + sound_name)
 
 # Function to play music based on the stage name
 func play_stage_music(stage_name: String) -> void:
@@ -37,29 +36,29 @@ func play_stage_music(stage_name: String) -> void:
 		if audio_stream:
 			audio_player.stream = audio_stream
 			audio_player.play()  # Play the music
-			print("Now playing: " + stage_music[stage_name])
 		else:
-			print("Failed to load music file for: " + stage_name)
+			printerr("Failed to load music file for: " + stage_name)
 	else:
-		print("No music found for: " + stage_name)
+		printerr("No music found for: " + stage_name)
 
 # Function to stop the music
 func stop_music() -> void:
 	audio_player.stop()
 
+
 # Function to pause the music
 func pause_music() -> void:
 	if audio_player.playing:
 		audio_player.pause()
-		print("Music paused")
 	else:
-		print("Music is not currently playing")
+		printerr("Music is not currently playing")
+
 
 # Function to resume the paused music
 func resume_music() -> void:
 	if !audio_player.playing and audio_player.stream:
 		audio_player.play()
-		print("Music resumed")
+
 
 func set_volume(volume_db: float) -> void:
 	#Sets the volume of the current music playback.
@@ -74,4 +73,3 @@ func set_volume(volume_db: float) -> void:
 	#set_volume(-10)  # Reduced volume
 	#set_volume(-80)  # Mute
 	audio_player.volume_db = volume_db
-	print("Volume set to: " + str(volume_db) + " dB")

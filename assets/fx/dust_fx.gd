@@ -12,5 +12,4 @@ func _process(delta: float) -> void:
 
 
 func _on_animation_finished():
-	#print("Anim finished for node: ",self.name)
 	queue_free()
