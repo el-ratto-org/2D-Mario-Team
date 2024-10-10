@@ -2,7 +2,6 @@
 
 [ext_resource type="Texture2D" uid="uid://b38spfq5yeh8i" path="res://assets/world select/map01.png" id="1_onj6r"]
 [ext_resource type="Texture2D" uid="uid://dnmbmc538axko" path="res://assets/world select/ws.png" id="1_y4pn3"]
-[ext_resource type="Script" path="res://scenes/world select/panel.gd" id="3_2y6vy"]
 [ext_resource type="Texture2D" uid="uid://xff48ge27kb0" path="res://assets/world select/map01_AC_WB.png" id="3_v3cel"]
 [ext_resource type="Texture2D" uid="uid://bs3tkrhvo6hpp" path="res://assets/world select/map01_WB_EX.png" id="4_pi3xw"]
 [ext_resource type="PackedScene" uid="uid://cdsjxvumqw8fb" path="res://scenes/world select/reveal_on_hover.tscn" id="5_3surj"]
@@ -12,6 +11,7 @@
 [ext_resource type="Material" uid="uid://bfx636j5gd7wg" path="res://assets/shaders/vhs.tres" id="8_k8x41"]
 [ext_resource type="AudioStream" uid="uid://cm5iwjhn20h7y" path="res://assets/ambience/vhs_static.ogg" id="10_vpspb"]
 [ext_resource type="AudioStream" uid="uid://bwoxw1cwl8psg" path="res://assets/ambience/ganzfeld_short.ogg" id="11_tvw0r"]
+[ext_resource type="Script" path="res://scenes/world select/control.gd" id="12_bqo8v"]
 
 [node name="WorldSelect" type="Node2D"]
 
@@ -39,7 +39,6 @@ offset_top = 21.3333
 offset_right = -75.0
 offset_bottom = 75.3333
 mouse_default_cursor_shape = 2
-script = ExtResource("3_2y6vy")
 
 [node name="Map01AcWb" type="Sprite2D" parent="Overworld/Panel"]
 visible = false
@@ -172,6 +171,12 @@ offset_right = 824.0
 offset_bottom = 712.0
 mouse_default_cursor_shape = 2
 
+[node name="Control" type="Control" parent=">"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("12_bqo8v")
+
 [connection signal="gui_input" from="Overworld/Panel" to="Overworld/Panel/RevealOnHover" method="_on_Panel_gui_input"]
 [connection signal="mouse_entered" from="Overworld/Panel" to="Overworld/Panel/RevealOnHover" method="_on_Panel_mouse_entered"]
 [connection signal="mouse_exited" from="Overworld/Panel" to="Overworld/Panel/RevealOnHover" method="_on_Panel_mouse_exited"]
@@ -187,3 +192,4 @@ mouse_default_cursor_shape = 2
 [connection signal="gui_input" from="Overworld/Panel5" to="Overworld/Panel5/RevealOnHover" method="_on_Panel_gui_input"]
 [connection signal="mouse_entered" from="Overworld/Panel5" to="Overworld/Panel5/RevealOnHover" method="_on_Panel_mouse_entered"]
 [connection signal="mouse_exited" from="Overworld/Panel5" to="Overworld/Panel5/RevealOnHover" method="_on_Panel_mouse_exited"]
+[connection signal="pressed" from=">" to=">/Control" method="_on__pressed"]

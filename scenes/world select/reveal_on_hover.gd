@@ -9,15 +9,13 @@ var enabled : bool
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	if world_name in WorldManager.completion.keys():
-		enabled = WorldManager.completion[world_name]
-		if enabled:
-			get_parent().mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
-		
-		else:
-			get_parent().mouse_default_cursor_shape = Control.CURSOR_FORBIDDEN
+	assert(world_name in WorldManager.completion.keys(),("INVALID NAME FOR "+self.name))
+	enabled = WorldManager.worlds[world_name]["completed"]
+	if enabled:
+		get_parent().mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	
 	else:
-		print ("INVALID NAME YOU NUMPTEY ", self)
+		get_parent().mouse_default_cursor_shape = Control.CURSOR_FORBIDDEN
 	
 
 func _on_Panel_mouse_entered():

@@ -90,7 +90,6 @@ autoplay = true
 parameters/looping = true
 
 [node name="AudioStreamPlayer2D4" type="AudioStreamPlayer2D" parent="SFX"]
-scale = Vector2(1, 1)
 stream = ExtResource("3_f42vw")
 pitch_scale = 0.71
 autoplay = true
