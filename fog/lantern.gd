@@ -1,9 +1,10 @@
 extends Node2D
 
-@export var radius: float = 1
+@export_range(0, 1000, 0.5, "suffix:px") var radius: float = 200
+
+@onready var collision_shape: CollisionShape2D = $Area2D/CollisionShape2D
 
 var lantern_radius_current: float = 0
-signal lantern_radius(lantern_scale: float)
 
 func _process(delta: float) -> void:
 	var viewport_size = get_viewport_rect().size
@@ -15,22 +16,21 @@ func _process(delta: float) -> void:
 	if Input.is_key_pressed(KEY_2):
 		set_active(false)
 	
-	var main_player_distance = pow(PlayerStatsManager.player.global_position.distance_to(global_position) / 200.0, 3.0)
+	var main_player_distance = pow(PlayerManager.player.global_position.distance_to(global_position) / 200.0, 3.0)
 	
 	RenderingServer.global_shader_parameter_set("lantern_position", screen_position)
-	RenderingServer.global_shader_parameter_set("lantern_radius", lantern_radius_current)
-	RenderingServer.global_shader_parameter_set("lantern_opacity", clamp(lantern_radius_current * (1.0 - main_player_distance), 0, 1))
+	RenderingServer.global_shader_parameter_set("lantern_radius", lantern_radius_current / radius)
+	RenderingServer.global_shader_parameter_set("lantern_opacity", clamp((lantern_radius_current / radius) * (1.0 - main_player_distance), 0, 1))
 
 func set_active(active: bool) -> void:
+	collision_shape.shape.radius = radius if active else 0
 	create_tween().tween_property(self, 'lantern_opacity', 1 if active else 0, 0.25)
 	if active:
-		lantern_radius.emit(1)
 		create_tween() \
 			.tween_property(self, 'lantern_radius_current', radius, 0.75) \
 			.set_trans(Tween.TRANS_CUBIC) \
 			.set_ease(Tween.EASE_OUT)
 	else:
-		lantern_radius.emit(0)
 		create_tween() \
 			.tween_property(self, 'lantern_radius_current', 0, 0.35) \
 			.set_trans(Tween.TRANS_CUBIC) \

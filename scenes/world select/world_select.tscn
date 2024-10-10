@@ -1,0 +1,195 @@
+[gd_scene load_steps=13 format=3 uid="uid://5kmj8dbhjtnf"]
+
+[ext_resource type="Texture2D" uid="uid://b38spfq5yeh8i" path="res://assets/world select/map01.png" id="1_onj6r"]
+[ext_resource type="Texture2D" uid="uid://dnmbmc538axko" path="res://assets/world select/ws.png" id="1_y4pn3"]
+[ext_resource type="Texture2D" uid="uid://xff48ge27kb0" path="res://assets/world select/map01_AC_WB.png" id="3_v3cel"]
+[ext_resource type="Texture2D" uid="uid://bs3tkrhvo6hpp" path="res://assets/world select/map01_WB_EX.png" id="4_pi3xw"]
+[ext_resource type="PackedScene" uid="uid://cdsjxvumqw8fb" path="res://scenes/world select/reveal_on_hover.tscn" id="5_3surj"]
+[ext_resource type="Texture2D" uid="uid://cx7id13fkxq62" path="res://assets/world select/map01_EX_YP.png" id="5_kb7xw"]
+[ext_resource type="Script" path="res://scenes/world select/corruption_point.gd" id="7_e7bnu"]
+[ext_resource type="Texture2D" uid="uid://bekkdyausw6nv" path="res://assets/world select/map01_YP_RH.png" id="7_ktcce"]
+[ext_resource type="Material" uid="uid://bfx636j5gd7wg" path="res://assets/shaders/vhs.tres" id="8_k8x41"]
+[ext_resource type="AudioStream" uid="uid://cm5iwjhn20h7y" path="res://assets/ambience/vhs_static.ogg" id="10_vpspb"]
+[ext_resource type="AudioStream" uid="uid://bwoxw1cwl8psg" path="res://assets/ambience/ganzfeld_short.ogg" id="11_tvw0r"]
+[ext_resource type="Script" path="res://scenes/world select/control.gd" id="12_bqo8v"]
+
+[node name="WorldSelect" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0.152941, 0.152941, 0.223529, 1)
+
+[node name="Ws" type="Sprite2D" parent="."]
+position = Vector2(64, 0)
+scale = Vector2(6, 6)
+texture = ExtResource("1_y4pn3")
+centered = false
+
+[node name="Overworld" type="Node2D" parent="."]
+position = Vector2(640, 360)
+scale = Vector2(3, 3)
+
+[node name="Map01" type="Sprite2D" parent="Overworld"]
+texture = ExtResource("1_onj6r")
+
+[node name="Panel" type="Panel" parent="Overworld"]
+offset_left = -144.0
+offset_top = 21.3333
+offset_right = -75.0
+offset_bottom = 75.3333
+mouse_default_cursor_shape = 2
+
+[node name="Map01AcWb" type="Sprite2D" parent="Overworld/Panel"]
+visible = false
+position = Vector2(143.667, -21.3333)
+texture = ExtResource("3_v3cel")
+
+[node name="RevealOnHover" parent="Overworld/Panel" instance=ExtResource("5_3surj")]
+offset_left = -16.0
+offset_top = -111.667
+offset_right = -16.0
+offset_bottom = -111.667
+world_name = "Clinic"
+
+[node name="Panel2" type="Panel" parent="Overworld"]
+offset_left = -58.6667
+offset_top = -90.6667
+offset_right = 10.3333
+offset_bottom = -36.6667
+mouse_default_cursor_shape = 2
+
+[node name="Map01WbEx" type="Sprite2D" parent="Overworld/Panel2"]
+visible = false
+position = Vector2(58.6667, 90.6667)
+texture = ExtResource("4_pi3xw")
+
+[node name="RevealOnHover" parent="Overworld/Panel2" instance=ExtResource("5_3surj")]
+offset_left = -16.0
+offset_top = -111.667
+offset_right = -16.0
+offset_bottom = -111.667
+world_name = "Wall"
+
+[node name="Panel3" type="Panel" parent="Overworld"]
+offset_left = 61.0
+offset_top = -91.0
+offset_right = 96.0
+offset_bottom = -42.0
+mouse_default_cursor_shape = 2
+
+[node name="Map01ExYp" type="Sprite2D" parent="Overworld/Panel3"]
+visible = false
+position = Vector2(-61.3333, 90.6667)
+texture = ExtResource("5_kb7xw")
+
+[node name="RevealOnHover" parent="Overworld/Panel3" instance=ExtResource("5_3surj")]
+offset_left = -16.0
+offset_top = -111.667
+offset_right = -16.0
+offset_bottom = -111.667
+world_name = "Executioner"
+
+[node name="Panel4" type="Panel" parent="Overworld"]
+offset_left = 99.0
+offset_top = -56.0
+offset_right = 158.0
+offset_bottom = 53.0
+mouse_default_cursor_shape = 2
+
+[node name="Map01ExYp" type="Sprite2D" parent="Overworld/Panel4"]
+visible = false
+position = Vector2(-99.3333, 55.6667)
+texture = ExtResource("7_ktcce")
+
+[node name="RevealOnHover" parent="Overworld/Panel4" instance=ExtResource("5_3surj")]
+offset_left = -16.0
+offset_top = -111.667
+offset_right = -16.0
+offset_bottom = -111.667
+world_name = "Young"
+
+[node name="Panel5" type="Panel" parent="Overworld"]
+offset_top = -35.0
+offset_right = 93.0
+offset_bottom = 67.0
+mouse_default_cursor_shape = 2
+
+[node name="Map01ExYp" type="Sprite2D" parent="Overworld/Panel5"]
+visible = false
+position = Vector2(-0.333344, 34.6667)
+texture = ExtResource("7_ktcce")
+
+[node name="RevealOnHover" parent="Overworld/Panel5" instance=ExtResource("5_3surj")]
+offset_left = -16.0
+offset_top = -111.667
+offset_right = -16.0
+offset_bottom = -111.667
+world_name = "Red"
+
+[node name="Corruption_manager" type="Node2D" parent="Overworld"]
+position = Vector2(50, 30)
+scale = Vector2(0.333333, 0.333333)
+script = ExtResource("7_e7bnu")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Overworld/Corruption_manager"]
+stream = ExtResource("10_vpspb")
+parameters/looping = true
+
+[node name="AudioStreamPlayer2D2" type="AudioStreamPlayer2D" parent="Overworld/Corruption_manager"]
+position = Vector2(-150, -90.0001)
+stream = ExtResource("11_tvw0r")
+pitch_scale = 0.59
+parameters/looping = true
+
+[node name="shader" type="CanvasLayer" parent="Overworld"]
+
+[node name="vhs" type="ColorRect" parent="Overworld/shader"]
+unique_name_in_owner = true
+material = ExtResource("8_k8x41")
+offset_right = 1280.0
+offset_bottom = 720.0
+mouse_filter = 2
+
+[node name="SFX" type="Node2D" parent="."]
+position = Vector2(640, 360)
+scale = Vector2(0.999999, 0.999999)
+
+[node name="<" type="Button" parent="."]
+modulate = Color(1, 1, 1, 0)
+offset_left = 520.0
+offset_top = 640.0
+offset_right = 656.0
+offset_bottom = 712.0
+mouse_default_cursor_shape = 2
+
+[node name=">" type="Button" parent="."]
+modulate = Color(1, 1, 1, 0)
+offset_left = 688.0
+offset_top = 640.0
+offset_right = 824.0
+offset_bottom = 712.0
+mouse_default_cursor_shape = 2
+
+[node name="Control" type="Control" parent=">"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("12_bqo8v")
+
+[connection signal="gui_input" from="Overworld/Panel" to="Overworld/Panel/RevealOnHover" method="_on_Panel_gui_input"]
+[connection signal="mouse_entered" from="Overworld/Panel" to="Overworld/Panel/RevealOnHover" method="_on_Panel_mouse_entered"]
+[connection signal="mouse_exited" from="Overworld/Panel" to="Overworld/Panel/RevealOnHover" method="_on_Panel_mouse_exited"]
+[connection signal="gui_input" from="Overworld/Panel2" to="Overworld/Panel2/RevealOnHover" method="_on_Panel_gui_input"]
+[connection signal="mouse_entered" from="Overworld/Panel2" to="Overworld/Panel2/RevealOnHover" method="_on_Panel_mouse_entered"]
+[connection signal="mouse_exited" from="Overworld/Panel2" to="Overworld/Panel2/RevealOnHover" method="_on_Panel_mouse_exited"]
+[connection signal="gui_input" from="Overworld/Panel3" to="Overworld/Panel3/RevealOnHover" method="_on_Panel_gui_input"]
+[connection signal="mouse_entered" from="Overworld/Panel3" to="Overworld/Panel3/RevealOnHover" method="_on_Panel_mouse_entered"]
+[connection signal="mouse_exited" from="Overworld/Panel3" to="Overworld/Panel3/RevealOnHover" method="_on_Panel_mouse_exited"]
+[connection signal="gui_input" from="Overworld/Panel4" to="Overworld/Panel4/RevealOnHover" method="_on_Panel_gui_input"]
+[connection signal="mouse_entered" from="Overworld/Panel4" to="Overworld/Panel4/RevealOnHover" method="_on_Panel_mouse_entered"]
+[connection signal="mouse_exited" from="Overworld/Panel4" to="Overworld/Panel4/RevealOnHover" method="_on_Panel_mouse_exited"]
+[connection signal="gui_input" from="Overworld/Panel5" to="Overworld/Panel5/RevealOnHover" method="_on_Panel_gui_input"]
+[connection signal="mouse_entered" from="Overworld/Panel5" to="Overworld/Panel5/RevealOnHover" method="_on_Panel_mouse_entered"]
+[connection signal="mouse_exited" from="Overworld/Panel5" to="Overworld/Panel5/RevealOnHover" method="_on_Panel_mouse_exited"]
+[connection signal="pressed" from=">" to=">/Control" method="_on__pressed"]

@@ -15,6 +15,6 @@ void fragment() {
 	float blur = smoothstep(0, 1, UV.y) * 16.0;
 	vec4 reflected_color = texture(screen_texture, vec2(SCREEN_UV.x, surface_y - UV.y) + ripple_offset(UV), blur);
 	vec4 original_color = texture(screen_texture, SCREEN_UV);
-	
+
 	COLOR = mix(original_color, reflected_color, reflection_strength);
 }

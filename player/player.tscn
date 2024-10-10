@@ -1,20 +1,24 @@
-[gd_scene load_steps=90 format=3 uid="uid://crjeudwcdacco"]
+[gd_scene load_steps=96 format=3 uid="uid://crjeudwcdacco"]
 
 [ext_resource type="Script" path="res://player/player_movement_controller.gd" id="1_78ula"]
 [ext_resource type="Material" uid="uid://bbor6bxyoj5ht" path="res://assets/shaders/damaged.tres" id="1_eh7wd"]
 [ext_resource type="PackedScene" uid="uid://b617nmvedrdmj" path="res://managers/inventory.tscn" id="3_0ikdi"]
 [ext_resource type="FontFile" uid="uid://b3fp5g5ue1p3k" path="res://assets/fonts/dogica/TTF/dogica.ttf" id="3_p2aie"]
-[ext_resource type="Shader" path="res://fog/experiment.gdshader" id="3_vq52x"]
+[ext_resource type="Shader" path="res://combat/damage_flash.gdshader" id="3_w3mw3"]
 [ext_resource type="Script" path="res://scenes/worlds/Test World/player_animations.gd" id="4_muvw0"]
 [ext_resource type="Script" path="res://scenes/worlds/Test World/player_debug_header.gd" id="4_qg5aq"]
 [ext_resource type="Texture2D" uid="uid://dq6fw86loolks" path="res://assets/sprites/characters/main_char_fall-Sheet.png" id="4_wt83r"]
 [ext_resource type="Texture2D" uid="uid://dkq4ug7ojs4v2" path="res://assets/sprites/characters/main_char_animations-Sheet.png" id="4_xnc45"]
-[ext_resource type="Script" path="res://CombatComponents/HealthComponent.gd" id="5_hf0il"]
-[ext_resource type="Script" path="res://CombatComponents/HurtBox.gd" id="6_7ypip"]
+[ext_resource type="Script" path="res://combat/HurtBox.gd" id="6_7ypip"]
 [ext_resource type="Texture2D" uid="uid://mf7obk0u30nx" path="res://assets/sprites/characters/main_char_jump-Sheet.png" id="6_dio4j"]
-[ext_resource type="Script" path="res://CombatComponents/HitBox.gd" id="7_povqq"]
+[ext_resource type="Script" path="res://combat/HitBox.gd" id="7_povqq"]
 [ext_resource type="Texture2D" uid="uid://b0dnm7plmiydv" path="res://assets/sprites/characters/main_char_run-Sheet.png" id="7_u28nd"]
 [ext_resource type="Texture2D" uid="uid://bibeemm1hb3dd" path="res://assets/sprites/characters/main_char_animations-Sheet_slide.png" id="8_jgvm6"]
+[ext_resource type="Script" path="res://player/step_up.gd" id="10_17dsn"]
+[ext_resource type="Script" path="res://player/jump.gd" id="10_l87i7"]
+[ext_resource type="Script" path="res://player/run.gd" id="10_nopdk"]
+[ext_resource type="Script" path="res://player/slide.gd" id="12_pe3bx"]
+[ext_resource type="Script" path="res://player/flying.gd" id="14_aujq8"]
 [ext_resource type="Script" path="res://player/player_sfx_manager.gd" id="16_h5jd8"]
 [ext_resource type="AudioStream" uid="uid://qi8ka32w1gjg" path="res://assets/sounds/sfx/Footsteps_Casual_Sand_01.wav" id="17_4n0l4"]
 [ext_resource type="Script" path="res://player/dust_fx_slide.gd" id="17_q7sh8"]
@@ -24,15 +28,16 @@
 [ext_resource type="Shader" path="res://fog/fog.gdshader" id="20_1ctaa"]
 [ext_resource type="Texture2D" uid="uid://cit24idnyng7x" path="res://assets/sprites/characters/halo-Sheet.png" id="20_pdur3"]
 [ext_resource type="Texture2D" uid="uid://bxfx4titg4p5y" path="res://assets/sprites/characters/wings-loop-Sheet.png" id="21_jc67u"]
+[ext_resource type="PackedScene" uid="uid://qn86ksb5378j" path="res://combat/health.tscn" id="21_v1fk3"]
 [ext_resource type="Script" path="res://player/halo.gd" id="22_0sd5k"]
 [ext_resource type="Texture2D" uid="uid://da35rp1inv5ba" path="res://assets/sprites/characters/wings_uncurl-Sheet.png" id="22_4l4af"]
 [ext_resource type="Script" path="res://player/wing_dust_fx.gd" id="24_phvbu"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kj2bg"]
+size = Vector2(12, 29)
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wi1ve"]
-shader = ExtResource("3_vq52x")
-shader_parameter/start_frame = 1
-shader_parameter/current_frame = 0
-shader_parameter/mix_ratio = 0.0
+shader = ExtResource("20_1ctaa")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tenc8"]
 atlas = ExtResource("4_wt83r")
@@ -249,8 +254,11 @@ animations = [{
 "speed": 16.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_kj2bg"]
-size = Vector2(12, 29)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_37g83"]
+shader = ExtResource("3_w3mw3")
+shader_parameter/start_frame = 1
+shader_parameter/current_frame = 0
+shader_parameter/mix_ratio = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g81l7"]
 size = Vector2(24, 2.5)
@@ -468,6 +476,11 @@ material = ExtResource("1_eh7wd")
 collision_layer = 4
 script = ExtResource("1_78ula")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_kj2bg")
+debug_color = Color(0, 0.635294, 0.415686, 0.141176)
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 material = SubResource("ShaderMaterial_wi1ve")
@@ -476,57 +489,103 @@ sprite_frames = SubResource("SpriteFrames_sps2v")
 animation = &"idle"
 script = ExtResource("4_muvw0")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 3)
-shape = SubResource("RectangleShape2D_kj2bg")
-debug_color = Color(0, 0.635294, 0.415686, 0.141176)
+[node name="DamagedSprite2D" type="AnimatedSprite2D" parent="."]
+visible = false
+texture_filter = 1
+material = SubResource("ShaderMaterial_37g83")
+position = Vector2(0, -2)
+sprite_frames = SubResource("SpriteFrames_sps2v")
+animation = &"idle"
+script = ExtResource("4_muvw0")
 
-[node name="BottomLeft" type="RayCast2D" parent="CollisionShape2D"]
-position = Vector2(-5, 13)
+[node name="Movement" type="Node2D" parent="."]
+
+[node name="Run" type="Node2D" parent="Movement" node_paths=PackedStringArray("target")]
+script = ExtResource("10_nopdk")
+target = NodePath("../..")
+
+[node name="Jump" type="Node2D" parent="Movement" node_paths=PackedStringArray("target")]
+script = ExtResource("10_l87i7")
+target = NodePath("../..")
+
+[node name="JumpGraceTimer" type="Timer" parent="Movement/Jump"]
+wait_time = 0.1
+one_shot = true
+
+[node name="AutoJumpTimer" type="Timer" parent="Movement/Jump"]
+wait_time = 0.1
+one_shot = true
+
+[node name="Slide" type="Node2D" parent="Movement" node_paths=PackedStringArray("target")]
+script = ExtResource("12_pe3bx")
+target = NodePath("../..")
+
+[node name="SlideTimer" type="Timer" parent="Movement/Slide"]
+wait_time = 0.75
+one_shot = true
+
+[node name="CooldownTimer" type="Timer" parent="Movement/Slide"]
+wait_time = 0.35
+one_shot = true
+
+[node name="Dash" type="Node2D" parent="Movement"]
+
+[node name="StepUp" type="Node2D" parent="Movement" node_paths=PackedStringArray("target")]
+script = ExtResource("10_17dsn")
+target = NodePath("../..")
+
+[node name="BottomLeft" type="RayCast2D" parent="Movement/StepUp"]
+position = Vector2(-5, 16)
 rotation = 1.5708
 target_position = Vector2(0, 10)
 
-[node name="BottomRight" type="RayCast2D" parent="CollisionShape2D"]
-position = Vector2(5, 13)
+[node name="BottomRight" type="RayCast2D" parent="Movement/StepUp"]
+position = Vector2(5, 16)
 rotation = -1.5708
 target_position = Vector2(0, 10)
 
-[node name="TopLeft" type="RayCast2D" parent="CollisionShape2D"]
-position = Vector2(-15, -15)
+[node name="TopLeft" type="RayCast2D" parent="Movement/StepUp"]
+position = Vector2(-15, -12)
 target_position = Vector2(0, 28)
 hit_from_inside = true
 
-[node name="TopRight" type="RayCast2D" parent="CollisionShape2D"]
-position = Vector2(15, -15)
+[node name="TopRight" type="RayCast2D" parent="Movement/StepUp"]
+position = Vector2(15, -12)
 target_position = Vector2(0, 28)
 hit_from_inside = true
 
-[node name="FootHitBox" type="Area2D" parent="."]
+[node name="Flying" type="Node2D" parent="Movement" node_paths=PackedStringArray("target")]
+script = ExtResource("14_aujq8")
+target = NodePath("../..")
+
+[node name="Hitboxes" type="Node2D" parent="."]
+
+[node name="FootHitBox" type="Area2D" parent="Hitboxes"]
 position = Vector2(0, -1)
 collision_layer = 128
 collision_mask = 16
 script = ExtResource("7_povqq")
 damage = 0.5
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="FootHitBox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitboxes/FootHitBox"]
 position = Vector2(0, 20)
 shape = SubResource("RectangleShape2D_g81l7")
 debug_color = Color(1, 0, 0, 0.419608)
 
-[node name="HurtBox" type="Area2D" parent="."]
+[node name="HurtBox" type="Area2D" parent="Hitboxes"]
 collision_layer = 64
 collision_mask = 32
 script = ExtResource("6_7ypip")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitboxes/HurtBox"]
 position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_ck7dp")
 
-[node name="PickupArea" type="Area2D" parent="."]
+[node name="PickupArea" type="Area2D" parent="Hitboxes"]
 collision_layer = 4096
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitboxes/PickupArea"]
 shape = SubResource("CapsuleShape2D_pc4g8")
 
 [node name="player_debug_header" type="Label" parent="."]
@@ -542,14 +601,10 @@ text = "test"
 horizontal_alignment = 1
 script = ExtResource("4_qg5aq")
 
+[node name="Health" parent="." node_paths=PackedStringArray("damaged_sprite") instance=ExtResource("21_v1fk3")]
+damaged_sprite = NodePath("../DamagedSprite2D")
+
 [node name="Inventory" parent="." instance=ExtResource("3_0ikdi")]
-
-[node name="HealthComponent" type="Node2D" parent="."]
-script = ExtResource("5_hf0il")
-
-[node name="InvulnerabilityTimer" type="Timer" parent="HealthComponent"]
-wait_time = 0.1
-one_shot = true
 
 [node name="DustFX" type="Node2D" parent="."]
 position = Vector2(0, 8)
@@ -564,11 +619,11 @@ autostart = true
 wait_time = 0.216
 one_shot = true
 
-[node name="DustFXSlide" type="Node2D" parent="."]
+[node name="SlideFx" type="Node2D" parent="."]
 position = Vector2(0, 8)
 script = ExtResource("17_q7sh8")
 
-[node name="SlideDustTimer" type="Timer" parent="DustFXSlide"]
+[node name="SlideDustTimer" type="Timer" parent="SlideFx"]
 wait_time = 0.023
 one_shot = true
 
@@ -630,21 +685,20 @@ position = Vector2(1, -26)
 sprite_frames = SubResource("SpriteFrames_1w84j")
 script = ExtResource("22_0sd5k")
 
-[connection signal="jumped" from="." to="DustFX" method="_on_player_jumped"]
 [connection signal="flip_sprite" from="AnimatedSprite2D" to="HolyItems/Wings" method="_on_animated_sprite_2d_flip_sprite"]
 [connection signal="flip_sprite" from="AnimatedSprite2D" to="HolyItems/Wings/WingDustFX" method="_on_animated_sprite_2d_flip_sprite"]
-[connection signal="area_entered" from="FootHitBox" to="." method="_on_foot_hit_box_area_entered"]
-[connection signal="area_entered" from="HurtBox" to="HurtBox" method="_on_area_entered"]
-[connection signal="damage_recieved" from="HurtBox" to="HealthComponent" method="_on_hurt_box_damage_recieved"]
-[connection signal="take_damage" from="HealthComponent" to="." method="_on_health_component_take_damage"]
-[connection signal="landed" from="DustFX" to="SFX manager" method="_on_dust_fx_landed"]
+[connection signal="flip_sprite" from="DamagedSprite2D" to="HolyItems/Wings" method="_on_animated_sprite_2d_flip_sprite"]
+[connection signal="flip_sprite" from="DamagedSprite2D" to="HolyItems/Wings/WingDustFX" method="_on_animated_sprite_2d_flip_sprite"]
+[connection signal="jumped" from="Movement/Jump" to="DustFX" method="_on_jump_jumped"]
+[connection signal="jumped" from="Movement/Jump" to="SFX manager" method="_on_jump_jumped"]
+[connection signal="area_entered" from="Hitboxes/FootHitBox" to="." method="_on_foot_hit_box_area_entered"]
+[connection signal="damage_recieved" from="Hitboxes/HurtBox" to="Health" method="_on_hurt_box_damage_recieved"]
 [connection signal="timeout" from="DustFX/StepDustTimer" to="DustFX" method="_on_step_dust_timer_timeout"]
 [connection signal="timeout" from="DustFX/FallingTimer" to="DustFX" method="_on_falling_timer_timeout"]
-[connection signal="timeout" from="DustFXSlide/SlideDustTimer" to="DustFXSlide" method="_on_slide_dust_timer_timeout"]
 [connection signal="animation_finished" from="HolyItems/Wings" to="HolyItems/Wings" method="_on_animation_finished"]
 [connection signal="wing_fx" from="HolyItems/Wings" to="HolyItems/Wings/WingDustFX" method="_on_wings_wing_fx"]
 [connection signal="timeout" from="HolyItems/Wings/WingDustFX/WingFlapTimer" to="HolyItems/Wings/WingDustFX" method="_on_wing_flap_timer_timeout"]
-[connection signal="area_entered" from="HolyItems/Wings/LanternDetection" to="." method="_on_lantern_detection_area_entered"]
+[connection signal="area_entered" from="HolyItems/Wings/LanternDetection" to="Movement/Flying" method="_on_lantern_detection_area_entered"]
 [connection signal="area_entered" from="HolyItems/Wings/LanternDetection" to="HolyItems/Wings" method="_on_lantern_detection_area_entered"]
-[connection signal="area_exited" from="HolyItems/Wings/LanternDetection" to="." method="_on_lantern_detection_area_exited"]
+[connection signal="area_exited" from="HolyItems/Wings/LanternDetection" to="Movement/Flying" method="_on_lantern_detection_area_exited"]
 [connection signal="area_exited" from="HolyItems/Wings/LanternDetection" to="HolyItems/Wings" method="_on_lantern_detection_area_exited"]

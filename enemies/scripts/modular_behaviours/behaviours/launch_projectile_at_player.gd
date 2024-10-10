@@ -54,7 +54,7 @@ func _run() -> void:
 		
 		projectile_obj.max_speed = max_speed
 		projectile_obj._set_start_position(starting_position)
-		projectile_obj.destination = PlayerStatsManager.player_position
+		projectile_obj.destination = PlayerManager.player.global_position
 		projectile_obj.min_height = min_height
 		projectile_obj.launch_when_ready = true
 		

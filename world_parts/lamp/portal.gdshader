@@ -18,22 +18,22 @@ uniform int pixel_amount = 40;
 
 void fragment() {
 	vec2 grid_uv = round(UV * float(pixel_amount)) / float(pixel_amount);
-	
+
 	float ratio = screen_width / screen_height;
 	float dist = distance(player_position, vec2(mix(0.5, grid_uv.x, ratio), grid_uv.y));
-	
+
 	float noise_value = texture(noise_tex, dist + vec2(0.0, TIME)).x;
 	// The .yx swizzle is when using the built in horizontal gradient texture. If you have a vertical gradient texture remove .yx
 	float gradient_value=1.0;
-	
+
 	gradient_value -= smoothstep(spread, spread + 0.5, length(dist + vec2(-.5)) / spread);
-	
+
 	float step1 = step(noise_value, gradient_value);
 	float step2 = step(noise_value, gradient_value - 0.2);
 	float step3 = step(noise_value, gradient_value - 0.4);
-	
+
 	vec3 bd_color = mix(brighter_color.rgb, darker_color.rgb, step1 - step2);
-	
+
 	vec4 color = vec4(bd_color, step1);
 	color.rgb = mix(color.rgb, middle_color.rgb, step2 - step3);
 	COLOR = color;
@@ -47,5 +47,5 @@ void fragment() {
 		COLOR.a = color.a;
 		COLOR.rgb = color.rgb;
 	}
-	
+
 }

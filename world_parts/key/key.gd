@@ -10,7 +10,7 @@ extends Node2D
 var time: float = 0.0
 var start_position
 
-# Called when the node enters the scene tree for the first time.
+
 func _ready() -> void:
 	var door_code = door_code
 	var used = false
@@ -19,7 +19,6 @@ func _ready() -> void:
 	var pickup_area = $Pickup_area
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float):
 	# Increase the time counter based on the frame time
 	time += delta
@@ -30,8 +29,9 @@ func _process(delta: float):
 	# Apply the bobbing motion to the key's Y position
 	position.y += bob_offset
 
-# This function is called when another body enters the pickup area
+
+# Called when another body enters the pickup area
 func _on_pickup_area_area_entered(body: Node) -> void:
 	assert(body.owner.get("inventory") != null, "Player has no inventory")
-	body.owner.inventory.add_key(door_code)  # Call the add_key method on the inventory
+	body.owner.inventory.keys.append(door_code)  # Call the add_key method on the inventory
 	queue_free()  # Remove the key from the scene

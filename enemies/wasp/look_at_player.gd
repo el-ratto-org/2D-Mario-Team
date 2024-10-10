@@ -10,7 +10,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	var distance_to_player = PlayerStatsManager.player.global_position.x - self.global_position.x
+	var distance_to_player = PlayerManager.player.global_position.x - global_position.x
 	
 	if abs(distance_to_player) >= FLIP_THRESHOLD:  # Only flip if the player is outside the threshold
 		if distance_to_player > 0:

@@ -29,30 +29,27 @@ func _process(delta: float) -> void:
 func step_conditions_met():
 	return  owner.velocity.x != 0 and \
 			timer_between_step_completed and \
-			player_on_ground()
+			owner.is_on_floor()
 
 func landing_conditions_met():
 	return  owner.velocity.y == 0 and \
 			air_timer_completed and \
-			player_on_ground()
+			owner.is_on_floor()
 
 func step_dust():
 	timer_between_step_completed = false
-	spawn_vfx("step", self.global_position, sprite_flip)
+	spawn_vfx("step", global_position, sprite_flip)
 	$StepDustTimer.start()
 
 func landing_dust():
 	air_timer_completed = false
-	spawn_vfx("landing_fx", self.global_position, sprite_flip)
+	spawn_vfx("landing_fx", global_position, sprite_flip)
 	landed.emit()
 
-func player_on_ground():
-	return owner.grounded
-
 func start_falling_timer_condition_met():
-	return  $"../DustFX/FallingTimer".time_left == 0 and \
+	return  $FallingTimer.time_left == 0 and \
 			not air_timer_completed and \
-			not player_on_ground()
+			not owner.is_on_floor()
 
 func spawn_vfx(animation_name, position, flipped:bool):
 	var new_sprite = animated_sprite_scene.instantiate() as AnimatedSprite2D
@@ -62,13 +59,16 @@ func spawn_vfx(animation_name, position, flipped:bool):
 	new_sprite.flip_h = flipped
 	get_tree().root.add_child(new_sprite)
 
+
 func _on_step_dust_timer_timeout():
 	timer_between_step_completed = true
+
 
 func _on_falling_timer_timeout() -> void:
 	air_timer_completed = true
 
-func _on_player_jumped() -> void:
+
+func _on_jump_jumped() -> void:
 	var player_x_velocity = owner.velocity.x
 	
 	# Figure out which animation to play
@@ -86,4 +86,4 @@ func _on_player_jumped() -> void:
 	else:
 		sprite_flip = false
 	
-	spawn_vfx(anim_type, self.global_position, sprite_flip)
+	spawn_vfx(anim_type, global_position, sprite_flip)

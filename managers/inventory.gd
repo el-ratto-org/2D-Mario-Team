@@ -1,17 +1,6 @@
 extends Node
 
-@onready var keys = []
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-	
-func add_key(code: String):
-	keys.append(code)
-	
-func get_key_list():
-	return keys
+var has_double_jump_item = false
+var has_dash_item = false
+var has_sword_item = false
+var keys = [] # Found door keys

@@ -25,7 +25,7 @@ void fragment() {
 	// Part 1: Lantern blending
 	vec4 first = texture(TEXTURE, UV);
 	vec4 second = texture(TEXTURE, UV + vec2(0, .5));
-	
+
 	float aspect = SCREEN_PIXEL_SIZE.x / SCREEN_PIXEL_SIZE.y;
 	float weight = linear_weight(distance(SCREEN_UV * vec2(1, aspect), lantern_position * vec2(1, aspect)), 0.1 * lantern_radius, 0.4 * lantern_radius);
 	float interpolated = circular_smooth(weight, 3.0);

@@ -2,59 +2,18 @@
 
 [ext_resource type="Script" path="res://enemies/rock_golem/rock_golem_manager.gd" id="1_chbgr"]
 [ext_resource type="Script" path="res://enemies/scripts/enemy_controller.gd" id="1_pnddw"]
-[ext_resource type="Script" path="res://CombatComponents/HealthComponent.gd" id="2_375xg"]
-[ext_resource type="Script" path="res://CombatComponents/HitBox.gd" id="3_ad1km"]
+[ext_resource type="PackedScene" uid="uid://qn86ksb5378j" path="res://combat/health.tscn" id="3_6oat3"]
+[ext_resource type="Script" path="res://combat/HitBox.gd" id="3_ad1km"]
 [ext_resource type="Script" path="res://enemies/scripts/modular_behaviours/behaviours/charge.gd" id="3_ma71j"]
+[ext_resource type="Shader" path="res://combat/damage_flash.gdshader" id="3_uhv4m"]
 [ext_resource type="Script" path="res://enemies/scripts/modular_behaviours/behaviours/launch_projectile_at_player.gd" id="4_tuebx"]
-[ext_resource type="Script" path="res://CombatComponents/HurtBox.gd" id="4_wyl35"]
+[ext_resource type="Script" path="res://combat/HurtBox.gd" id="4_wyl35"]
 [ext_resource type="PackedScene" uid="uid://ctgh7sjolo85m" path="res://enemies/projectiles/boulder/boulder.tscn" id="5_h0ho3"]
 [ext_resource type="Texture2D" uid="uid://dtbxqsrppd57k" path="res://assets/sprites/characters/enemies/gloopus/gloopus_base.png" id="6_pdhof"]
 [ext_resource type="Script" path="res://enemies/scripts/modular_behaviours/base_classes/enemy_physics.gd" id="8_n1ofw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mjn4d"]
 size = Vector2(35, 41)
-
-[sub_resource type="Shader" id="Shader_w4vwf"]
-code = "shader_type canvas_item;
-
-uniform int start_frame = 0;
-uniform int current_frame = 0;
-uniform float mix_ratio = 1.0;
-
-const vec3 colors[6] = vec3[] (
-	vec3(1.0, 0.0, 0.0), // Red
-	vec3(0.5, 0.0, 0.0), // Dark red
-	vec3(0.0, 0.0, 0.0), // Black
-	vec3(0.0, 0.0, 1.0), // Blue
-	vec3(0.0, 0.0, 0.5), // Dark blue
-	vec3(0.0, 0.0, 0.0)  // Black
-);
-
-void fragment() {
-	// https://en.wikipedia.org/wiki/Rec._709#Luma_coefficients
-	float brightness = dot(COLOR.rgb, vec3(0.2126, 0.7152, 0.0722));
-
-	// Calculate the starting frame based on brightness
-	int offset = 0;
-	if (brightness > 0.75) {
-		offset = 2;
-	} else if (brightness > 0.25) {
-		offset = 1;
-	}
-
-	// Get the color, wrapping around at the end of the array
-	int color_index = (start_frame + current_frame + offset) % colors.length();
-	vec3 color = colors[color_index];
-
-	// Apply the color to the sprite
-	COLOR = vec4(mix(COLOR.rgb, color, mix_ratio), COLOR.a);
-}"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ap2o7"]
-shader = SubResource("Shader_w4vwf")
-shader_parameter/start_frame = 1
-shader_parameter/current_frame = 0
-shader_parameter/mix_ratio = 0.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ejicp"]
 animations = [{
@@ -67,6 +26,12 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_aq4pp"]
+shader = ExtResource("3_uhv4m")
+shader_parameter/start_frame = 1
+shader_parameter/current_frame = 0
+shader_parameter/mix_ratio = 0.0
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hvbro"]
 size = Vector2(35, 33)
 
@@ -76,40 +41,25 @@ size = Vector2(35, 41)
 [node name="RockGolem" type="CharacterBody2D"]
 script = ExtResource("1_pnddw")
 
-[node name="EnemyBehaviourManager" type="Node2D" parent="." node_paths=PackedStringArray("charge_left", "charge_right", "through_boulder", "character")]
-script = ExtResource("1_chbgr")
-charge_left = NodePath("ChargeLeft")
-charge_right = NodePath("ChargeRight")
-through_boulder = NodePath("LaunchProjectileAtPlayer")
-character = NodePath("..")
-
-[node name="ChargeLeft" type="Node2D" parent="EnemyBehaviourManager"]
-script = ExtResource("3_ma71j")
-speed = 500.0
-
-[node name="ChargeRight" type="Node2D" parent="EnemyBehaviourManager"]
-script = ExtResource("3_ma71j")
-speed = 500.0
-direction = 1
-
-[node name="LaunchProjectileAtPlayer" type="Node2D" parent="EnemyBehaviourManager"]
-script = ExtResource("4_tuebx")
-projectile = ExtResource("5_h0ho3")
-
-[node name="Marker2D" type="Marker2D" parent="EnemyBehaviourManager/LaunchProjectileAtPlayer"]
-position = Vector2(0, -32)
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1.5, 4.5)
 shape = SubResource("RectangleShape2D_mjn4d")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
-material = SubResource("ShaderMaterial_ap2o7")
 sprite_frames = SubResource("SpriteFrames_ejicp")
 
-[node name="HealthComponent" type="Node2D" parent="."]
-script = ExtResource("2_375xg")
+[node name="DamagedSprite2D" type="AnimatedSprite2D" parent="."]
+visible = false
+texture_filter = 1
+material = SubResource("ShaderMaterial_aq4pp")
+sprite_frames = SubResource("SpriteFrames_ejicp")
+
+[node name="Health" parent="." node_paths=PackedStringArray("damaged_sprite") instance=ExtResource("3_6oat3")]
+damaged_sprite = NodePath("../DamagedSprite2D")
+
+[node name="EnemyPhysics" type="Node" parent="."]
+script = ExtResource("8_n1ofw")
 
 [node name="HurtBox" type="Area2D" parent="."]
 collision_layer = 16
@@ -131,11 +81,31 @@ position = Vector2(-1.5, 4.5)
 shape = SubResource("RectangleShape2D_7uy5i")
 debug_color = Color(1, 0, 0, 0.419608)
 
-[node name="EnemyPhysics" type="Node" parent="."]
-script = ExtResource("8_n1ofw")
+[node name="RockGolemManager" type="Node2D" parent="." node_paths=PackedStringArray("charge_left", "charge_right", "through_boulder", "character")]
+script = ExtResource("1_chbgr")
+charge_left = NodePath("ChargeLeft")
+charge_right = NodePath("ChargeRight")
+through_boulder = NodePath("LaunchProjectileAtPlayer")
+character = NodePath("..")
 
-[node name="Timer" type="Timer" parent="."]
+[node name="ChargeLeft" type="Node2D" parent="RockGolemManager"]
+script = ExtResource("3_ma71j")
+speed = 500.0
 
-[connection signal="die" from="HealthComponent" to="." method="_on_health_component_die"]
-[connection signal="damage_recieved" from="HurtBox" to="HealthComponent" method="_on_hurt_box_damage_recieved"]
-[connection signal="timeout" from="Timer" to="EnemyBehaviourManager" method="_on_timer_timeout"]
+[node name="ChargeRight" type="Node2D" parent="RockGolemManager"]
+script = ExtResource("3_ma71j")
+speed = 500.0
+direction = 1
+
+[node name="LaunchProjectileAtPlayer" type="Node2D" parent="RockGolemManager"]
+script = ExtResource("4_tuebx")
+projectile = ExtResource("5_h0ho3")
+
+[node name="Marker2D" type="Marker2D" parent="RockGolemManager/LaunchProjectileAtPlayer"]
+position = Vector2(0, -32)
+
+[node name="ChargeTimer" type="Timer" parent="."]
+
+[connection signal="changed" from="Health" to="." method="_on_health_changed"]
+[connection signal="damage_recieved" from="HurtBox" to="Health" method="_on_hurt_box_damage_recieved"]
+[connection signal="timeout" from="ChargeTimer" to="RockGolemManager" method="_on_charge_timer_timeout"]

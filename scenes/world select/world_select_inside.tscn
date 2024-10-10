@@ -1,0 +1,137 @@
+[gd_scene load_steps=14 format=3 uid="uid://dpyeohy7uejjr"]
+
+[ext_resource type="Shader" path="res://assets/shaders/vcr.gdshader" id="1_f47nd"]
+[ext_resource type="Texture2D" uid="uid://dxyhe1hxoibca" path="res://assets/world select/map02.png" id="1_vsffg"]
+[ext_resource type="AudioStream" uid="uid://bwoxw1cwl8psg" path="res://assets/ambience/ganzfeld_short.ogg" id="3_f42vw"]
+[ext_resource type="AudioStream" uid="uid://b01krsb3ygetq" path="res://assets/sfx/main-door-opening-closing-38280.mp3" id="5_84kap"]
+[ext_resource type="Script" path="res://scenes/world select/sfx.gd" id="5_x7csh"]
+[ext_resource type="AudioStream" uid="uid://bqbwup1bel86l" path="res://assets/sfx/breathing-6811.mp3" id="6_ridaf"]
+[ext_resource type="AudioStream" uid="uid://d2u43yqdrw1p8" path="res://assets/sfx/real-heartbeat-sound-17663.mp3" id="7_4nmk1"]
+[ext_resource type="Texture2D" uid="uid://domw4jgxjl3h0" path="res://assets/captions/error.png" id="8_bffx7"]
+[ext_resource type="Script" path="res://scenes/world select/close.gd" id="9_a68hs"]
+
+[sub_resource type="Gradient" id="Gradient_3c0yh"]
+colors = PackedColorArray(0, 0, 0, 1, 0.12, 0.12, 0.12, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_36mql"]
+noise_type = 2
+frequency = 0.0205
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ox6tg"]
+width = 1920
+height = 1080
+invert = true
+seamless = true
+color_ramp = SubResource("Gradient_3c0yh")
+noise = SubResource("FastNoiseLite_36mql")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k4lik"]
+shader = ExtResource("1_f47nd")
+shader_parameter/vhs_resolution = Vector2(720, 480)
+shader_parameter/samples = 5
+shader_parameter/crease_noise = 1.0
+shader_parameter/crease_opacity = 0.5
+shader_parameter/filter_intensity = 0.1
+shader_parameter/tape_crease_smear = 0.0
+shader_parameter/tape_crease_intensity = 0.2
+shader_parameter/tape_crease_jitter = 0.1
+shader_parameter/tape_crease_speed = 0.5
+shader_parameter/tape_crease_discoloration = 0.0
+shader_parameter/bottom_border_thickness = 32.0
+shader_parameter/bottom_border_jitter = 6.0
+shader_parameter/noise_intensity = 0.1
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_ox6tg")
+
+[node name="Node2D" type="Node2D"]
+
+[node name="shader" type="CanvasLayer" parent="."]
+layer = 16
+
+[node name="vhs" type="ColorRect" parent="shader"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_k4lik")
+offset_right = 1280.0
+offset_bottom = 720.0
+mouse_filter = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0.337255, 0.168627, 0.152941, 1)
+
+[node name="Inside" type="Node2D" parent="."]
+position = Vector2(640, 360)
+scale = Vector2(3, 3)
+
+[node name="Map02" type="Sprite2D" parent="Inside"]
+texture = ExtResource("1_vsffg")
+
+[node name="SFX" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(640, 360)
+scale = Vector2(0.999999, 0.999999)
+script = ExtResource("5_x7csh")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="SFX"]
+position = Vector2(-640.001, -360)
+stream = ExtResource("5_84kap")
+autoplay = true
+
+[node name="AudioStreamPlayer2D2" type="AudioStreamPlayer2D" parent="SFX"]
+position = Vector2(-640.001, -360)
+stream = ExtResource("6_ridaf")
+autoplay = true
+parameters/looping = true
+
+[node name="AudioStreamPlayer2D3" type="AudioStreamPlayer2D" parent="SFX"]
+position = Vector2(-640.001, -360)
+stream = ExtResource("7_4nmk1")
+autoplay = true
+parameters/looping = true
+
+[node name="AudioStreamPlayer2D4" type="AudioStreamPlayer2D" parent="SFX"]
+stream = ExtResource("3_f42vw")
+pitch_scale = 0.71
+autoplay = true
+parameters/looping = true
+
+[node name="error" type="CanvasLayer" parent="."]
+layer = 128
+
+[node name="Error" type="Sprite2D" parent="error"]
+top_level = true
+z_index = 4096
+z_as_relative = false
+position = Vector2(640, 360)
+scale = Vector2(0.999999, 0.999999)
+texture = ExtResource("8_bffx7")
+
+[node name="Panel" type="Panel" parent="error/Error"]
+modulate = Color(1, 1, 1, 0)
+offset_left = 224.0
+offset_top = 48.0001
+offset_right = 344.0
+offset_bottom = 80.0001
+mouse_default_cursor_shape = 2
+
+[node name="Button" type="Button" parent="error/Error/Panel"]
+layout_mode = 0
+offset_right = 120.0
+offset_bottom = 32.0
+
+[node name="Control" type="Control" parent="error/Error/Panel"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_default_cursor_shape = 2
+script = ExtResource("9_a68hs")
+
+[node name="Panel2" type="Panel" parent="error/Error"]
+modulate = Color(1, 1, 1, 0)
+offset_left = 352.0
+offset_top = 48.0
+offset_right = 480.0
+offset_bottom = 80.0
+mouse_default_cursor_shape = 8
+
+[connection signal="pressed" from="error/Error/Panel/Button" to="error/Error/Panel/Control" method="_on_button_pressed"]

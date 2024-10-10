@@ -1,4 +1,9 @@
 extends CharacterBody2D
 
-func _on_health_component_die() -> void:
-	queue_free()
+@onready var health = $Health
+
+
+func _on_health_changed(_delta: float) -> void:
+	# Did this kill us?
+	if health.current <= 0:
+		queue_free()

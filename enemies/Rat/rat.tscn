@@ -1,0 +1,112 @@
+[gd_scene load_steps=18 format=3 uid="uid://ukn7dhx8vgn5"]
+
+[ext_resource type="Script" path="res://enemies/scripts/enemy_controller.gd" id="1_vr41i"]
+[ext_resource type="Texture2D" uid="uid://cjw8dspku67a7" path="res://assets/sprites/characters/enemies/rat/rat.png" id="2_wpe0d"]
+[ext_resource type="Shader" path="res://combat/damage_flash.gdshader" id="3_ekdd6"]
+[ext_resource type="PackedScene" uid="uid://qn86ksb5378j" path="res://combat/health.tscn" id="4_va3kw"]
+[ext_resource type="Script" path="res://enemies/scripts/modular_behaviours/base_classes/enemy_physics.gd" id="5_f82xu"]
+[ext_resource type="Script" path="res://combat/HurtBox.gd" id="6_1n0bu"]
+[ext_resource type="Script" path="res://combat/HitBox.gd" id="7_k0ee0"]
+[ext_resource type="Script" path="res://enemies/Rat/rat_manager.gd" id="8_ip4xo"]
+[ext_resource type="Script" path="res://enemies/scripts/modular_behaviours/behaviours/chase_player.gd" id="9_2aqth"]
+[ext_resource type="Script" path="res://enemies/scripts/modular_behaviours/behaviours/run_from_player.gd" id="10_alpm0"]
+[ext_resource type="Script" path="res://enemies/scripts/modular_behaviours/behaviours/use_weapon.gd" id="11_bak8p"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eskq7"]
+size = Vector2(32, 16)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e86r2"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_baduv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_wpe0d")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t7cv7"]
+shader = ExtResource("3_ekdd6")
+shader_parameter/start_frame = 1
+shader_parameter/current_frame = 0
+shader_parameter/mix_ratio = 0.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bemg5"]
+size = Vector2(30, 4.625)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_76orl"]
+size = Vector2(32, 14.5)
+
+[node name="Rat" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_vr41i")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_index = -1600
+position = Vector2(0, 7)
+shape = SubResource("RectangleShape2D_eskq7")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+material = SubResource("ShaderMaterial_e86r2")
+sprite_frames = SubResource("SpriteFrames_baduv")
+frame_progress = 0.000661625
+
+[node name="DamagedSprite2D" type="AnimatedSprite2D" parent="."]
+visible = false
+texture_filter = 1
+material = SubResource("ShaderMaterial_t7cv7")
+sprite_frames = SubResource("SpriteFrames_baduv")
+
+[node name="Health" parent="." node_paths=PackedStringArray("damaged_sprite") instance=ExtResource("4_va3kw")]
+damaged_sprite = NodePath("../DamagedSprite2D")
+
+[node name="EnemyPhysics" type="Node" parent="."]
+script = ExtResource("5_f82xu")
+
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 128
+script = ExtResource("6_1n0bu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_bemg5")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 0
+script = ExtResource("7_k0ee0")
+damage = 0.2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(0, 6.25)
+shape = SubResource("RectangleShape2D_76orl")
+debug_color = Color(1, 0, 0, 0.419608)
+
+[node name="RatManager" type="Node2D" parent="." node_paths=PackedStringArray("chase_behaviour", "flee_behaviour", "attack_behaviour", "character")]
+script = ExtResource("8_ip4xo")
+chase_behaviour = NodePath("ChasePlayerBehaviour")
+flee_behaviour = NodePath("RunFromPlayerBehaviour")
+attack_behaviour = NodePath("UseWeapon")
+character = NodePath("..")
+
+[node name="ChasePlayerBehaviour" type="Node2D" parent="RatManager"]
+script = ExtResource("9_2aqth")
+
+[node name="RunFromPlayerBehaviour" type="Node2D" parent="RatManager"]
+script = ExtResource("10_alpm0")
+
+[node name="UseWeapon" type="Node2D" parent="RatManager"]
+script = ExtResource("11_bak8p")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+
+[connection signal="changed" from="Health" to="." method="_on_health_changed"]
+[connection signal="damage_recieved" from="HurtBox" to="Health" method="_on_hurt_box_damage_recieved"]
