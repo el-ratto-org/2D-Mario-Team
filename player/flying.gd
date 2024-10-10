@@ -56,7 +56,9 @@ func update(delta: float) -> void:
 
 func _on_lantern_detection_area_entered(area: Area2D) -> void:
 	current_lantern = area.owner
+	
 
 
 func _on_lantern_detection_area_exited(area: Area2D) -> void:
+	print(area.owner)
 	current_lantern = null

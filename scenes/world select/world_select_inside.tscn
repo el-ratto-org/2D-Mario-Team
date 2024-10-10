@@ -42,7 +42,7 @@ shader_parameter/bottom_border_jitter = 6.0
 shader_parameter/noise_intensity = 0.1
 shader_parameter/noise_texture = SubResource("NoiseTexture2D_ox6tg")
 
-[node name="Node2D" type="Node2D"]
+[node name="Node2D2" type="Node2D"]
 
 [node name="shader" type="CanvasLayer" parent="."]
 layer = 16
@@ -91,8 +91,9 @@ parameters/looping = true
 
 [node name="AudioStreamPlayer2D4" type="AudioStreamPlayer2D" parent="SFX"]
 stream = ExtResource("3_f42vw")
-pitch_scale = 0.71
+volume_db = 5.91
 autoplay = true
+max_distance = 24535.0
 parameters/looping = true
 
 [node name="error" type="CanvasLayer" parent="."]

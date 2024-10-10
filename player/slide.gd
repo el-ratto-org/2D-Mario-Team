@@ -39,6 +39,9 @@ func update(delta: float) -> void:
 	# Ensure we're on the floor
 	if not target.is_on_floor():
 		return
+		
+	if not target.inventory.has_double_jump_item:
+		return
 	
 	# Determine which direction we're moving and how fast
 	var max_move_speed = move_speed * 1000 * delta

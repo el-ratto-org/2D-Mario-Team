@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=4 uid="uid://eyv6uveq0q8w"]
+[gd_scene load_steps=48 format=4 uid="uid://eyv6uveq0q8w"]
 
 [ext_resource type="PackedScene" uid="uid://crjeudwcdacco" path="res://player/player.tscn" id="1_6ahel"]
 [ext_resource type="PackedScene" uid="uid://s8g34kjtosrr" path="res://assets/shaders/fog.tscn" id="1_8mnw5"]
@@ -22,12 +22,13 @@
 [ext_resource type="PackedScene" uid="uid://bvdekxp50xm4b" path="res://managers/caption_manager.tscn" id="15_viswo"]
 [ext_resource type="PackedScene" uid="uid://ukn7dhx8vgn5" path="res://enemies/Rat/rat.tscn" id="17_wu0k2"]
 [ext_resource type="PackedScene" uid="uid://bd5lhjs4n6df5" path="res://fog/fog_layer.tscn" id="19_kbin2"]
-[ext_resource type="PackedScene" uid="uid://dj0624svyhpwc" path="res://fog/lantern.tscn" id="19_yhx4n"]
 [ext_resource type="PackedScene" uid="uid://bnyq2q53tlbja" path="res://reflections/reflection_plane.tscn" id="22_rj1h0"]
 [ext_resource type="Shader" path="res://reflections/pixelize_reflection.gdshader" id="24_h2n7a"]
 [ext_resource type="PackedScene" uid="uid://d1fnoq4c0i2pd" path="res://enemies/wasp/wasp.tscn" id="25_60rd0"]
 [ext_resource type="PackedScene" uid="uid://b0tvveyocfous" path="res://world_parts/world item/item.tscn" id="25_t6s6u"]
 [ext_resource type="PackedScene" uid="uid://bt3q2npak3to" path="res://enemies/boss_phoenix/phoenix.tscn" id="27_fh2qu"]
+[ext_resource type="PackedScene" uid="uid://b7pwbh7we4u0j" path="res://world_parts/world item/items/cloak/cloak.tscn" id="28_xrcpd"]
+[ext_resource type="PackedScene" uid="uid://dnhal2hn4fj1b" path="res://world_parts/lamp/lamp.tscn" id="29_mkt5x"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3s74n"]
 shader = ExtResource("2_5uqgo")
@@ -499,15 +500,19 @@ position = Vector2(3803, -21)
 position = Vector2(862, -145)
 
 [node name="Wasp" parent="Enemies" instance=ExtResource("25_60rd0")]
+visible = false
 position = Vector2(125, -155)
 
 [node name="Wasp2" parent="Enemies" instance=ExtResource("25_60rd0")]
+visible = false
 position = Vector2(485, -243)
 
 [node name="Wasp3" parent="Enemies" instance=ExtResource("25_60rd0")]
+visible = false
 position = Vector2(125, -155)
 
 [node name="Wasp4" parent="Enemies" instance=ExtResource("25_60rd0")]
+visible = false
 position = Vector2(485, -243)
 
 [node name="Rat" parent="Enemies" instance=ExtResource("17_wu0k2")]
@@ -544,8 +549,6 @@ visible = false
 
 [node name="FogLayer" parent="." instance=ExtResource("19_kbin2")]
 
-[node name="Lantern" parent="." instance=ExtResource("19_yhx4n")]
-
 [node name="Water" type="CanvasLayer" parent="."]
 follow_viewport_enabled = true
 
@@ -577,3 +580,17 @@ position = Vector2(-392, -24)
 
 [node name="Phoenix" parent="." instance=ExtResource("27_fh2qu")]
 position = Vector2(-85, -78)
+
+[node name="Item2" parent="." instance=ExtResource("25_t6s6u")]
+position = Vector2(-318, -90)
+item_type = ExtResource("28_xrcpd")
+
+[node name="lamp" parent="." instance=ExtResource("29_mkt5x")]
+position = Vector2(-219, 0)
+collision_layer = 8
+collision_mask = 4
+world = "Clinic"
+
+[node name="lamp2" parent="." instance=ExtResource("29_mkt5x")]
+position = Vector2(-72, -182)
+world = "Clinic"

@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://dnhal2hn4fj1b"]
+[gd_scene load_steps=14 format=3 uid="uid://dnhal2hn4fj1b"]
 
 [ext_resource type="Texture2D" uid="uid://c0u7qcyv5db4i" path="res://assets/sprites/tiles/lamp2.png" id="1_2fov4"]
 [ext_resource type="Texture2D" uid="uid://c8k86jegjf3uf" path="res://assets/sprites/tiles/lamp2_noglass.png" id="1_gwkgd"]
 [ext_resource type="Script" path="res://world_parts/lamp/lamp.gd" id="1_m3s5b"]
 [ext_resource type="Texture2D" uid="uid://dvg8ldrfitaul" path="res://assets/sprites/tiles/lamp2_alt.png" id="1_vopxb"]
 [ext_resource type="Shader" path="res://assets/shaders/highlight.gdshader" id="2_oc4kk"]
+[ext_resource type="PackedScene" uid="uid://dj0624svyhpwc" path="res://fog/lantern.tscn" id="2_s2uwb"]
 [ext_resource type="Shader" path="res://world_parts/lamp/light.gdshader" id="5_8hdc1"]
 [ext_resource type="Texture2D" uid="uid://cc7bu67jst3fa" path="res://assets/sprites/tiles/lamp2_alt_inv.png" id="7_q3euc"]
 
@@ -47,9 +48,12 @@ shader_parameter/glow_intensity_stop = 1.0
 texture_filter = 1
 script = ExtResource("1_m3s5b")
 
+[node name="Lantern" parent="." instance=ExtResource("2_s2uwb")]
+position = Vector2(6, -41)
+
 [node name="ActivationArea" type="Area2D" parent="."]
 collision_layer = 8
-collision_mask = 4
+collision_mask = 4096
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ActivationArea"]
 position = Vector2(-1, -31.5)
