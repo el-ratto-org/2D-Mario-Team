@@ -7,6 +7,8 @@ extends Node2D
 @onready var slide_timer: Timer = $SlideTimer
 @onready var cooldown_timer: Timer = $CooldownTimer
 
+signal start_slide
+
 
 func update(delta: float) -> void:
 	assert(target != null, "Must assign player to script")
@@ -43,9 +45,11 @@ func update(delta: float) -> void:
 	var horizontal_motion = horizontal_axis * max_move_speed
 	
 	# Apply velocity & start slide/cooldown timers
+	start_slide.emit()
 	target.velocity.x = horizontal_motion
 	slide_timer.start()
 	cooldown_timer.start()
+	
 
 
 func is_sliding() -> bool:

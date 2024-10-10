@@ -691,6 +691,7 @@ script = ExtResource("22_0sd5k")
 [connection signal="flip_sprite" from="DamagedSprite2D" to="HolyItems/Wings/WingDustFX" method="_on_animated_sprite_2d_flip_sprite"]
 [connection signal="jumped" from="Movement/Jump" to="DustFX" method="_on_jump_jumped"]
 [connection signal="jumped" from="Movement/Jump" to="SFX manager" method="_on_jump_jumped"]
+[connection signal="start_slide" from="Movement/Slide" to="SlideFx" method="_on_slide_start_slide"]
 [connection signal="area_entered" from="Hitboxes/FootHitBox" to="." method="_on_foot_hit_box_area_entered"]
 [connection signal="damage_recieved" from="Hitboxes/HurtBox" to="Health" method="_on_hurt_box_damage_recieved"]
 [connection signal="timeout" from="DustFX/StepDustTimer" to="DustFX" method="_on_step_dust_timer_timeout"]
