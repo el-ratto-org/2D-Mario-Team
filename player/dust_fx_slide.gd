@@ -20,7 +20,15 @@ func spawn_vfx(animation_name, position):
 	else:
 		sprite_flip = false
 	var new_sprite = animated_sprite_scene.instantiate() as AnimatedSprite2D
-	new_sprite.global_position = position
+	var random_range = 5.0
+	var random_float = randf_range(-random_range, random_range)
+	var new_position = Vector2(position.x, position.y + random_float)
+	
+	print()
+	print(new_position)
+	print(position)
+	print()
+	new_sprite.global_position = new_position
 	new_sprite.animation = animation_name.pick_random()
 	new_sprite.play()
 	new_sprite.flip_h = sprite_flip
