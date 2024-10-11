@@ -43,13 +43,13 @@ func update(delta: float) -> void:
 		# The player has let go of the jump key while still gaining height,
 		# therefore we should cap off the jump early,
 		# and switch to the minimum jump height
-		target.velocity.y *= min_jump_height / max_jump_height
+		target.movement_direction.y *= min_jump_height / max_jump_height
 		holding_jump = false
 
 
 func do_jump() -> void:
 	jumped.emit()
-	target.velocity.y = -max_jump_height
+	target.movement_direction.y = -max_jump_height
 	holding_jump = true
 	jump_grace_timer.stop()
 	auto_jump_timer.stop()

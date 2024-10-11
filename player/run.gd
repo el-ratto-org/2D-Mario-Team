@@ -21,7 +21,7 @@ func update(delta: float) -> void:
 	# Determine if we're moving
 	if horizontal_axis:
 		# We're moving, apply inertia
-		target.velocity.x = inertia
+		target.movement_direction.x = inertia
 	else:
 		# Stop instantly when not moving
-		target.velocity.x = 0
+		target.movement_direction.x = 0

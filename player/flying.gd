@@ -51,7 +51,7 @@ func update(delta: float) -> void:
 	# Smoothly interpolate inertia towards the desired vertical motion
 	inertia = lerp(inertia, vertical_motion, turning_speed / 100)
 	
-	target.velocity.y = inertia - jump_amount
+	target.movement_direction.y = inertia - jump_amount
 
 
 func _on_lantern_detection_area_entered(area: Area2D) -> void:

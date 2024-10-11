@@ -6,6 +6,7 @@ extends Node2D
 
 @onready var slide_timer: Timer = $SlideTimer
 @onready var cooldown_timer: Timer = $CooldownTimer
+@onready var slide_sfx: AudioStreamPlayer2D = $SlideSFX
 
 signal start_slide
 
@@ -39,7 +40,7 @@ func update(delta: float) -> void:
 	# Ensure we're on the floor
 	if not target.is_on_floor():
 		return
-		
+	
 	if not target.inventory.has_double_jump_item:
 		return
 	
@@ -49,7 +50,8 @@ func update(delta: float) -> void:
 	
 	# Apply velocity & start slide/cooldown timers
 	start_slide.emit()
-	target.velocity.x = horizontal_motion
+	slide_sfx.play()
+	target.movement_direction.x = horizontal_motion
 	slide_timer.start()
 	cooldown_timer.start()
 	

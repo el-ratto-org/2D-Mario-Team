@@ -1,5 +1,7 @@
 extends Area2D
 
+@onready var slide_timer: Timer = $"../../Movement/Slide/SlideTimer"
+
 signal damage_recieved(damage: float)
 
 func _ready() -> void:

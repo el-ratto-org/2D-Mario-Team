@@ -34,13 +34,13 @@ func _calculate_swoop_path(target: Vector2) -> void:
 		# increment angle
 		angle += angle_steps
 	
-	# debug lines
-	debug_lines.clear_points()
-	var previous_point: Vector2 = global_position
-	for point in swoop_points:
-		debug_lines.add_point(previous_point - global_position)
-		previous_point = point
-	debug_lines.add_point(swoop_points.back() - global_position)
+	## debug lines
+	#debug_lines.clear_points()
+	#var previous_point: Vector2 = global_position
+	#for point in swoop_points:
+		#debug_lines.add_point(previous_point - global_position)
+		#previous_point = point
+	#debug_lines.add_point(swoop_points.back() - global_position)
 	
 
 func _run() -> void:
