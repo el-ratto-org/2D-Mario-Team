@@ -72,6 +72,7 @@ script = ExtResource("5_od87v")
 projectile = ExtResource("6_i7dco")
 max_speed = 200.0
 min_height = 0.0
+direction = null
 
 [node name="Marker2D" type="Marker2D" parent="WaspManager/LaunchProjectileAtPlayer"]
 position = Vector2(0, 24)

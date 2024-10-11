@@ -18,7 +18,7 @@ func _reset() -> void:
 	character.velocity.x = 0
 
 func _player_relative_position() -> Vector2:
-	return PlayerStatsManager.player_position - character.position
+	return PlayerStatsManager.player.global_position - character.position
 
 func _player_horizontal_direction() -> int:
 	return sign(_player_relative_position().x)

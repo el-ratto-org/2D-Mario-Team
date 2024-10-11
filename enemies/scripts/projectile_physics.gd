@@ -3,6 +3,7 @@ class_name Projectile
 
 @export var lifetime: float = 5
 @export var face_movement_direction: bool = true
+@export var drop_particles_on_destroy: bool = false
 
 # set from other scripts
 var max_speed: float
@@ -116,17 +117,18 @@ func _on_hit_box_deal_damage() -> void:
 
 func _despawn() -> void:
 	# spawn any child particle systems
-	for child in get_children():
-		if child is CPUParticles2D:
-			var position = child.global_position
-			remove_child(child)
-			get_tree().current_scene.add_child(child)
-			child.global_position = position
-			child.emitting = true
-			# trigger particles to despawn
-			for despawner in child.get_children():
-				if despawner is Despawner:
-					despawner._start_timer()
+	if drop_particles_on_destroy:
+		for child in get_children():
+			if child is CPUParticles2D:
+				var position = child.global_position
+				remove_child(child)
+				get_tree().current_scene.add_child(child)
+				child.global_position = position
+				child.emitting = true
+				# trigger particles to despawn
+				for despawner in child.get_children():
+					if despawner is Despawner:
+						despawner._start_timer()
 	
 	# delete 
 	queue_free()

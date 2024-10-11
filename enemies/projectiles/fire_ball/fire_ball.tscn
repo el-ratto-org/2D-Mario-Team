@@ -1,0 +1,77 @@
+[gd_scene load_steps=9 format=3 uid="uid://bb51jqwgmt3k7"]
+
+[ext_resource type="Script" path="res://enemies/scripts/projectile_physics.gd" id="1_gmjaq"]
+[ext_resource type="Texture2D" uid="uid://dpk08f7ui4ih4" path="res://enemies/projectiles/boulder/boulder.png" id="2_xaxur"]
+[ext_resource type="Script" path="res://CombatComponents/HitBox.gd" id="3_wlg7a"]
+[ext_resource type="Script" path="res://random_components/despawner.gd" id="4_trf30"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3ulq8"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wye4x"]
+
+[sub_resource type="Curve" id="Curve_odnaa"]
+_data = [Vector2(0, 0.990089), 0.0, 0.0, 0, 0, Vector2(1, 0.519314), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_5kovc"]
+offsets = PackedFloat32Array(0, 0.287603, 0.509091, 0.766942, 1)
+colors = PackedColorArray(1, 0.980392, 0, 1, 1, 0.584314, 0.137255, 1, 1, 0, 0, 1, 0.407843, 0, 0, 1, 0.301961, 0, 0, 0)
+
+[node name="Boulder" type="RigidBody2D" groups=["Projectiles"]]
+collision_layer = 0
+gravity_scale = 0.0
+contact_monitor = true
+max_contacts_reported = 1
+script = ExtResource("1_gmjaq")
+face_movement_direction = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(1.5, 1.5)
+shape = SubResource("CircleShape2D_3ulq8")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_xaxur")
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 64
+script = ExtResource("3_wlg7a")
+damage = 0.5
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="HitBox"]
+scale = Vector2(1.6, 1.6)
+shape = SubResource("CircleShape2D_wye4x")
+
+[node name="Ember" type="CPUParticles2D" parent="."]
+amount = 20
+lifetime = 0.4
+emission_shape = 1
+emission_sphere_radius = 10.0
+direction = Vector2(0, -1)
+gravity = Vector2(0, -980)
+scale_amount_min = 10.0
+scale_amount_max = 20.0
+scale_amount_curve = SubResource("Curve_odnaa")
+color_ramp = SubResource("Gradient_5kovc")
+
+[node name="Despawner" type="Timer" parent="Ember"]
+script = ExtResource("4_trf30")
+lifetime = 5.0
+
+[node name="Sparks" type="CPUParticles2D" parent="."]
+amount = 20
+lifetime = 0.3
+direction = Vector2(0, -1)
+spread = 180.0
+gravity = Vector2(0, -980)
+initial_velocity_min = 100.0
+initial_velocity_max = 400.0
+scale_amount_max = 2.0
+color_ramp = SubResource("Gradient_5kovc")
+
+[node name="Despawner" type="Timer" parent="Sparks"]
+script = ExtResource("4_trf30")
+lifetime = 5.0
+
+[connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]
