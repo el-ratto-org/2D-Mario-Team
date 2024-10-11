@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://b5kvliny5oxjd"
+path="res://.godot/imported/3-Dark Fantasy Studio- Hidden in the dark (seamless).wav-4971596901c4b0628a5104fd188c37a1.sample"
+
+[deps]
+
+source_file="res://assets/music/Purchased/3-Dark Fantasy Studio- Hidden in the dark (seamless).wav"
+dest_files=["res://.godot/imported/3-Dark Fantasy Studio- Hidden in the dark (seamless).wav-4971596901c4b0628a5104fd188c37a1.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

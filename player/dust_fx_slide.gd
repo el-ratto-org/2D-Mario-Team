@@ -23,6 +23,8 @@ func set_timer_duration():
 	
 	# Get a 0 to 1 value of the progress of the slide & set max time
 	var normalized_remaining_slide = 1.0 - (remaining_slide_time) / (max_slide_time)
+	
+	# Gather timing durations from the dust timers
 	var max_dust_spawn_freq = $SlideDustTimer.wait_time
 	
 	# A cool curve that feels nice

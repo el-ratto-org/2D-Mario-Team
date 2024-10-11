@@ -1,4 +1,4 @@
-[gd_scene load_steps=97 format=3 uid="uid://crjeudwcdacco"]
+[gd_scene load_steps=99 format=3 uid="uid://crjeudwcdacco"]
 
 [ext_resource type="Script" path="res://player/player_movement_controller.gd" id="1_78ula"]
 [ext_resource type="Material" uid="uid://bbor6bxyoj5ht" path="res://assets/shaders/damaged.tres" id="1_eh7wd"]
@@ -25,6 +25,7 @@
 [ext_resource type="Script" path="res://player/dust_fx_slide.gd" id="17_q7sh8"]
 [ext_resource type="Script" path="res://player/dust_fx.gd" id="17_w4phm"]
 [ext_resource type="AudioStream" uid="uid://db00phbrulolc" path="res://assets/sounds/sfx/SFX_Game_Jump.wav" id="17_ycnoh"]
+[ext_resource type="Script" path="res://player/hurt_box_slide.gd" id="18_p5lj2"]
 [ext_resource type="AudioStream" uid="uid://1ibot1bi1gha" path="res://assets/sounds/sfx/Footsteps_Casual_Mud_02.wav" id="18_rss2v"]
 [ext_resource type="Shader" path="res://fog/fog.gdshader" id="20_1ctaa"]
 [ext_resource type="Texture2D" uid="uid://cit24idnyng7x" path="res://assets/sprites/characters/halo-Sheet.png" id="20_pdur3"]
@@ -267,6 +268,9 @@ size = Vector2(24, 2.5)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ck7dp"]
 size = Vector2(14, 23)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8rx6f"]
+size = Vector2(20, 8.5)
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pc4g8"]
 radius = 13.0
 height = 42.0
@@ -487,7 +491,7 @@ texture_filter = 1
 material = SubResource("ShaderMaterial_wi1ve")
 position = Vector2(0, -1)
 sprite_frames = SubResource("SpriteFrames_sps2v")
-animation = &"idle"
+animation = &"slide"
 script = ExtResource("4_muvw0")
 
 [node name="DamagedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -585,6 +589,15 @@ script = ExtResource("6_7ypip")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitboxes/HurtBox"]
 position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_ck7dp")
+
+[node name="HurtBox_Slide" type="Area2D" parent="Hitboxes"]
+collision_layer = 64
+collision_mask = 0
+script = ExtResource("18_p5lj2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitboxes/HurtBox_Slide"]
+position = Vector2(0, 13.25)
+shape = SubResource("RectangleShape2D_8rx6f")
 
 [node name="PickupArea" type="Area2D" parent="Hitboxes"]
 collision_layer = 4096
@@ -699,6 +712,7 @@ script = ExtResource("22_0sd5k")
 [connection signal="start_slide" from="Movement/Slide" to="SlideFx" method="_on_slide_start_slide"]
 [connection signal="area_entered" from="Hitboxes/FootHitBox" to="." method="_on_foot_hit_box_area_entered"]
 [connection signal="damage_recieved" from="Hitboxes/HurtBox" to="Health" method="_on_hurt_box_damage_recieved"]
+[connection signal="damage_recieved" from="Hitboxes/HurtBox_Slide" to="Health" method="_on_hurt_box_damage_recieved"]
 [connection signal="timeout" from="DustFX/StepDustTimer" to="DustFX" method="_on_step_dust_timer_timeout"]
 [connection signal="timeout" from="DustFX/FallingTimer" to="DustFX" method="_on_falling_timer_timeout"]
 [connection signal="timeout" from="SlideFx/SlideDustTimer" to="SlideFx" method="_on_slide_dust_timer_timeout"]
