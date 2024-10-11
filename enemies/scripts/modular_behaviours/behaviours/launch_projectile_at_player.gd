@@ -6,6 +6,7 @@ class_name LaunchProjectileAtPlayer
 @export var projectile: PackedScene
 @export var max_speed: float = 1000
 @export var min_height: float = 100
+@export var direction: Vector2
 
 var marker
 
@@ -54,7 +55,9 @@ func _run() -> void:
 		
 		projectile_obj.max_speed = max_speed
 		projectile_obj._set_start_position(starting_position)
-		projectile_obj.destination = PlayerManager.player.global_position
+		projectile_obj.destination = marker.global_position + direction.normalized()
+		if direction == Vector2.ZERO:
+			projectile_obj.destination = PlayerManager.player.global_position
 		projectile_obj.min_height = min_height
 		projectile_obj.launch_when_ready = true
 		

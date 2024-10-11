@@ -21,6 +21,7 @@ contact_monitor = true
 max_contacts_reported = 1
 script = ExtResource("1_afme5")
 face_movement_direction = false
+drop_particles_on_destroy = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(0.8, 0.8)
