@@ -1,4 +1,4 @@
-[gd_scene load_steps=98 format=3 uid="uid://crjeudwcdacco"]
+[gd_scene load_steps=100 format=3 uid="uid://crjeudwcdacco"]
 
 [ext_resource type="Script" path="res://player/player_movement_controller.gd" id="1_78ula"]
 [ext_resource type="Material" uid="uid://bbor6bxyoj5ht" path="res://assets/shaders/damaged.tres" id="1_eh7wd"]
@@ -19,6 +19,7 @@
 [ext_resource type="Script" path="res://player/run.gd" id="10_nopdk"]
 [ext_resource type="Script" path="res://player/slide.gd" id="12_pe3bx"]
 [ext_resource type="Script" path="res://player/flying.gd" id="14_aujq8"]
+[ext_resource type="AudioStream" uid="uid://d0qd16o1g6otn" path="res://assets/sfx/whoosh_01.wav" id="14_bqvfh"]
 [ext_resource type="Script" path="res://player/player_sfx_manager.gd" id="16_h5jd8"]
 [ext_resource type="AudioStream" uid="uid://qi8ka32w1gjg" path="res://assets/sounds/sfx/Footsteps_Casual_Sand_01.wav" id="17_4n0l4"]
 [ext_resource type="Script" path="res://player/dust_fx_slide.gd" id="17_q7sh8"]
@@ -26,6 +27,7 @@
 [ext_resource type="AudioStream" uid="uid://db00phbrulolc" path="res://assets/sounds/sfx/SFX_Game_Jump.wav" id="17_ycnoh"]
 [ext_resource type="Script" path="res://player/hurt_box_slide.gd" id="18_p5lj2"]
 [ext_resource type="AudioStream" uid="uid://1ibot1bi1gha" path="res://assets/sounds/sfx/Footsteps_Casual_Mud_02.wav" id="18_rss2v"]
+[ext_resource type="AudioStream" uid="uid://vquj203nylg0" path="res://assets/music/Purchased/Swoosh_Swipe-Thick_01.wav" id="19_bmc4f"]
 [ext_resource type="Shader" path="res://fog/fog.gdshader" id="20_1ctaa"]
 [ext_resource type="Texture2D" uid="uid://cit24idnyng7x" path="res://assets/sprites/characters/halo-Sheet.png" id="20_pdur3"]
 [ext_resource type="Texture2D" uid="uid://bxfx4titg4p5y" path="res://assets/sprites/characters/wings-loop-Sheet.png" id="21_jc67u"]
@@ -532,6 +534,10 @@ one_shot = true
 wait_time = 0.35
 one_shot = true
 
+[node name="SlideSFX" type="AudioStreamPlayer2D" parent="Movement/Slide"]
+stream = ExtResource("14_bqvfh")
+volume_db = -28.665
+
 [node name="Dash" type="Node2D" parent="Movement"]
 
 [node name="StepUp" type="Node2D" parent="Movement" node_paths=PackedStringArray("target")]
@@ -587,12 +593,16 @@ shape = SubResource("RectangleShape2D_ck7dp")
 
 [node name="HurtBox_Slide" type="Area2D" parent="Hitboxes"]
 collision_layer = 64
-collision_mask = 0
+collision_mask = 32
 script = ExtResource("18_p5lj2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitboxes/HurtBox_Slide"]
 position = Vector2(0, 13.25)
 shape = SubResource("RectangleShape2D_8rx6f")
+
+[node name="SlideDodgeSFX" type="AudioStreamPlayer2D" parent="Hitboxes/HurtBox_Slide"]
+stream = ExtResource("19_bmc4f")
+volume_db = -21.29
 
 [node name="PickupArea" type="Area2D" parent="Hitboxes"]
 collision_layer = 4096
