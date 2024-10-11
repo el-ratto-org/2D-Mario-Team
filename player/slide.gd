@@ -39,7 +39,7 @@ func update(delta: float) -> void:
 	# Ensure we're on the floor
 	if not target.is_on_floor():
 		return
-		
+	
 	if not target.inventory.has_double_jump_item:
 		return
 	
@@ -49,7 +49,7 @@ func update(delta: float) -> void:
 	
 	# Apply velocity & start slide/cooldown timers
 	start_slide.emit()
-	target.velocity.x = horizontal_motion
+	target.movement_direction.x = horizontal_motion
 	slide_timer.start()
 	cooldown_timer.start()
 	
