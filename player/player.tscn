@@ -1,4 +1,4 @@
-[gd_scene load_steps=100 format=3 uid="uid://crjeudwcdacco"]
+[gd_scene load_steps=101 format=3 uid="uid://crjeudwcdacco"]
 
 [ext_resource type="Script" path="res://player/player_movement_controller.gd" id="1_78ula"]
 [ext_resource type="Material" uid="uid://bbor6bxyoj5ht" path="res://assets/shaders/damaged.tres" id="1_eh7wd"]
@@ -18,6 +18,7 @@
 [ext_resource type="Script" path="res://player/jump.gd" id="10_l87i7"]
 [ext_resource type="Script" path="res://player/run.gd" id="10_nopdk"]
 [ext_resource type="Script" path="res://player/slide.gd" id="12_pe3bx"]
+[ext_resource type="Script" path="res://player/wall_jump.gd" id="13_y8lfk"]
 [ext_resource type="Script" path="res://player/flying.gd" id="14_aujq8"]
 [ext_resource type="AudioStream" uid="uid://d0qd16o1g6otn" path="res://assets/sfx/whoosh_01.wav" id="14_bqvfh"]
 [ext_resource type="Script" path="res://player/player_sfx_manager.gd" id="16_h5jd8"]
@@ -521,6 +522,10 @@ one_shot = true
 [node name="AutoJumpTimer" type="Timer" parent="Movement/Jump"]
 wait_time = 0.1
 one_shot = true
+
+[node name="WallJump" type="Node2D" parent="Movement" node_paths=PackedStringArray("target")]
+script = ExtResource("13_y8lfk")
+target = NodePath("../..")
 
 [node name="Slide" type="Node2D" parent="Movement" node_paths=PackedStringArray("target")]
 script = ExtResource("12_pe3bx")

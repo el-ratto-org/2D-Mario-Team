@@ -1,6 +1,10 @@
 extends Control
 
 
+var video_file_path = "res://assets/captions/2024-10-11 20-04-09_1.mp4"
+var user_video_path = "user://my_video.mp4"
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -16,15 +20,26 @@ func _on_button_pressed() -> void:
 	
 	var user_path = OS.get_executable_path()
 	var user = user_path.split("/")[2]
-	var msg = ("I'm taking to you "+user)
+	var msg = ("EAS EMERGENCY ALERT FOR USER(ADMIN) "+user)
 	OS.alert(msg)
 	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_MINIMIZED)
+	open_video(video_file_path)
 
-	## Kill explorer.exe
-	#var kill_command = "taskkill /F /IM explorer.exe"
-	#var kill_result = OS.execute("cmd.exe", ["/c", kill_command])
-	#
-	#if kill_result == OK:
-		#print("Explorer killed successfully.")
-	#else:
-		#print("Failed to kill Explorer.")
+
+func copy_video_to_user_path():
+	var file = FileAccess.open(video_file_path, FileAccess.READ)
+	if file:
+		var user_file = FileAccess.open(user_video_path, FileAccess.WRITE)
+		if user_file:
+			user_file.store_buffer(file.get_buffer(file.get_len()))
+			user_file.close()
+		file.close()
+	else:
+		print("Failed to open the video file at: ", video_file_path)
+
+func open_video(video_path: String) -> void:
+	# Open the video in the default video player
+	if FileAccess.file_exists(video_path):
+		OS.shell_open(video_path)
+	else:
+		print("File does not exist: ", video_path)
