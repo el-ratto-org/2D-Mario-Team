@@ -512,7 +512,7 @@ position = Vector2(7545, -820)
 position = Vector2(7481, -823)
 
 [node name="RockGolem2" parent="Enemies" instance=ExtResource("15_7lq7o")]
-position = Vector2(9371, -1349)
+position = Vector2(-37.775, -108)
 
 [node name="Rat3" parent="Enemies" instance=ExtResource("17_wu0k2")]
 position = Vector2(6420, -560)
@@ -647,3 +647,6 @@ position = Vector2(5543, -1200)
 
 [node name="StaticBody2D12" parent="Platforms" instance=ExtResource("10_rd7oa")]
 position = Vector2(5541, -1302)
+
+[node name="Phoenix" parent="." instance=ExtResource("27_fh2qu")]
+position = Vector2(43, -157)

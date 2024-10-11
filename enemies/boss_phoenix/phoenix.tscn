@@ -1,6 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://bt3q2npak3to"]
+[gd_scene load_steps=12 format=3 uid="uid://bt3q2npak3to"]
 
 [ext_resource type="Texture2D" uid="uid://cqft5yd5r7ycp" path="res://assets/sprites/characters/Pheonix-Sheet-idle.png" id="1_fq2sm"]
+[ext_resource type="Script" path="res://enemies/boss_phoenix/phoenix_test.gd" id="1_o570j"]
 [ext_resource type="Texture2D" uid="uid://bxn3mo2xlugt0" path="res://assets/sprites/characters/Pheonix-Sheet-swoop.png" id="2_4cik0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_72ond"]
@@ -58,21 +59,33 @@ size = Vector2(26.5, 26.5)
 size = Vector2(41, 15)
 
 [node name="Phoenix" type="Node2D"]
+script = ExtResource("1_o570j")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_v0ncn")
 animation = &"idle"
 autoplay = "idle"
-frame_progress = 0.794025
+frame_progress = 0.259992
 
 [node name="hurtbox_idle" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 128
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox_idle"]
 position = Vector2(-4.75, -13.75)
 shape = SubResource("RectangleShape2D_byibc")
 
 [node name="hurtbox_swoop" type="Area2D" parent="."]
+collision_mask = 128
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox_swoop"]
 position = Vector2(-1, 9)
 shape = SubResource("RectangleShape2D_tbr2q")
+
+[node name="mode_switch" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[connection signal="area_entered" from="hurtbox_idle" to="." method="_on_hurtbox_idle_area_entered"]
+[connection signal="area_entered" from="hurtbox_swoop" to="." method="_on_hurtbox_swoop_area_entered"]
+[connection signal="timeout" from="mode_switch" to="." method="_on_mode_switch_timeout"]
